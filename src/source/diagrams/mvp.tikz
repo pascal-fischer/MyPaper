@@ -1,0 +1,37 @@
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Rounded Rect [id:dp23143765937354965]
+    \draw   (458.1,33.32) .. controls (458.1,27.08) and (463.16,22.02) .. (469.4,22.02) -- (547.8,22.02) .. controls (554.04,22.02) and (559.1,27.08) .. (559.1,33.32) -- (559.1,67.22) .. controls (559.1,73.46) and (554.04,78.52) .. (547.8,78.52) -- (469.4,78.52) .. controls (463.16,78.52) and (458.1,73.46) .. (458.1,67.22) -- cycle ;
+%Rounded Rect [id:dp11583586667477586]
+    \draw   (282,215.3) .. controls (282,209.06) and (287.06,204) .. (293.3,204) -- (371.7,204) .. controls (377.94,204) and (383,209.06) .. (383,215.3) -- (383,249.2) .. controls (383,255.44) and (377.94,260.5) .. (371.7,260.5) -- (293.3,260.5) .. controls (287.06,260.5) and (282,255.44) .. (282,249.2) -- cycle ;
+%Rounded Rect [id:dp2545445086969502]
+    \draw   (101,32.3) .. controls (101,26.06) and (106.06,21) .. (112.3,21) -- (190.7,21) .. controls (196.94,21) and (202,26.06) .. (202,32.3) -- (202,66.2) .. controls (202,72.44) and (196.94,77.5) .. (190.7,77.5) -- (112.3,77.5) .. controls (106.06,77.5) and (101,72.44) .. (101,66.2) -- cycle ;
+%Right Arrow [id:dp26885093244414104]
+    \draw   (271.34,212.89) -- (149.6,98.41) -- (144.82,103.49) -- (137.61,82.09) -- (159.41,87.98) -- (154.63,93.05) -- (276.38,207.54) -- cycle ;
+%Right Arrow [id:dp6878896108284522]
+    \draw   (173.65,83.31) -- (278.62,181.07) -- (283.64,175.68) -- (288.48,195.56) -- (268.31,192.15) -- (273.33,186.76) -- (168.35,89) -- cycle ;
+%Right Arrow [id:dp9126614286809187]
+    \draw   (391.07,205.95) -- (497.3,94.48) -- (492.26,89.67) -- (512.62,83.73) -- (507.67,104.35) -- (502.63,99.55) -- (396.4,211.02) -- cycle ;
+%Right Arrow [id:dp012985148990955597]
+    \draw   (483.24,90.08) -- (389.79,187.05) -- (395.09,192.16) -- (375.86,195.9) -- (378.89,176.55) -- (384.2,181.66) -- (477.64,84.69) -- cycle ;
+
+% Text Node
+    \draw (483,39) node [anchor=north west][inner sep=0.75pt]  [font=\large] [align=left] {Model};
+% Text Node
+    \draw (132,39) node [anchor=north west][inner sep=0.75pt]  [font=\large] [align=left] {View};
+% Text Node
+    \draw (293,221) node [anchor=north west][inner sep=0.75pt]  [font=\large] [align=left] {Presenter};
+% Text Node
+    \draw (134,166) node [anchor=north west][inner sep=0.75pt]   [align=left] {aktualisiert};
+% Text Node
+    \draw (460,150) node [anchor=north west][inner sep=0.75pt]   [align=left] {manipuliert};
+% Text Node
+    \draw (248,129) node [anchor=north west][inner sep=0.75pt]   [align=left] {User Eingabe};
+% Text Node
+    \draw (305,87) node [anchor=north west][inner sep=0.75pt]   [align=left] {Aktualisiertes Model};
+
+
+\end{tikzpicture}

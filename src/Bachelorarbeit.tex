@@ -1,0 +1,497 @@
+\newcommand{\DeinName}{Pascal Fischer}
+\newcommand{\MatrNo}{371778}
+\newcommand{\TitelArbeit}{Entwicklung einer verschlüsselten Chat-basierten Plattform auf Basis des Matrix.org-Protokolls im Kontext von digitaler Gesundheit und Telemedizin}
+\newcommand{\Fachgebiet}{Regelungssysteme}
+\newcommand{\PrueferEins}{Dr.-Ing Thomas Schauer}
+\newcommand{\PrueferZwei}{Prof.-Dr.-Ing. Clemens Gühmann}
+\newcommand{\fachbereich}{Elektrotechnik und Informatik}
+
+% entweder ein Datum h?ndisch eintragen, oder den Befehl \today nutzen
+\newcommand{\Datum}{\today}
+
+\makeglossary
+
+
+%
+% Einbinden des Headers, hier k?nnen auch weitere Einstellungen vorgenommen werden.
+\input{source/header}
+
+\lstdefinelanguage{json}{
+    numbers=left,
+    numberstyle=\small,
+    frame=single,
+    rulecolor=\color{black},
+    showspaces=false,
+    showtabs=false,
+    breaklines=true,
+    postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{gray}\hookrightarrow\space}},
+    breakatwhitespace=true,
+    basicstyle=\ttfamily\small,
+    upquote=true,
+    morestring=[b]",
+    stringstyle=\color{string},
+    literate=
+    *{0}{{{\color{numb}0}}}{1}
+        {1}{{{\color{numb}1}}}{1}
+        {2}{{{\color{numb}2}}}{1}
+        {3}{{{\color{numb}3}}}{1}
+        {4}{{{\color{numb}4}}}{1}
+        {5}{{{\color{numb}5}}}{1}
+        {6}{{{\color{numb}6}}}{1}
+        {7}{{{\color{numb}7}}}{1}
+        {8}{{{\color{numb}8}}}{1}
+        {9}{{{\color{numb}9}}}{1}
+        {\{}{{{\color{delim}{\{}}}}{1}
+        {\}}{{{\color{delim}{\}}}}}{1}
+        {[}{{{\color{delim}{[}}}}{1}
+        {]}{{{\color{delim}{]}}}}{1},
+}
+
+% Beginn des Dokuments
+\begin{document}
+
+%Zitiert alle Referenzen, ohne Sie hier zu listen. Dadurch erscheinen alle Quellen im %Literaturverzeichnis, auch wenn sie im Text nicht genutzt werden.
+%Bitte nur f?r Testzwecke verwenden.
+    \nocite{*}
+
+
+% Einbinden des Deckblatts
+
+    \frontmatter
+    \include{source/Titelseite}
+    \hypersetup{pageanchor=false}
+
+    \newpage
+    \section*{Zusammenfassung}
+    In dieser Arbeit befasse ich mich mit ....
+
+    \section*{Abstract}\label{sec:abstract}
+    This paper describes how to ...
+    \newpage
+    \chapter*{Eidesstattliche Erklärung}\label{ch:eidesstattliche-erklarung}
+    Hiermit erkläre ich, dass ich die vorliegende Arbeit selbstständig und eigenhändig sowie ohne
+    unerlaubte fremde Hilfe und ausschließlich unter Verwendung der aufgeführten Quellen und
+    Hilfsmittel angefertigt habe.\\
+    \vspace{1cm}\\
+    Berlin, den \underline{\hspace{3cm}} \hfill \DeinName \underline{\hspace{4cm}}
+
+    \newpage
+    \tableofcontents
+
+    \mainmatter
+
+    \newpage
+    \chapter{Einleitung}\label{ch:einleitung}
+    Mit vorranschreiten der Digitalisierung
+    Im Zuge der Coronapandemie im Jahre 2019 wurden nicht nur die Rufe nach
+
+    \chapter{Problembeschreibung und Motivation}\label{ch:problembeschreibung-und-motivation}
+    Ziel dieser Arbeit ist es eine Plattform zu entwickeln welchen es Ärzten und Patienten ermöglicht in Kontakt zu treten und Nachrichten auszutauschen.
+    Hierfür soll eine Chat-App auf basis des Matrix.org-Protokolls implementiert werden.
+    Die App ist in der Programmiersprache Swift zu entwickeln und soll auf allen gängigen iOS geräten unterstützt werden.
+    Darüber hinaus muss die benötigte Infrastruktur bereitgestellt werden um Nachrichten und Daten zu speichern und zu übermitteln.
+    Da medizinische Daten dem Datenschutz in besonderer Maße unterliegen ist es besonders wichtig,
+    dass jegliche Art von Kommunikation zwischen Ärzten und Patienten stets verschlüsselt ist.
+    Es muss gewährleistet sein, dass zu jedem Zeitpunkt alle personenbezogenen Daten vor dem Zugriff unerlaubter Dritter geschützt sind.
+    Da es im Bereich der Medizin  hinaus ist zu beachten, dass das Userinterface
+    So sollte beispielsweise darauf geachtet werden, dass Da es im Bereich der Medizin hinaus ist zu beachten, dass das Userinterface
+    So sollte beispielsweise darauf geachtet werden, dass
+
+    \newpage
+    \chapter{Theoretische Grundlagen}\label{ch:theoretische-grundlagen}
+    In diesem Kapitel werden zunächst die theoretischen Grundlagen, welche die Implementierung der Plattform beeinflusst haben, vorgestellt.
+    Anschließend wird das Matrix Protokoll genauer betrachtet und das Grundprinzip erklärt.
+    Desweiteren werden die in der End-to-End Verschlüsselung genutzten keys erläutert und genauer auf die verschiedenen Verschlüsselungsalgorithmen eingegangen.
+
+    \section{Anwendungsarchitektur}\label{sec:anwendungsarchitektur}
+    Wie im Bereich von Webapplications haben sich auch im Bereich von Mobile Apps über die Zeit bestimmte Anwendungsarchitekturen (Design Patterns) entwickelt.
+    Diese dienen als Muster um wiederkehrende Entwurfsprobleme zu lösen, indem man auf bewährte Praktiken zurückgreift.
+    Sie beschreiben die allgemeine Struktur der Anwendung und geben somit auch die Aufteilung des Quellcodes vor.
+    Die richtige Wahl der Anwendungsarchitektur kann einen entscheidenden Einfluss darauf nehmen wie effizient die Entwicklung des Projektes verläuft.
+    Darüber hinaus erleichtern sie die Arbeit im Team da sie ein einheitliches Vokabular bieten.
+    Im Folgenden werden 3 der bekanntesten Architekturen für Mobile Apps näher erläutert.
+
+    \subsection{Model-View-Controller}\label{subsec:model-view-controller}
+    Die Model-View-Controller Architektur teilt eine Anwendung in 3 Bereiche auf welche in Abbildung~\ref{fig:mvc} dargestellt sind.
+
+    \begin{figure}
+        \centering
+        \input{source/diagrams/mvc.tikz}
+        \caption{Interaktionen im Model-View-Controller}
+        \label{fig:mvc}
+    \end{figure}
+
+    Das Model repräsentiert die Struktur der Daten und hält Informationen über den aktuellen Zustand der Anwendung.
+    Außerdem ist es verantwortlich für die Kommunikation mit externen Datenquellen wie beispielsweise Datenbanken.
+    ~\cite{mvc}
+    Es liefert die Daten an die View weiter, ohne diese zu verändern.
+    Die Daten im Model sind somit unabhängig von ihrer Präsentation.
+    Deshalb ist es möglich mehrere Views an dasselbe Model, und somit dieselben Daten zu binden.
+    Hierbei sind jedoch die Präsentationen der Daten auf den einzelnen Views ebenfalls unabhängig voneinander.
+    Sollten sich die Daten im Model ändern werden die Views über diese Änderung informiert.
+    ~\cite{https://doi.org/10.48550/arxiv.1408.5786}
+
+    Die View stellt die optische Oberfläche der Anwendung dar.
+    Sie enthält alle grafischen Elemente wie Textfelder, Bilder oder anderer Elemente die zur Darstellung der Daten aus dem Model benötigt werden.
+    Zudem nimmt sie die Eingaben des Users entgegen und leitet diese an den Controller weiter.
+
+
+    Der Controller ist für die Steuerung der Anwendung zuständig.
+    Seine Aufgabe ist es je nach Eingabe des Benutzers das Model manipulieren.
+    Basierend auf der Eingabe des Benutzers ist er ebenfalls dafür zuständig die aktuelle View zu wechseln.
+
+
+    Im Model-View-Controller Pattern sind Programmlogik, Datenstruktur und die Präsentation der Daten derart getrennt, dass es möglich ist diese Unabhängig voneinander zu verändern, ohne damit Einfluss auf einen der anderen Bereiche zu nehmen.
+    Somit ist es möglich beispielsweise die Oberfläche eines Programmes zu überarbeiten, ohne sich dabei Gedanken über die darunter liegende Ausführungslogik zu machen.
+
+
+    \newpage
+    \subsection{Model-View-Presenter}\label{subsec:model-view-presenter}
+    Die Model-View-Presenter Architektur ist eine weiterentwicklung der Model-View-Controller Architektur.
+
+    Das Model
+
+    \begin{figure}
+        \centering
+        \input{source/diagrams/mvp.tikz}
+        \caption{Interaktionen im Model-View-Presenter}
+        \label{fig:mvp}
+    \end{figure}
+
+    \subsection{Model-View-ViewModel}\label{subsec:model-view-viewmodel}
+    Die Model-View-ViewModel Architektur ist ebenfalls eine weiterentwicklung der Model-View-Controller Architektur.
+
+
+    \begin{figure}
+        \centering
+        \input{source/diagrams/mvvm.tikz}
+        \caption{Interaktionen im Model-View-Presenter}
+        \label{fig:mvvm}
+    \end{figure}
+
+    \newpage
+    \section{Matrix}\label{sec:matrix}
+
+    \subsection{Matrix Protokoll}\label{subsec:matrix-protokoll}
+    Das Matrix Protokoll ist ein offener Standard für dezentrale Echtzeitkommunikation im Internet.
+    Es ist ein Open-Source-Projekt welches unter Aufsicht der Matrix.org Foundation, einer Non-Profit-Organisation aus England, entwickelt wird.
+    Das Team besteht aus 12 Personen mit weitreichenden Erfahrungen im Bereich VoIP und mit Chat-apps für Mobilgeräte.
+    Die Entwicklung begann im Jahr 2014 und ist seit Juni 2019 für den Einsatz im Produktionsbetrieb geeignet.
+    Mittlerweile gibt es zahlreiche Beiträge aus der Community, wodurch das Projekt weiter vorangetrieben wird.
+    ~\cite{matrixfaq}
+
+    Das ursprüngliche Ziel des Projektes war es ein Protokoll zu entwickeln, welches es Usern ermöglichen soll, anderen Usern Nachrichten zu schreiben oder diese anzurufen, unabhängig davon welche Platform diese benutzen.
+    Langfristig soll Matrix ein generisches System zur Messaging und Datensynchronisation über HTTP für das ganze Internet bilden.
+    ~\cite{matrixfaq}
+
+    Hierzu definiert Matrix eine Reihe von APIs:
+    \begin{description}[leftmargin=!,labelwidth=5.5cm]
+        \item [Client-Server-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/client-server-api/} zur Kommunikation zwischen Matrix kompatiblen Clients und einem Homeserver
+        \item [Server-Server-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/server-server-api/} zum Nachrichtenaustausch und Synchronisation zwischen mehreren Homservern
+        \item [Application-Service-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/application-service-api/} zur Erweiterung der Funktionalität von Matrix und Integration anderer Systeme
+        \item [Identity-Service-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/identity-service-api/} beschreibt das Mapping zischen Drittanbietern
+        \item [Push-Gateway-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/push-gateway-api/} um versenden von Push Notifications an Clients falls neue Events beim Homeserver eintreffen
+    \end{description}
+
+
+
+    \subsection{Funktionsweise}\label{subsec:funktionsweise}
+%
+%\usetikz
+%\begin{figure}
+%    \centering
+%    \input{source/diagrams/matrix.tikz}
+%    \caption{Beispielsituation}
+%    \label{fig:matrixfunktionsweise}
+%\end{figure}
+
+    \subsection{Events}\label{sec:events}
+    Im Matrix Protokoll werden alle Ereignisse (Events) in einer einzigen großen Kette (Timeline) gespeichert. Diese Events können in zwei Kategorien unterteilt werden. Zum einen gibt es State Events, welche Ereginsse wie die Erzeugung eines Raumes oder das Beitreten eines Users zu einem Raum beschreiben.
+    Zum anderen gibt es Message Events welche realen Datenaustausch zwischen Usern beschreiben. Dies können beispielsweise Textnachrichten, Fotos oder Videos sein. Jedes Event enthält unter anderem folgende Attribute:
+    \begin{description}[leftmargin=!,labelwidth=3.5cm]
+        \item [event\_id] ein eindeutiger Identifier für das jeweilige Event
+        \item [sender] die Matrix ID des Absenders des Events
+        \item [room\_id] ein eindeutiger Identifier über welchen ein Event einem bestimmten Raum zugeordnet werden kann
+        \item [type] der Typ des Events
+        \item [content] der tatsächliche Inhalt der Nachricht. Dieser variiert abhängig vom event Type
+        \item [origin\_server\_ts] Zeitstempel
+    \end{description}
+
+    \subsection{Rooms}
+
+
+    \begin{lstlisting}[language=json,firstnumber=1]
+{"menu": {
+  "id": "file",
+  "value": "File",
+  "popup": {
+    "menuitem": [
+      {"value": "New", "onclick": "CreateNewDoc()"},
+      {"value": "Open", "onclick": "OpenDoc()"},
+      {"value": "Close", "onclick": "CloseDoc()"}
+    ]
+  }
+}}
+    \end{lstlisting}
+
+
+    \subsection{Devices}
+
+
+    \subsection{Verwendete Schlüssel}\label{subsec:verwendete-schlussel}
+    text
+
+
+    \section{Verschlüsselung}\label{sec:verschlusselung}
+
+    \subsection{Ed25519}\label{subsec:ed25519}
+    text
+
+    \subsection{Curve25519}\label{subsec:curve25519}
+    text
+
+    \subsection{AES-256}\label{subsec:aes-256}
+    text
+
+    \subsection{HMAC-SHA-256}\label{subsec:hmac-sha-256}
+    text
+
+    \section{REST}\label{sec:rest}
+
+
+    \chapter{Verwendete Technologien}\label{ch:verwendete-technologien}
+
+
+    \section{XCode}\label{sec:xcode}
+
+
+    \section{Simulator}\label{sec:simulator}
+
+
+    \section{Docker}\label{sec:docker}
+    Docker ist eine Containervirtualisierungssoftware welche es ermöglicht Anwendung vom Rest des Systems zu isolieren.
+    Auch wenn sie nach außen wie eine virtuelle Maschine wirkt, bietet sie entscheidende Vorteile.
+    Herkömmliche virtuelle Maschinen bilden eine vollständige Kopie eines Betriebssystems welches mittels einer Virtualisierungssoftware wie beispielsweise Oracle VirtualBox oder KVM auf einem Hypervisor betrieben werden muss.
+    Betrachtet man den vollständigen Stack einmal von unten hat man zuallererst die Hardware des Hypervisors, auf diesem läuft ein Betriebssystem, worauf wiederum die Virtualisierungssoftware läuft, mit welcher eine isolierte Kopie eines anderen Betriebssystems erzeugt wird in welcher die eigentliche Anwendung dann läuft.
+    Dies sorgt für erhebliche Einbußen in der Performance.
+
+    Docker Container sind in der Lage in wenigen Sekunden zu starten.
+    Sie laufen direkt auf dem Betriebssystem des Hypervisors sind aber dennoch isoliert vom Rest des Systems.
+    Dies geschieht mithilfe zweier Linux Kernel Technologien, namespaces und cgroups.
+
+
+
+    ~\cite{docker}
+
+    \section{Synapse}\label{sec:synapse}
+
+
+    \section{Swift}\label{sec:swift}
+
+
+    \section{Matrix SDK}\label{sec:matrix-sdk}
+
+
+    \chapter{Konzept}\label{ch:konzept}
+    In diesem Kapitel werden 2 verwandte Projekte analysiert und unter Betrachtung der Zielgruppe einige Anforderungen definiert die die App zu erfüllen hat.
+
+    \section{Analyse ähnlicher Projekte}\label{sec:analyse-ahnlicher-projekte}
+
+
+
+    \newpage
+    \section{Anforderungen}\label{sec:anforderungsliste}
+    Nach der Analyse ähnlicher Projekte wurden eine Liste funktionaler Anforderungen erstellt.
+    Diese wurden nach der MoSCoW-Methode priorisiert.
+    \textbf{Must}:
+    \begin{enumerate}[label=\roman*.]
+        \item Der User muss über die App einen Account auf der Plattform anlegen können.
+        \item Der User muss sich mit seinem Account in der App einloggen können.
+        \item Der User muss sein Passwort zu ändern können.
+        \item Dem User muss alle von beigetretenen Räume sehen können.
+        \item Dem User muss neue Räume erstellen können.
+        \item Der User muss zu neuen Räumen eingeladen werden können.
+        \item Der User muss alle Nachrichten die in einem Raum gesendet wurden einzusehen können.
+        \item Der User muss Nachrichten in einem Raum zu senden können.
+        \item Nachrichten zwischen Usern müssen End-to-End Verschlüsselt sein.
+        \item Der User muss einen Raum verlassen können.
+        \item Der User muss seinen Account deaktivieren können.
+    \end{enumerate}
+    \vspace{0.5cm}
+
+
+    \vspace{0.5cm}
+    \textbf{Should}:
+    \begin{enumerate}[label=\roman*.]
+        \item Beim erstellen des Accounts soll eine zusätzliche Authentifizierungsmethode verwendet werden um Wahloses erstellen zon Accounts zu verhindern.
+        \item Der User soll sich nur einmal einloggen müssen.
+        \item Der User soll sich ausloggen können.
+        \item Der Benutzer soll die Möglichkeit haben sein Profilbild und seinen Anzeigenamen anzupassen.
+        \item Der vollständige Chat-Verlauf soll nur bei Bedarf geladen werden.
+        \item Die App soll neben Textnachrichten auch andere Nachrichtentypen wie Fotos oder Videos unterstützen.
+        \item Die App soll den User über den Erhalt einer neuen Nachricht informieren.
+        \item Die Übersicht der beigetretenen Räume soll nach letzter Aktivität sortiert werden.
+        \item Die App soll Räume und Chat-Verläufe local speichern und offline wiedergeben können.
+    \end{enumerate}
+
+
+    \vspace{0.5cm}
+    \textbf{Could}:
+    \begin{enumerate}[label=\roman*.]
+        \item Die Liste der beigetretenen Räume kann gefiltert werden.
+        \item Dem Erstellen eines Raumes kann dem User eine Liste von Usern vorgeschlagen werden, welche dem gesuchten Namen entsprechen.
+        \item Dem User kann ein typing-Indicator gezeigt werden.
+        \item Die App kann auch mit anderen Homeservern verbunden werden.
+        \item Der User kann den Inhalt einer Nachricht kopieren oder weiterleiten.
+    \end{enumerate}
+
+    \section{Auswahl der Systemarchitektur}\label{sec:auswahl-der-systemarchitektur}
+
+    \newpage
+    \chapter{Implementierung}\label{ch:implementierung}
+    Dieses Kapitel beschreibt die 3
+
+
+
+    \section{User Interface}\label{sec:user-interface}
+    Der erste Schritt in der Entwicklung der App ist das Design des User Interfaces.
+    Hierbei sollte auf
+    Dieses besteht aus mehreren einzelner Views welche welche sich zu verschiedenene Gruppen zusammenführen lassen.
+
+    \section{Homeserver}\label{sec:homeserver}
+
+    Nachdem die App das erste mal gestartet wird
+    \newpage
+    \section{Account Erzeugungs Flow}\label{sec:account-erzeugungs-flow}
+    Um die App nutzen zu können muss zualler erst einmal ein Account erstellt werden können.
+    Hierzu können aufseiten des Homeservers verschiedene Authentifizierungsstufen definiert werden, welche vom Client durchlaufen werden müssen, um einen Account zu erstellen.
+    Diese können beispielseise
+    In Abbildung~\ref{fig:accountCreationDiagram} ist ein dreistufiger Accounterzugungsvorgang mittels eines Registriersungstokes beschrieben.
+    Dieser registrierungstoken kann entweder in der Datenbank direkt aangelegt werden oder mittels eines Administartor users auf der admin API erstellt werden.
+    Dieser token muss dem User anschließend zur Verfügung gestellt werden beispielsweise via email.
+    Der eigentliche Autehntifizierungsprozess beginnt dann wie folgt.
+    Im ersten Schritt sendet der Client eine leere Anfrage zum Server in welcher er um das starten einer registrierungs session bittet.
+    Der Server antortet daraufhin mit einer SessionID und den vom Homeserver unterstützten Authentifizierungs Flows.
+    In diesem Beispiel ist der einzige unterstützte Flow die verifizierung über einen Registriersungstoken.
+    Im nächsten Schritt sendet der Client dann den zuvor erstellten registrierungstoken und die vom server bereitgestellte sessionid in Kombination mit der aktuellen Stufe des Authentifizierungs prozessen.
+    Im dritten und letzten Schritt wird nun der dummyflow aufgeführt.
+    Dieser Flow kann nicht fehlschlagen und dient der Letzendlichen erstellung des Account.
+    Hierbei werden der gewünsche username und passwort übergeben.
+    Ist dies gesehen wurde der Account erfolgreich erstellt.
+
+    \begin{figure}
+        \centering
+        \begin{sequencediagram}
+            \newthread{A}{Client}{}
+            \newinst[7]{B}{Server}{}
+            \begin{sdblock}{Stage 1}{Receive Session ID}
+                \begin{call}{A}{getRegistrationSession()}{B}{\shortstack{
+                    return Session ID\\
+                    return supported flows}}
+                    \postlevel
+                \end{call}
+            \end{sdblock}
+            \begin{sdblock}{Stage 2}{m.login.registration\_token}
+                \begin{call}{A}{register()}{B}{}
+                \end{call}
+            \end{sdblock}
+            \begin{sdblock}{Stage 3}{m.login.dummy}
+                \begin{call}{A}{register()}{B}{}
+                \end{call}
+            \end{sdblock}
+        \end{sequencediagram}
+        \caption{Account erzeugungs Flow}
+        \label{fig:accountCreationDiagram}
+    \end{figure}
+
+    \section{Raum erstellung}\label{sec:raum-erstellung}
+    User directory
+
+    \newpage
+
+    \subsection{Text}\label{subsec:text}
+    Der wohl wichtigste Nachrichtentyp in
+    \subsection{Foto}\label{subsec:foto}
+    text
+    \subsection{Video}\label{subsec:video}
+    text
+    \subsection{Datei}\label{subsec:datei}
+    text
+
+    \section{Account Deactivation Flow}\label{sec:account-deactivation-flow}
+    text
+
+    \begin{figure}
+        \centering
+        \begin{sequencediagram}
+            \newthread{A}{Client}{}
+            \newinst[7]{B}{Server}{}
+            \begin{sdblock}{Stage 1}{Receive Session ID}
+                \begin{call}{A}{getLoginSession()}{B}{\shortstack{
+                    return Session ID\\
+                    return supported flows}}
+                    \postlevel
+                \end{call}
+            \end{sdblock}
+            \begin{sdblock}{Stage 2}{m.login.password}
+                \begin{call}{A}{deactivateAccount()}{B}{}
+                \end{call}
+            \end{sdblock}
+        \end{sequencediagram}
+        \caption{Account löschen Flow}
+    \end{figure}
+
+    \section{Nachrichten}\label{sec:nachrichten}
+    some text
+
+    \begin{lstlisting}[language=json,firstnumber=1]
+{"menu": {
+  "id": "file",
+  "value": "File",
+  "popup": {
+    "menuitem": [
+      {"value": "New", "onclick": "CreateNewDoc()"},
+      {"value": "Open", "onclick": "OpenDoc()"},
+      {"value": "Close", "onclick": "CloseDoc()"}
+    ]
+  }
+}}
+    \end{lstlisting}
+
+    \newpage
+    \section{Benachrichtigungen}\label{sec:benachrichtigungen}
+
+    \newpage
+    \chapter{Evaluation}
+    \chapter{Fazit}\label{ch:fazit}
+    text
+
+    \chapter{Ausblick}\label{ch:ausblick}
+
+%\include{source/content/Test}
+
+%Das Fazit
+%\include{source/content/Fazit}
+%Einbinden des Abbildungsverzeichnisses
+
+    \backmatter
+%Liste der Tabellen
+    \listoftables
+%Einbinden des Tabellenverzeichnisses
+    \listoffigures
+%Einbinden des Sourcecodeverzeichnisses
+%\lstlistoflistings
+
+% Quellenverzeichnis
+    \bibliographystyle{abbrvnat}
+    \bibliography{Bachelorarbeit}
+
+% Anhang
+    \appendix
+\end{document}
+
+
+
+%
+% EOF
+%

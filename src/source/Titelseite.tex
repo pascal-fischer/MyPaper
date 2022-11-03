@@ -1,0 +1,58 @@
+% erste Seite (Titelseite) der Diplomarbeit mit Titel, Name usw...
+
+\newsavebox{\Prof}
+\savebox{\Prof}{Erster Prüfer }
+
+\newsavebox{\Betr}
+\savebox{\Betr}{Zweiter Prüfer }
+\begin{titlepage}
+
+%\begin{minipage}[h]{0.5\textwidth}
+%		\raggedright
+%		\includegraphics[height=4cm]{source/images/Logo/TU-Berlin-Logo.png}
+%	\end{minipage}
+%	\begin{minipage}[h]{0.5\textwidth}
+%		\raggedleft
+%		\includegraphics[height=5cm]{source/images/Logo/sensorstim_logo.png}
+%	\end{minipage}
+
+
+	\begin{figure}
+		\begin{center}
+			\includegraphics[height=4cm]{source/images/Logo/TU_Berlin_Logo.png}
+		\end{center}
+	\end{figure}
+
+	\begin{center}
+%\includegraphics[height=2cm]{source/images/logo_mirolab.png}
+
+	{\Large Technische Universität Berlin}\\[1mm]
+	{\large Fakultät Elektrotechnik und Informatik}\\
+	{\large Fachgebiet \Fachgebiet}\\
+	\vspace{1cm}
+	{\LARGE  Bachelorarbeit}
+
+	\vspace{0.5cm}
+
+	{\LARGE\textbf{ \TitelArbeit}}\\
+
+
+	\vspace{1.cm}
+
+	von\\[2mm]
+
+	\textbf{\large{\DeinName}}\\
+%\vspace{1.5cm}
+	Matrikelnummer: \MatrNo\\[1cm]
+
+	Betreuer:
+	Dr. Thomas Schauer,
+	Ardit Dvorani\\[2mm]
+
+	\usebox{\Prof: \PrueferEins} \\
+	\usebox{\Betr: \PrueferZwei} \\
+
+	\vspace{1cm}
+	Berlin, \today
+	\end{center}
+\end{titlepage}
