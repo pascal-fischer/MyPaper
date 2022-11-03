@@ -85,7 +85,7 @@
     Mit vorranschreiten der Digitalisierung
     Im Zuge der Coronapandemie im Jahre 2019 wurden nicht nur die Rufe nach
 
-    \chapter{Problembeschreibung und Motivation}\label{ch:problembeschreibung-und-motivation}
+    \chapter{Problem und Motivation}\label{ch:problembeschreibung-und-motivation}
     Ziel dieser Arbeit ist es eine Plattform zu entwickeln welchen es Ärzten und Patienten ermöglicht in Kontakt zu treten und Nachrichten auszutauschen.
     Hierfür soll eine Chat-App auf basis des Matrix.org-Protokolls implementiert werden.
     Die App ist in der Programmiersprache Swift zu entwickeln und soll auf allen gängigen iOS geräten unterstützt werden.
@@ -302,9 +302,10 @@
     \newpage
     \section{Anforderungen}\label{sec:anforderungsliste}
     Nach der Analyse ähnlicher Projekte wurden eine Liste funktionaler Anforderungen erstellt.
-    Diese wurden nach der MoSCoW-Methode priorisiert.
+    Diese wurden nach der MoSCoW-Methode priorisiert.\\
+
     \textbf{Must}:
-    \begin{enumerate}[label=\roman*.]
+    \begin{enumerate}[label={\roman*.}, leftmargin=2.5cm]
         \item Der User muss über die App einen Account auf der Plattform anlegen können.
         \item Der User muss sich mit seinem Account in der App einloggen können.
         \item Der User muss sein Passwort zu ändern können.
@@ -317,12 +318,10 @@
         \item Der User muss einen Raum verlassen können.
         \item Der User muss seinen Account deaktivieren können.
     \end{enumerate}
-    \vspace{0.5cm}
 
 
-    \vspace{0.5cm}
     \textbf{Should}:
-    \begin{enumerate}[label=\roman*.]
+    \begin{enumerate}[label={\roman*.}, leftmargin=2.5cm]
         \item Beim erstellen des Accounts soll eine zusätzliche Authentifizierungsmethode verwendet werden um Wahloses erstellen zon Accounts zu verhindern.
         \item Der User soll sich nur einmal einloggen müssen.
         \item Der User soll sich ausloggen können.
@@ -335,15 +334,17 @@
     \end{enumerate}
 
 
-    \vspace{0.5cm}
     \textbf{Could}:
-    \begin{enumerate}[label=\roman*.]
+    \begin{enumerate}[label={\roman*.}, leftmargin=2.5cm]
         \item Die Liste der beigetretenen Räume kann gefiltert werden.
         \item Dem Erstellen eines Raumes kann dem User eine Liste von Usern vorgeschlagen werden, welche dem gesuchten Namen entsprechen.
-        \item Dem User kann ein typing-Indicator gezeigt werden.
+        \item Dem User kann ein Typing-Indikator gezeigt werden.
         \item Die App kann auch mit anderen Homeservern verbunden werden.
-        \item Der User kann den Inhalt einer Nachricht kopieren oder weiterleiten.
+        \item Der User kann den Inhalt einer Textnachricht in die Zwischenablage kopieren.
+        \item Der User kann eine Nachricht weiterleiten.
+        \item Der User kann Dateien welche in einem Raum verschickt wurden herunterladen.
     \end{enumerate}
+
 
     \section{Auswahl der Systemarchitektur}\label{sec:auswahl-der-systemarchitektur}
 

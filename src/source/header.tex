@@ -259,7 +259,7 @@
 
 \usepackage{enumitem}
 
-
+\usepackage{tabularray}
 % --------- Generates Chapter header ------------------------
 
 \DeclareMathAlphabet\EuRoman{U}{eur}{m}{n}
@@ -279,7 +279,7 @@
 \renewcommand*{\chapterformat}{%
 	\sbox\feline@chapter{\feline@chapter@marker[1.61cm]}%
 	\makebox[0pt][l]{%
-		\makebox[\dimexpr\textwidth+\marginparsep+\wd\feline@chapter\relax][r]{%
+		\makebox[\dimexpr\textwidth][r]{%
 			\usebox\feline@chapter}}%
 }
 \makeatother
