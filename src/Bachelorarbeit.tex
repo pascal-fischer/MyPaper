@@ -121,7 +121,7 @@
         \label{fig:mvc}
     \end{figure}
 
-    Das Model repräsentiert die Struktur der Daten und hält Informationen über den aktuellen Zustand der Anwendung.
+    Das \textbf{Model} repräsentiert die Struktur der Daten und hält Informationen über den aktuellen Zustand der Anwendung.
     Außerdem ist es verantwortlich für die Kommunikation mit externen Datenquellen wie beispielsweise Datenbanken.
     ~\cite{mvc}
     Es liefert die Daten an die View weiter, ohne diese zu verändern.
@@ -131,12 +131,12 @@
     Sollten sich die Daten im Model ändern werden die Views über diese Änderung informiert.
     ~\cite{https://doi.org/10.48550/arxiv.1408.5786}
 
-    Die View stellt die optische Oberfläche der Anwendung dar.
+    Die \textbf{View} stellt die optische Oberfläche der Anwendung dar.
     Sie enthält alle grafischen Elemente wie Textfelder, Bilder oder anderer Elemente die zur Darstellung der Daten aus dem Model benötigt werden.
     Zudem nimmt sie die Eingaben des Users entgegen und leitet diese an den Controller weiter.
 
 
-    Der Controller ist für die Steuerung der Anwendung zuständig.
+    Der \textbf{Controller} ist für die Steuerung der Anwendung zuständig.
     Seine Aufgabe ist es je nach Eingabe des Benutzers das Model manipulieren.
     Basierend auf der Eingabe des Benutzers ist er ebenfalls dafür zuständig die aktuelle View zu wechseln.
 
@@ -175,7 +175,7 @@
     \subsection{Matrix Protokoll}\label{subsec:matrix-protokoll}
     Das Matrix Protokoll ist ein offener Standard für dezentrale Echtzeitkommunikation im Internet.
     Es ist ein Open-Source-Projekt welches unter Aufsicht der Matrix.org Foundation, einer Non-Profit-Organisation aus England, entwickelt wird.
-    Das Team besteht aus 12 Personen mit weitreichenden Erfahrungen im Bereich VoIP und mit Chat-apps für Mobilgeräte.
+    Das Team besteht aus 12 Personen, viele von ihnen mit weitreichenden Erfahrungen im Bereich VoIP- und Messaging-Apps für Mobilgeräte.
     Die Entwicklung begann im Jahr 2014 und ist seit Juni 2019 für den Einsatz im Produktionsbetrieb geeignet.
     Mittlerweile gibt es zahlreiche Beiträge aus der Community, wodurch das Projekt weiter vorangetrieben wird.
     ~\cite{matrixfaq}
@@ -260,6 +260,8 @@
 
 
     \chapter{Verwendete Technologien}\label{ch:verwendete-technologien}
+    In diesem Kapitel werden die für die Implementierung der Plattform verwendeten Technologien vorgestellt.
+
 
 
     \section{XCode}\label{sec:xcode}
@@ -268,29 +270,68 @@
     \section{Simulator}\label{sec:simulator}
 
 
+
+
+    \section{Swift}\label{sec:swift}
+
+    \newpage
+    \section{Cocoapods}\label{sec:cocoapods}
+    CocoaPods\footnote{https://github.com/CocoaPods/CocoaPods} ist ein Dependency Manager für Objective-C und Swift Projekte.
+    Es ermöglicht dem Entwickler Quellcode von verschiedenen Orten in ein Projekt einzubinden.
+    Hierzu können über 92.000 Libraries verwendet werden.
+    Besonders im Bereich von Mac OSX und iOS Development findet das Tool häufig Verwendung.
+    CocoaPods unterstützt sowohl private als auch öffentliche Repositories über git, svn, brz, http und hg.
+    Hierbei ist zu beachten, dass das nicht jedes Repository automatisch über Cocoapods eingebunden werden kann.
+    Es muss zuerst ein Pod aus der jeweiligen Library erstellt werden.
+    Das seit 2014 entwickelte Projekt ist Open Source und wurde seit dem von über 300 Entwicklern stetig verbessert.
+    Es ist ein Kommandozeilen-Tool welches in Ruby implementiert wird.
+    Somit kann es über den RubyGems Paketmanager heruntergeladen werden.
+    Hierzu kann nach erfolgreicher Installation von Ruby folgendes Kommando in der Konsole ausgeführt werden:
+    \begin{lstlisting}[language=bash,label={lst:cocoapods}]
+        $ sudo gem install cocoapods
+    \end{lstlisting}
+    Mittels CocoaPods lassen sich dann alle benötigten Libraries im sogenannten Podfile definieren und importieren.
+    Das Podfile ist eine einfache Textdatei in welcher die Zielplattform und eine Liste aller benötigter Libraries und ihrer jeweiligen Versionen angegeben wird.
+    In Listing\ref{lst:podfile} ist die Struktur eins solchen Podfiles zu sehen.
+    ~\cite{cocoapods1, cocoapods2, cocoapods3}
+    \begin{lstlisting}[language={},firstnumber=1,label={lst:podfile},caption={Beispielstuktur eines Podfiles},captionpos=t]
+platform :ios, '8.0'
+use_frameworks!
+
+target 'MyApp' do
+  pod 'AFNetworking', '~> 2.6'
+  pod 'ORStackView', '~> 3.0'
+  pod 'SwiftyJSON', '~> 2.3'
+end
+    \end{lstlisting}
+
+
+    \section{Matrix iOS SDK}\label{sec:matrix-sdk}
+    Die Matrix iOS SDK \footnote{https://github.com/matrix-org/matrix-ios-sdk} ist eine Open Source Library welche zur für die Entwicklung Matrix basierter Anwendungen für iOS Geräte gedacht ist.
+    Sie fungiert als Schnittstelle zwischen Client Application und Matrix Server.
+    Hierzu werden die in der Client-Server-API definierten Operationen bereitgestellt.
+    Um die Matrix SDK in ein Projekt einzubinden muss hierfür ein Eintrag im in Abschnitt \ref{sec:cocoapods} erläuterten Podfile angelegt und installiert werden.
+    ~\cite{matrixiossdk}
+    \begin{lstlisting}[language={},label={lst:matrtix-sdk}]
+        pod 'SwiftMatrixSDK'
+    \end{lstlisting}
+    Anschließend kann die Library im Swift Code importiert werden.
+    \begin{lstlisting}[language=swift,label={lst:matrtix-sdk-swift}]
+        import MatrixSDK
+    \end{lstlisting}
+
     \section{Docker}\label{sec:docker}
     Docker ist eine Containervirtualisierungssoftware welche es ermöglicht Anwendung vom Rest des Systems zu isolieren.
     Auch wenn sie nach außen wie eine virtuelle Maschine wirkt, bietet sie entscheidende Vorteile.
     Herkömmliche virtuelle Maschinen bilden eine vollständige Kopie eines Betriebssystems welches mittels einer Virtualisierungssoftware wie beispielsweise Oracle VirtualBox oder KVM auf einem Hypervisor betrieben werden muss.
     Betrachtet man den vollständigen Stack einmal von unten hat man zuallererst die Hardware des Hypervisors, auf diesem läuft ein Betriebssystem, worauf wiederum die Virtualisierungssoftware läuft, mit welcher eine isolierte Kopie eines anderen Betriebssystems erzeugt wird in welcher die eigentliche Anwendung dann läuft.
     Dies sorgt für erhebliche Einbußen in der Performance.
-
     Docker Container sind in der Lage in wenigen Sekunden zu starten.
     Sie laufen direkt auf dem Betriebssystem des Hypervisors sind aber dennoch isoliert vom Rest des Systems.
     Dies geschieht mithilfe zweier Linux Kernel Technologien, namespaces und cgroups.
-
-
-
     ~\cite{docker}
 
     \section{Synapse}\label{sec:synapse}
-
-
-    \section{Swift}\label{sec:swift}
-
-
-    \section{Matrix SDK}\label{sec:matrix-sdk}
-
 
     \chapter{Konzept}\label{ch:konzept}
     In diesem Kapitel werden 2 verwandte Projekte analysiert und unter Betrachtung der Zielgruppe einige Anforderungen definiert die die App zu erfüllen hat.

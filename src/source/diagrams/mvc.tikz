@@ -1,33 +1,37 @@
 \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt
 
 \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
-    %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+%uncomment if require: \path (0,354); %set diagram left start at 0, and has height of 354
 
-    %Rounded Rect [id:dp23143765937354965]
-    \draw   (301.1,18.32) .. controls (301.1,12.08) and (306.16,7.02) .. (312.4,7.02) -- (390.8,7.02) .. controls (397.04,7.02) and (402.1,12.08) .. (402.1,18.32) -- (402.1,52.22) .. controls (402.1,58.46) and (397.04,63.52) .. (390.8,63.52) -- (312.4,63.52) .. controls (306.16,63.52) and (301.1,58.46) .. (301.1,52.22) -- cycle ;
-    %Rounded Rect [id:dp11583586667477586]
-    \draw   (480,211.3) .. controls (480,205.06) and (485.06,200) .. (491.3,200) -- (569.7,200) .. controls (575.94,200) and (581,205.06) .. (581,211.3) -- (581,245.2) .. controls (581,251.44) and (575.94,256.5) .. (569.7,256.5) -- (491.3,256.5) .. controls (485.06,256.5) and (480,251.44) .. (480,245.2) -- cycle ;
-    %Rounded Rect [id:dp2545445086969502]
-    \draw   (118,212.3) .. controls (118,206.06) and (123.06,201) .. (129.3,201) -- (207.7,201) .. controls (213.94,201) and (219,206.06) .. (219,212.3) -- (219,246.2) .. controls (219,252.44) and (213.94,257.5) .. (207.7,257.5) -- (129.3,257.5) .. controls (123.06,257.5) and (118,252.44) .. (118,246.2) -- cycle ;
-    %Right Arrow [id:dp4094129662689978]
-    \draw   (229,225.86) -- (446.13,225.86) -- (446.13,218.5) -- (472,229.75) -- (446.13,241) -- (446.13,233.64) -- (229,233.64) -- cycle ;
-    %Right Arrow [id:dp613459402399926]
-    \draw   (294.1,69.22) -- (195.1,180.57) -- (200.6,185.46) -- (180.4,191.25) -- (183.79,170.51) -- (189.29,175.4) -- (288.29,64.05) -- cycle ;
-    %Right Arrow [id:dp26885093244414104]
-    \draw   (525.19,188.48) -- (419.52,83.43) -- (414.33,88.66) -- (409.67,68.17) -- (430.19,72.7) -- (425,77.92) -- (530.67,182.96) -- cycle ;
+%Rounded Rect [id:dp23143765937354965] 
+    \draw   (447.1,238.32) .. controls (447.1,232.08) and (452.16,227.02) .. (458.4,227.02) -- (536.8,227.02) .. controls (543.04,227.02) and (548.1,232.08) .. (548.1,238.32) -- (548.1,272.22) .. controls (548.1,278.46) and (543.04,283.52) .. (536.8,283.52) -- (458.4,283.52) .. controls (452.16,283.52) and (447.1,278.46) .. (447.1,272.22) -- cycle ;
+%Rounded Rect [id:dp11583586667477586] 
+    \draw   (271,40.3) .. controls (271,34.06) and (276.06,29) .. (282.3,29) -- (360.7,29) .. controls (366.94,29) and (372,34.06) .. (372,40.3) -- (372,74.2) .. controls (372,80.44) and (366.94,85.5) .. (360.7,85.5) -- (282.3,85.5) .. controls (276.06,85.5) and (271,80.44) .. (271,74.2) -- cycle ;
+%Rounded Rect [id:dp2545445086969502] 
+    \draw   (90,237.3) .. controls (90,231.06) and (95.06,226) .. (101.3,226) -- (179.7,226) .. controls (185.94,226) and (191,231.06) .. (191,237.3) -- (191,271.2) .. controls (191,277.44) and (185.94,282.5) .. (179.7,282.5) -- (101.3,282.5) .. controls (95.06,282.5) and (90,277.44) .. (90,271.2) -- cycle ;
+%Right Arrow [id:dp6878896108284522] 
+    \draw   (202.02,264.61) -- (416.47,265.28) -- (416.49,257.92) -- (442,269.25) -- (416.42,280.42) -- (416.44,273.05) -- (201.99,272.38) -- cycle ;
+%Right Arrow [id:dp5653004513931796] 
+    \draw   (437.01,245.52) -- (222.56,246.12) -- (222.58,253.48) -- (197,242.3) -- (222.51,230.98) -- (222.53,238.34) -- (436.98,237.74) -- cycle ;
+%Right Arrow [id:dp4224420233094426] 
+    \draw   (270.32,89.16) -- (158.16,209.78) -- (163.55,214.8) -- (141.95,221.51) -- (147.07,199.48) -- (152.46,204.49) -- (264.63,83.87) -- cycle ;
+%Right Arrow [id:dp2879169895078695] 
+    \draw   (492.34,223.4) -- (380.68,102.31) -- (375.26,107.3) -- (370.23,85.25) -- (391.8,92.05) -- (386.39,97.04) -- (498.05,218.13) -- cycle ;
 
-    % Text Node
-    \draw (326,24) node [anchor=north west][inner sep=0.75pt]  [font=\large] [align=left] {Model};
-    % Text Node
-    \draw (149,219) node [anchor=north west][inner sep=0.75pt]  [font=\large] [align=left] {View};
-    % Text Node
-    \draw (491,217) node [anchor=north west][inner sep=0.75pt]  [font=\large] [align=left] {Controller};
-    % Text Node
-    \draw (154,102) node [anchor=north west][inner sep=0.75pt]   [align=left] {aktualisiert};
-    % Text Node
-    \draw (494,104) node [anchor=north west][inner sep=0.75pt]   [align=left] {manipuliert};
-    % Text Node
-    \draw (278,246) node [anchor=north west][inner sep=0.75pt]   [align=left] {sendet user eingabe};
+% Text Node
+    \draw (458,244) node [anchor=north west][inner sep=0.75pt]  [font=\large] [align=left] {Controller};
+% Text Node
+    \draw (121,244) node [anchor=north west][inner sep=0.75pt]  [font=\large] [align=left] {View};
+% Text Node
+    \draw (295,48) node [anchor=north west][inner sep=0.75pt]  [font=\large] [align=left] {Model};
+% Text Node
+    \draw (137,104) node [anchor=north west][inner sep=0.75pt]   [align=left] {aktualisiert};
+% Text Node
+    \draw (448,128) node [anchor=north west][inner sep=0.75pt]   [align=left] {manipuliert};
+% Text Node
+    \draw (235,283) node [anchor=north west][inner sep=0.75pt]   [align=left] {sendet Benutzer Eingabe};
+% Text Node
+    \draw (252,210) node [anchor=north west][inner sep=0.75pt]   [align=left] {wählt gezeigte View};
 
 
 \end{tikzpicture}
