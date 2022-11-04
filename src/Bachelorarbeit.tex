@@ -82,10 +82,12 @@
 
     \newpage
     \chapter{Einleitung}\label{ch:einleitung}
-    Mit vorranschreiten der Digitalisierung
+
+    \section{Motivation}\label{sec:motivation}
+    Mit voranschreiten der Digitalisierung
     Im Zuge der Coronapandemie im Jahre 2019 wurden nicht nur die Rufe nach
 
-    \chapter{Problem und Motivation}\label{ch:problembeschreibung-und-motivation}
+    \section{Zielsetzung}\label{sec:zielsetzung}
     Ziel dieser Arbeit ist es eine Plattform zu entwickeln welchen es Ärzten und Patienten ermöglicht in Kontakt zu treten und Nachrichten auszutauschen.
     Hierfür soll eine Chat-App auf basis des Matrix.org-Protokolls implementiert werden.
     Die App ist in der Programmiersprache Swift zu entwickeln und soll auf allen gängigen iOS geräten unterstützt werden.
@@ -97,6 +99,9 @@
     So sollte beispielsweise darauf geachtet werden, dass Da es im Bereich der Medizin hinaus ist zu beachten, dass das Userinterface
     So sollte beispielsweise darauf geachtet werden, dass
 
+    \section{Aufbau der Arbeit}\label{sec:aufbau-der-arbeit}
+
+
     \newpage
     \chapter{Theoretische Grundlagen}\label{ch:theoretische-grundlagen}
     In diesem Kapitel werden zunächst die theoretischen Grundlagen, welche die Implementierung der Plattform beeinflusst haben, vorgestellt.
@@ -106,10 +111,10 @@
     \section{Datenschutz im Gesundheitswesen}
     Die Rechtlichen Rahmenbedingungen für das Speicher und Verarbeiten medizinischer Daten sind in der EU-Datenschutz-Grundverordnung\footnote{https://dsgvo-gesetz.de/} (DSGVO) festgelegt.
     Diese fordert ebenfalls zur Einhaltung des IT-Sicherheitsgesetzes und des E-Health-Gesetzes auf.
-    Medizinische Daten werden vom Gesetzgeber als besondere Arten personenbezogener Daten eingeordnet, da sie besonders sensible Informationen enthalten.~\cite{datenschutzimgesundeitswesen}\\
+    Medizinische Daten werden vom Gesetzgeber als besondere Arten personenbezogener Daten eingeordnet, da sie besonders sensible Informationen enthalten.~\cite{datenschutzimgesundeitswesen}
 
     \textit{Das am 29. Dezember 2015 in Kraft getretene "Gesetz für sichere digitale Kommunikation und Anwendungen im Gesundheitswesen (E-Health-Gesetz)" hat die ersten Weichen für den Aufbau der sicheren Telematikinfrastruktur (TI) und die Einführung medizinischer digitaler Anwendungen gestellt.
-    Ziel dieses Gesetzes war es, die Chancen der Digitalisierung für die Gesundheitsversorgung zu nutzen und eine schnelle Einführung medizinischer Anwendungen für die Patientinnen und Patienten zu ermöglichen.}~\cite{ehealthgesetz}\\
+    Ziel dieses Gesetzes war es, die Chancen der Digitalisierung für die Gesundheitsversorgung zu nutzen und eine schnelle Einführung medizinischer Anwendungen für die Patientinnen und Patienten zu ermöglichen.}~\cite{ehealthgesetz}
 
     Ein Teil der Telematikinfrastruktur ist der TI-Messenger der Gematik GmbH.
 
@@ -128,7 +133,7 @@
     Langfristig soll Matrix ein generisches System zur Messaging und Datensynchronisation über HTTP für das ganze Internet bilden.
     ~\cite{matrixfaq}
 
-    Hierzu definiert Matrix eine Reihe von APIs:
+    Hierzu definiert Matrix eine Reihe von REST-APIs:
     \begin{description}[leftmargin=!,labelwidth=5.5cm]
         \item [Client-Server-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/client-server-api/} zur Kommunikation zwischen Matrix kompatiblen Clients und einem Homeserver
         \item [Server-Server-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/server-server-api/} zum Nachrichtenaustausch und Synchronisation zwischen mehreren Homservern
@@ -200,7 +205,9 @@
     \subsection{HMAC-SHA-256}\label{subsec:hmac-sha-256}
     text
 
-    \section{REST}\label{sec:rest}
+    \section{REST-API}\label{sec:rest}
+
+    \cite{dazer2012restful}
 
     \newpage
     \section{Anwendungsarchitektur}\label{sec:anwendungsarchitektur}
