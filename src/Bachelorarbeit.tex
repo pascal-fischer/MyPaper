@@ -16,6 +16,8 @@
 % Einbinden des Headers, hier k?nnen auch weitere Einstellungen vorgenommen werden.
 \input{source/header}
 
+\graphicspath{ {./source/images/pictures/} }
+
 \lstdefinelanguage{json}{
     numbers=left,
     numberstyle=\small,
@@ -372,7 +374,7 @@ end
 
 
     \newpage
-    \section{Anforderungen}\label{sec:anforderungsliste}
+    \section{Anforderungen}\label{sec:anforderungen}
     Nach der Analyse ähnlicher Projekte wurden eine Liste funktionaler Anforderungen erstellt.
     Diese wurden nach der MoSCoW-Methode priorisiert.\\
 
@@ -432,34 +434,117 @@ end
     Hierzu wurden meherer View definiert
     Dieses besteht aus mehreren einzelner Views welche welche sich zu verschiedenene Gruppen zusammenführen lassen.
 
+    \newpage
     \subsection{Login und Account Erstellung}
 
-    \begin{figure}[h]
-        \includegraphics[scale=0.15]{einloggen}
-        \centering
-    \end{figure}
+    Wenn die App das erste Mal gestartet wird gelangt man zuerst in die in Abbildung~\ref{fig:selecthomeserverview} zu sehende \texttt{SelectHomeserverView}.
+    Diese View dient dazu sich mit dem Homeserver verbinden zu können.
+    Sie spielt eine besondere Rolle während der Entwicklung da häufiger zwischen Entwicklungs- und Produktivumgebung gewechselt wurde.
+    Der User hat die Möglichkeit den Homeserver mit welcher er sich verbinden möchte über den DNS-Adreesse oder IP-Adresse zu erreichen.
+    Des Weiteren kann der den Port des Homeservers angeben.
+    Der default Port für Matrix Server ist 8448.
+    Für den Einsatz im Produktivbetrieb könnte diese View entfernt werden und die Adresse des Homeservers fest in der App festgelegt werden.
 
     \begin{figure}[h]
-        \includegraphics[scale=0.15]{homeserverauswahl}
+        \includegraphics[scale=0.5]{selecthomeserver}
         \centering
+        \caption{SelectHomeserverView}\label{fig:selecthomeserverview}
     \end{figure}
+%    \begin{wrapfigure}{R}{0.5\textwidth}
+%        \begin{center}
+%            \includegraphics[scale=0.5]{selecthomeserver}
+%        \end{center}
+%        \caption{SelectHomeserverView}\label{fig:selecthomeserverview}
+%    \end{wrapfigure}
+    Hat der User einen Homeserver eingetragen und klick auf connect prüft die App zuerst ob der Homeserver erreichbar ist.
+    Hierzu wird eine Abfrage der Versionsnummer an den angegebenen Homesever gesendet.
+    Dies geschieht durch senden einer GET Anfrage an \texttt{/\_matrix/client/versions} (siehe Abschnitt~\ref{sec:rest}).
+    Ist diese Anfrage erfolgreich wird der Homeserver im Model hinterlegt und der User gelangt zur \texttt{LoginView} welche in Abbildung ~\ref{fig:loginview} zu sehen ist.
+    Falls die Anfrage fehlschlägt wird dem User eine Fehlermeldung gezeigt.
+    \begin{figure}[h]
+        \includegraphics[scale=0.5]{login}
+        \centering
+        \caption{LoginView}\label{fig:loginview}
+    \end{figure}
+    In dieser View kann der User sich entweder mit seinem bereits existierenden Account anmelden oder einen neuen Account erstellen.
+    Für den Fall, dass der User bereits einen Account besitzt muss er seinen User namen und sein Passwort in die dafür vorgesehenen Felder eintragen und über den Login Button bestätigen.
+    Das Passwortfeld ist hierbei ein \texttt{SecureField} welches die Eingabe versteckt und lediglich mit Punkten darstellt.
+    Über das Auge am Rand des Textfeldes kann der User zwischen geschützter Ansicht und Klartext wechseln.
+
+
+    Hat der User seine Zugangsdaten eingegeben und über den Login Button bestätigt wird über den \texttt{MXRestClient}, welcher von der SDK (siehe Abschnitt \ref{sec:matrix-sdk}) bereit gestellt wird, eine Login-Anfrage mit Usernamen und Passwort an den Server gesendet.
+    Bei gültigen zugangsdaten enthält die Antwort des Servers folgende Informationen:
+    \begin{description}[leftmargin=!,labelwidth=3cm]
+        \item [home\_server] die vollständige Adresse des Homeservers
+        \item [access\_token] ein Access Token zur weiteren Verwendung mit dem \texttt{MXRestClient}
+        \item [user\_id] die vollständige Matrix ID des Users
+        \item [device\_id] die vom Server zugewiesene ID für das Gerät
+    \end{description}
+    Die Information über \texttt{home\_server}, \texttt{user\_id} und \texttt{device\_id} werden in den \texttt{UserDefaults} der App gespeichert.
+    Da der \texttt{access\_token} den Zugriff auf Benutzerkonto des Users ermöglicht, wird dieser mittels eines \texttt{KeychainHelper}\footnote{https://gist.github.com/LeeKahSeng/2452e90a57a5324de367907a36d88a49} in der iCloud Keychain gespeichert.
+    Falls die Zugangsdaten nicht korrekt sind wird dem User erneut eine Fehlermeldung gezeigt.
+    Anschließend wird die Matrix Session gestartet (dazu mehr in Abschnitt~\ref{sec:start-der-matrix-session}).
+    War das starten der Session erfolgreich gelangt der User in die \texttt{RoomsView}.\\
+
+    Für Den Fall das der User noch keinen Account besitzt kann über den Button "Create Account" der \texttt{LoginView} zur \texttt{CreateAccountView} gelangen welche in Abbildung~\ref{fig:createaccountview} dargestellt ist.
+
+
+
+
 
     \begin{figure}[h]
-        \includegraphics[scale=0.15]{einloggen}
+        \includegraphics[scale=0.5]{accountcreate}
         \centering
+        \caption{CreateAccountView}\label{fig:createaccountview}
     \end{figure}
 
+    \newpage
     \subsection{Raumübersicht}
 
+    \begin{figure}[h]
+        \includegraphics[scale=0.5]{accountcreate}
+        \centering
+        \caption{RoomsView}\label{fig:roomsview}
+    \end{figure}
+
+    \begin{figure}[h]
+        \includegraphics[scale=0.5]{invites}
+        \centering
+        \caption{InvitesView}\label{fig:invitesview}
+    \end{figure}
+
+    \newpage
     \subsection{Raumerzeugung}
 
+    \begin{figure}[h]
+        \includegraphics[scale=0.5]{newroom}
+        \centering
+        \caption{NewRoomView}\label{fig:newroomview}
+    \end{figure}
+
+    \newpage
     \subsection{Chatfenster}
 
+    \begin{figure}[h]
+        \includegraphics[scale=0.5]{chat}
+        \centering
+        \caption{ChatView}\label{fig:chatview}
+    \end{figure}
+
+    \newpage
     \subsection{Profile}
+
+    \begin{figure}[h]
+        \includegraphics[scale=0.5]{profile}
+        \centering
+        \caption{ProfileView}\label{fig:profileview}
+    \end{figure}
+
+    \section{Start der Matrix Session}\label{sec:start-der-matrix-session}
 
     \subsection{Verschlüsselung der Nachrichten}
 
-    \subsection{Notification}
+    \subsection{Benachrichtigungen}
 
     \section{Homeserver}\label{sec:homeserver}
 
@@ -569,7 +654,9 @@ end
     \chapter{Evaluation}
     \chapter{Fazit}\label{ch:fazit}
     Zwar wurde während der Implementierung darauf geachtet, dass jegliche Daten zwischen Arzt und Patient verschlüsselt und vor unbefugtem Zugriff geschützt sind, jedoch müsste die genaue Rechtslage zum Einsatz der Plattform genauer untersucht werden.
-
+    Das Userinterface der App erfüllt zwar die gesetzten Anspruche jedoch lässt das Design noch deutlich Platz für Verbesserungen.
+    Alle im Kapitel~\ref{sec:anforderungen} als 'Must' definierten Funktionen sind implementiert.
+    Ebenfalls wurden alle Anforderungen aus der
     \chapter{Ausblick}\label{ch:ausblick}
 
 %\include{source/content/Test}
@@ -580,7 +667,7 @@ end
 
     \backmatter
 %Liste der Tabellen
-    \listoftables
+%    \listoftables
 %Einbinden des Tabellenverzeichnisses
     \listoffigures
 %Einbinden des Sourcecodeverzeichnisses
