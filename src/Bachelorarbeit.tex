@@ -368,9 +368,18 @@ end
     \subsection{TI-Messenger}\label{subsec:ti-messenger}
 
     \subsection{Nio}
-    Nio\footnote{https://github.com/niochat/nio} Client
-
-
+    Nio\footnote{https://github.com/niochat/nio} ist ein vom User kiliankoe gestartetes Projekt.
+    Es ist ein Open Source Projekt und läuft unter der Mozilla Public License 2.0.
+    Das im Februar 2020 gestartete Projekt wurde seither von einer Vielzahl anderer User weiterentwickelt.
+    Der Nio Client ist ein in Swift geschriebener Messenger zur Nutzung im Matrix Netzwerk.
+    Er befindet sich aktuell in noch in einer Beta-Phase.
+    Das Anmelden, Erstellen von Räumen und Versenden von Nachrichten ist bereits möglich.
+    Es können sowohl Textnachrichten als auch Fotos versendet werden.
+    Darüber hinaus kann auf Nachrichten mittels Emojis reagiert werden.
+    Es werden direkte Chats und Räume mit mehreren Personen unterstützt.
+    Das erstellen von Accounts über den Nio Client ist zum Zeitpunkt der Analyse noch nicht möglich.
+    Ebenfalls wird auch keine End-2-End Verschlüsselung unterstützt.
+    Darüber hinaus unterstützt der Nio Client eine Vielzahl von Sprachen.
 
     \newpage
     \section{Anforderungen}\label{sec:anforderungen}
@@ -403,7 +412,6 @@ end
         \item Die App soll neben Textnachrichten auch andere Nachrichtentypen wie Fotos oder Videos unterstützen.
         \item Die App soll den User über den Erhalt einer neuen Nachricht informieren.
         \item Die Übersicht der beigetretenen Räume soll nach letzter Aktivität sortiert werden.
-        \item Die App soll Räume und Chat-Verläufe local speichern und offline wiedergeben können.
     \end{enumerate}
 
 
@@ -417,6 +425,12 @@ end
         \item Der User kann eine Nachricht weiterleiten.
         \item Der User kann Dateien welche in einem Raum verschickt wurden herunterladen.
         \item Die App kann im Landscape mode genutzt werden.
+    \end{enumerate}
+
+    \textbf{Won't}:
+    \begin{enumerate}[label={\roman*.}, leftmargin=2.5cm]
+        \item Die App wird Räume und Chat-Verläufe nicht local speichern und offline wiedergeben können.
+        \item Die App wird keine Nachrichten entschlüsseln können, die zwischen anderen Gerät versendet wurden.
     \end{enumerate}
 
 
@@ -506,7 +520,7 @@ end
         \item [expiry\_time] Ablaufdatum des Tokens. Gibt an wie lange der Token gültig ist.
     \end{description}
 
-    Der eigentliche Registrierungsvorgang kann mehrere Autentifizierungsstufen enthalten.
+    Der eigentliche Registrierungsvorgang kann mehrere Authentifizierungsstufen enthalten.
     Bevor der Registrierungsvorgang gestartet wird ir zuvor mit der vom \texttt{MXRestClient} breitgestellten funktioin geprüft ob der Benutername bereit genutzt wird.
     In dieser Implementation wird der in Abbildung~\ref{fig:accountCreationDiagram} beschriebene dreistufige Accounterstellungsvorgang mittels eines Registriersungstokes genutzt.
 
@@ -535,21 +549,21 @@ end
         \label{fig:accountCreationDiagram}
     \end{figure}
 
-    Im ersten Schritt sendet der Client eine leere Anfrage zum Server in welcher er um das starten einer Registrierungssitung bittet.
-    Der Server antwortet daraufhin mit einer SessionID und den vom Homeserver unterstützten Authentifizierungs Flows.
+    Im ersten Schritt sendet der Client eine leere Anfrage zum Server in welcher er um das starten einer Registrierungssitzung bittet.
+    Der Server antwortet daraufhin mit einer SessionID und den vom Homeserver unterstützten Authentifizierungss-Flows.
     In diesem Beispiel ist der einzige unterstützte Flow die verifizierung über einen Registriersungstoken.
-    Im nächsten Schritt sendet der Client dann den zuvor bereitgestellten Registrierungstoken und die vom server gegebene sessionid in Kombination mit der aktuellen Stufe des Authentifizierungs prozessen.
+    Im nächsten Schritt sendet der Client dann den zuvor bereitgestellten Registrierungstoken und die vom Server gegebene SessionID in Kombination mit der aktuellen Stufe des Authentifizierungsvorgangs.
     Im dritten und letzten Schritt wird nun der dummyflow aufgeführt.
-    Dieser Flow kann nicht fehlschlagen und dient der Letzendlichen erstellung des Account.
-    Hierbei werden der gewünsche username und passwort übergeben.
-    Ist dies gesehen wurde der Account erfolgreich erstellt.
+    Dieser Flow kann nicht fehlschlagen und dient der zur finalen Erstellung des Account.
+    Hierbei werden der gewünschte Benutername und Passort übergeben.
+    Ist dies geschehen wurde der Account erfolgreich erstellt.
     Anschließend wird der User ebenfalls auf die \texttt{RoomsView} weitergeleitet.
 
     \newpage
     \subsection{Raumübersicht}
 
     \begin{figure}[h]
-        \includegraphics[scale=0.5]{accountcreate}
+        \includegraphics[scale=0.5]{rooms}
         \centering
         \caption{RoomsView}\label{fig:roomsview}
     \end{figure}
