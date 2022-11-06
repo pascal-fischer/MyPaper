@@ -365,8 +365,7 @@ end
 
     \section{Analyse ähnlicher Projekte}\label{sec:analyse-ahnlicher-projekte}
 
-    \subsection{TI-Messenger}
-
+    \subsection{TI-Messenger}\label{subsec:ti-messenger}
 
     \subsection{Nio}
     Nio\footnote{https://github.com/niochat/nio} Client
@@ -431,8 +430,8 @@ end
 
     \section{App}
     Der erste Schritt in der Entwicklung der App ist das Design des User Interfaces.
-    Hierzu wurden meherer View definiert
-    Dieses besteht aus mehreren einzelner Views welche welche sich zu verschiedenene Gruppen zusammenführen lassen.
+    Hierzu wurden mehrer View definiert
+    Dieses besteht aus mehreren einzelner Views welche welche sich zu verschiedenen Gruppen zusammenführen lassen.
 
     \newpage
     \subsection{Login und Account Erstellung}
@@ -487,16 +486,64 @@ end
     War das starten der Session erfolgreich gelangt der User in die \texttt{RoomsView}.\\
 
     Für Den Fall das der User noch keinen Account besitzt kann über den Button "Create Account" der \texttt{LoginView} zur \texttt{CreateAccountView} gelangen welche in Abbildung~\ref{fig:createaccountview} dargestellt ist.
-
-
-
-
-
+    Diese View dient der Account erstellung und enthält 3 Textfelder für Benutzernamen, Passwort und Registrierungstoken.
+    Für das Passwortfeld kann wie schon in der \texttt{LoginView} zwischen versteckter Eingabe und Klartet gewechselt werden.
     \begin{figure}[h]
         \includegraphics[scale=0.5]{accountcreate}
         \centering
         \caption{CreateAccountView}\label{fig:createaccountview}
     \end{figure}
+    Der Registrierungstoken kann über die Admin-API\footnote{https://matrix-org.github.io/synapse/latest/usage/administration/admin\_api/} des Servers erstellt werden.
+    Hierzu muss eine GET-Anfrage an \texttt{/\_synapse/admin/v1/registration\_tokens/new} gesendet werden.~\cite{synapseregistartiontoken}
+    Alternativ kann auch direkt in der Datenbank des Servers ein Token angelegt werden (im \texttt{registration\_tokens} table).
+    Es werden folgende Felder bereitgestellt:
+    \begin{description}[leftmargin=!,labelwidth=3cm]
+        \item [token] Der Token der bei der Erstellung des Accounts angegeben werden muss.
+        \item [uses\_allowed] Die maximale Anzahl an Accounts die mit einem Token erstellt werden kann.
+        \item [pending] Anzahl laufender Registrierungen.
+        Sie gibt an wie viele Benutzer die Authentifizierungsstufe mit dem Token bereits abgeschlossen haben ohne den vollständigen Registrierungsvorgang erfüllt zu haben.
+        \item [completed] Anzahl erfolgreich erstellter Accounts mit diesem Token.
+        \item [expiry\_time] Ablaufdatum des Tokens. Gibt an wie lange der Token gültig ist.
+    \end{description}
+
+    Der eigentliche Registrierungsvorgang kann mehrere Autentifizierungsstufen enthalten.
+    Bevor der Registrierungsvorgang gestartet wird ir zuvor mit der vom \texttt{MXRestClient} breitgestellten funktioin geprüft ob der Benutername bereit genutzt wird.
+    In dieser Implementation wird der in Abbildung~\ref{fig:accountCreationDiagram} beschriebene dreistufige Accounterstellungsvorgang mittels eines Registriersungstokes genutzt.
+
+    \begin{figure}[h]
+        \centering
+        \begin{sequencediagram}
+            \newthread{A}{Client}{}
+            \newinst[7]{B}{Server}{}
+            \begin{sdblock}{Stage 1}{Receive Session ID}
+                \begin{call}{A}{getRegistrationSession()}{B}{\shortstack{
+                    return Session ID\\
+                    return supported flows}}
+                    \postlevel
+                \end{call}
+            \end{sdblock}
+            \begin{sdblock}{Stage 2}{m.login.registration\_token}
+                \begin{call}{A}{register()}{B}{}
+                \end{call}
+            \end{sdblock}
+            \begin{sdblock}{Stage 3}{m.login.dummy}
+                \begin{call}{A}{register()}{B}{}
+                \end{call}
+            \end{sdblock}
+        \end{sequencediagram}
+        \caption{Account erzeugungs Flow}
+        \label{fig:accountCreationDiagram}
+    \end{figure}
+
+    Im ersten Schritt sendet der Client eine leere Anfrage zum Server in welcher er um das starten einer Registrierungssitung bittet.
+    Der Server antwortet daraufhin mit einer SessionID und den vom Homeserver unterstützten Authentifizierungs Flows.
+    In diesem Beispiel ist der einzige unterstützte Flow die verifizierung über einen Registriersungstoken.
+    Im nächsten Schritt sendet der Client dann den zuvor bereitgestellten Registrierungstoken und die vom server gegebene sessionid in Kombination mit der aktuellen Stufe des Authentifizierungs prozessen.
+    Im dritten und letzten Schritt wird nun der dummyflow aufgeführt.
+    Dieser Flow kann nicht fehlschlagen und dient der Letzendlichen erstellung des Account.
+    Hierbei werden der gewünsche username und passwort übergeben.
+    Ist dies gesehen wurde der Account erfolgreich erstellt.
+    Anschließend wird der User ebenfalls auf die \texttt{RoomsView} weitergeleitet.
 
     \newpage
     \subsection{Raumübersicht}
@@ -551,47 +598,6 @@ end
 
     Nachdem die App das erste mal gestartet wird
     \newpage
-    \section{Account Erzeugungs Flow}\label{sec:account-erzeugungs-flow}
-    Um die App nutzen zu können muss zualler erst einmal ein Account erstellt werden können.
-    Hierzu können aufseiten des Homeservers verschiedene Authentifizierungsstufen definiert werden, welche vom Client durchlaufen werden müssen, um einen Account zu erstellen.
-    Diese können beispielseise
-    In Abbildung~\ref{fig:accountCreationDiagram} ist ein dreistufiger Accounterzugungsvorgang mittels eines Registriersungstokes beschrieben.
-    Dieser registrierungstoken kann entweder in der Datenbank direkt aangelegt werden oder mittels eines Administartor users auf der admin API erstellt werden.
-    Dieser token muss dem User anschließend zur Verfügung gestellt werden beispielsweise via email.
-    Der eigentliche Autehntifizierungsprozess beginnt dann wie folgt.
-    Im ersten Schritt sendet der Client eine leere Anfrage zum Server in welcher er um das starten einer registrierungs session bittet.
-    Der Server antortet daraufhin mit einer SessionID und den vom Homeserver unterstützten Authentifizierungs Flows.
-    In diesem Beispiel ist der einzige unterstützte Flow die verifizierung über einen Registriersungstoken.
-    Im nächsten Schritt sendet der Client dann den zuvor erstellten registrierungstoken und die vom server bereitgestellte sessionid in Kombination mit der aktuellen Stufe des Authentifizierungs prozessen.
-    Im dritten und letzten Schritt wird nun der dummyflow aufgeführt.
-    Dieser Flow kann nicht fehlschlagen und dient der Letzendlichen erstellung des Account.
-    Hierbei werden der gewünsche username und passwort übergeben.
-    Ist dies gesehen wurde der Account erfolgreich erstellt.
-
-    \begin{figure}[h]
-        \centering
-        \begin{sequencediagram}
-            \newthread{A}{Client}{}
-            \newinst[7]{B}{Server}{}
-            \begin{sdblock}{Stage 1}{Receive Session ID}
-                \begin{call}{A}{getRegistrationSession()}{B}{\shortstack{
-                    return Session ID\\
-                    return supported flows}}
-                    \postlevel
-                \end{call}
-            \end{sdblock}
-            \begin{sdblock}{Stage 2}{m.login.registration\_token}
-                \begin{call}{A}{register()}{B}{}
-                \end{call}
-            \end{sdblock}
-            \begin{sdblock}{Stage 3}{m.login.dummy}
-                \begin{call}{A}{register()}{B}{}
-                \end{call}
-            \end{sdblock}
-        \end{sequencediagram}
-        \caption{Account erzeugungs Flow}
-        \label{fig:accountCreationDiagram}
-    \end{figure}
 
     \section{Raum erstellung}\label{sec:raum-erstellung}
     User directory
