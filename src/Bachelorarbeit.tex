@@ -94,15 +94,18 @@
     Hierfür soll eine Chat-App auf basis des Matrix.org-Protokolls implementiert werden.
     Die App ist in der Programmiersprache Swift zu entwickeln und soll auf allen gängigen iOS geräten unterstützt werden.
     Darüber hinaus muss die benötigte Infrastruktur bereitgestellt werden um Nachrichten und Daten zu speichern und zu übermitteln.
+    Diese soll jedoch isoliert laufen und nicht an das existierende Matrix Netzwerk angeschlossen werden.
     Da medizinische Daten dem Datenschutz in besonderer Maße unterliegen ist es besonders wichtig,
     dass jegliche Art von Kommunikation zwischen Ärzten und Patienten stets verschlüsselt ist.
     Es muss gewährleistet sein, dass zu jedem Zeitpunkt alle personenbezogenen Daten vor dem Zugriff unerlaubter Dritter geschützt sind.
-    Da es im Bereich der Medizin  hinaus ist zu beachten, dass das Userinterface
-    So sollte beispielsweise darauf geachtet werden, dass Da es im Bereich der Medizin hinaus ist zu beachten, dass das Userinterface
-    So sollte beispielsweise darauf geachtet werden, dass
+%    Da es im Bereich der Medizin  hinaus ist zu beachten, dass das Userinterface
+%    So sollte beispielsweise darauf geachtet werden, dass Da es im Bereich der Medizin hinaus ist zu beachten, dass das Userinterface
+%    So sollte beispielsweise darauf geachtet werden, dass
 
     \section{Aufbau der Arbeit}\label{sec:aufbau-der-arbeit}
-
+    Die Arbeit
+    Zu Beginn wird der theoretische Hintergrun über die in der App gen
+    Es werden die für die Implementierung genutzten Technologien vorgestellt und erklärt wie diese
 
     \newpage
     \chapter{Theoretische Grundlagen}\label{ch:theoretische-grundlagen}
@@ -118,7 +121,7 @@
     \textit{Das am 29. Dezember 2015 in Kraft getretene "Gesetz für sichere digitale Kommunikation und Anwendungen im Gesundheitswesen (E-Health-Gesetz)" hat die ersten Weichen für den Aufbau der sicheren Telematikinfrastruktur (TI) und die Einführung medizinischer digitaler Anwendungen gestellt.
     Ziel dieses Gesetzes war es, die Chancen der Digitalisierung für die Gesundheitsversorgung zu nutzen und eine schnelle Einführung medizinischer Anwendungen für die Patientinnen und Patienten zu ermöglichen.}~\cite{ehealthgesetz}
 
-    Ein Teil der Telematikinfrastruktur ist der TI-Messenger der Gematik GmbH.
+    Ein Teil der Telematikinfrastruktur ist der TI-Messenger der Gematik GmbH welcher im Abschnitt~\ref{subsec:ti-messenger} genauer betrachtet wird.
 
     \newpage
     \section{Matrix}\label{sec:matrix}
@@ -453,13 +456,13 @@ end
     Wenn die App das erste Mal gestartet wird gelangt man zuerst in die in Abbildung~\ref{fig:selecthomeserverview} zu sehende \texttt{SelectHomeserverView}.
     Diese View dient dazu sich mit dem Homeserver verbinden zu können.
     Sie spielt eine besondere Rolle während der Entwicklung da häufiger zwischen Entwicklungs- und Produktivumgebung gewechselt wurde.
-    Der User hat die Möglichkeit den Homeserver mit welcher er sich verbinden möchte über den DNS-Adreesse oder IP-Adresse zu erreichen.
+    Der User hat die Möglichkeit den Homeserver mit welcher er sich verbinden möchte über den DNS-Adresse oder IP-Adresse zu erreichen.
     Des Weiteren kann der den Port des Homeservers angeben.
-    Der default Port für Matrix Server ist 8448.
+    Der default Port über den sich ein Client mit dem für Matrix Server verbindet ist 448 (und 8448 für die Kommunikation zwischen Servern untereinander).
     Für den Einsatz im Produktivbetrieb könnte diese View entfernt werden und die Adresse des Homeservers fest in der App festgelegt werden.
 
     \begin{figure}[h]
-        \includegraphics[scale=0.5]{selecthomeserver}
+        \includegraphics[scale=0.5]{homeserver}
         \centering
         \caption{SelectHomeserverView}\label{fig:selecthomeserverview}
     \end{figure}
@@ -470,7 +473,7 @@ end
 %        \caption{SelectHomeserverView}\label{fig:selecthomeserverview}
 %    \end{wrapfigure}
     Hat der User einen Homeserver eingetragen und klick auf connect prüft die App zuerst ob der Homeserver erreichbar ist.
-    Hierzu wird eine Abfrage der Versionsnummer an den angegebenen Homesever gesendet.
+    Hierzu wird eine Abfrage der Versionsnummer an den angegebenen Homeserver gesendet.
     Dies geschieht durch senden einer GET Anfrage an \texttt{/\_matrix/client/versions} (siehe Abschnitt~\ref{sec:rest}).
     Ist diese Anfrage erfolgreich wird der Homeserver im Model hinterlegt und der User gelangt zur \texttt{LoginView} welche in Abbildung ~\ref{fig:loginview} zu sehen ist.
     Falls die Anfrage fehlschlägt wird dem User eine Fehlermeldung gezeigt.
@@ -517,7 +520,7 @@ end
         \item [pending] Anzahl laufender Registrierungen.
         Sie gibt an wie viele Benutzer die Authentifizierungsstufe mit dem Token bereits abgeschlossen haben ohne den vollständigen Registrierungsvorgang erfüllt zu haben.
         \item [completed] Anzahl erfolgreich erstellter Accounts mit diesem Token.
-        \item [expiry\_time] Ablaufdatum des Tokens. Gibt an wie lange der Token gültig ist.
+        \item [expiry\_time] Ablaufdatum des Tokens. Er gibt an wie lange der Token gültig ist.
     \end{description}
 
     Der eigentliche Registrierungsvorgang kann mehrere Authentifizierungsstufen enthalten.
@@ -560,13 +563,30 @@ end
     Anschließend wird der User ebenfalls auf die \texttt{RoomsView} weitergeleitet.
 
     \newpage
-    \subsection{Raumübersicht}
+    \subsection{Raumübersicht}\label{subsec:raumubersicht}
+
+    Die \texttt{RoomsView} bildet das Herzstück der App.
+    Sie ist die Ansicht die dem User bei jedem Start der App gezeigt wird sofern er sich bereits in der App angemeldet hat.
+    Von dieser Ansicht aus können alle weiteren Views erreicht werden.
+    Die in Abbildung~\ref{fig:roomsview} gezeigte View besteht aus einer \texttt{Toolbar} im Kopf der Ansicht über welche man zur \texttt{ProfileView} und \texttt{SettingsView} gelangt.
+    Darunter findet sich die Raum übersicht welche alle beigetretenen Räume in einer scrollbaren Liste anzeigt.
+    Jedes Element der Liste zeigt den das Profilbild des jeweiligen Raumes sowie Displayname oder Title des jeweiligen Raumes.
+    Bei direkten Räumen wird außerdem die MatrixID des Users angezeigt.
+    Auf der rechten Seite befindet sich der Zeitpunkt der letzten Nachricht und ein Indikator dafür ob und wie viele ungelesene Nachrichten im einem Raum existieren
+    Über das darüberliegende Textfeld kann kann die Liste gefiltert werden.
+    Darüber hinaus wird die Liste nach dem  \texttt{originServerTimestamp} der letzten Nachricht des jeweiligen Raumes sortiert.
 
     \begin{figure}[h]
         \includegraphics[scale=0.5]{rooms}
         \centering
         \caption{RoomsView}\label{fig:roomsview}
     \end{figure}
+    Über den Button mit dem Plus gelangt man zur \texttt{NewRoomView} in welcher man einen neun Raum erstellen kann.
+    Im Fuß der View befindet sich eine TabView über welche zwischen \texttt{RoomsView} und \texttt{InvitesView} gewechselt werden kann.
+    Die \texttt{InvitesView} welche in Abbildung~\ref{fig:invitesview} zu sehen ist dient dazu alle offenen Einladungen zu anderen Räumen aufzulisten.
+    Diesen kann durch einfaches klicken auf den jeweiligen Raum beigetreten werden.
+    Man gelangt dann zur \texttt{ChatView} und kann direkt mit dem jeweiligen Raum Kommunizieren.
+    Falls man die Einladung ablehnen möchte kann man dies durch wischen der Einladung in Richtung des linken Bildschirmrandes tun.
 
     \begin{figure}[h]
         \includegraphics[scale=0.5]{invites}
@@ -575,7 +595,18 @@ end
     \end{figure}
 
     \newpage
-    \subsection{Raumerzeugung}
+    \subsection{Raumerzeugung}\label{subsec:raumerzeugung}
+    Hat der User in der \texttt{RoomsView} oder \texttt{InvitesView} auf den Plus-Button geklickt gelangt er in die \texttt{NewRoomView}.
+    Diese View dient dazu neue Räume zu erstellen und User zu diesen einzuladen.
+    Hierzu wird dem User wie in Abbildung~\ref{fig:newroomview} zu sehen, ein Textfeld gezeigt über welches er nach anderen Usern über deren Anzeigenamen oder ihre MatriID suchen kann.
+    In der sich in der Unteren hälfte befindlichen scrollbaren Liste werden bis zu 10 Nutzer gezeigt die dem eingegebenen Suchtext entsprechen.
+    Diese Funktion ist nur möglich falls in der Konfiguration des Homeservers die suche im Nutzerverzeichnis freigegeben ist.
+    Die Konfiguration des Homeservers ist in Abschnitt~\ref{sec:homeserver} genauer beschrieben.
+    Ist diese Funktion nicht freigegeben muss der User die vollständige MatrixID des gesuchten Nutzers angeben.
+    Hat der User den von ihm gesuchen Nutzer gefunden kann er durch anklicken dem zu erstellenden Raum hinzufügen.
+    Der Nutzer erscheint dann in der horizontal scrollbaren Liste von Usern.
+    Hat der User einen falschen Nutzer zum Raum hinzugefügt kann er diesen durch antippen des Users in der Liste hinzugefügter Nutzer wieder entfernen.
+    Hierbei achtet die App darauf, dass ein Nutzer nicht doppelt hinzugefügt werden kann.
 
     \begin{figure}[h]
         \includegraphics[scale=0.5]{newroom}
@@ -583,14 +614,45 @@ end
         \caption{NewRoomView}\label{fig:newroomview}
     \end{figure}
 
+    Hat der User alle von ihm gewünschten Nutzer dem Raum hinzugefügt kann er diesen durch klicken auf den "Create"-Button erstellen.
+    Die App entscheidet dann automatisch anhand der Anzahl der eingeladenen Usern ob ein direkter Raum erstellt werden soll oder nicht.
+    Nach erstellen der Raumes wird automatisch ein StateEvent von Typ \texttt{.roomEncryption} an den Raum gesendet, welche die anderen Nutzer im Raum darüber informiert das Nachrichten in diesem Raum verschlüsselt zu senden sind.
+    Der vollständige Vorgang zum verschlüsseln der Nachrichten ist in Abschnitt~\ref{subsec:verschlusselung-der-nachrichten} beschrieben.
+    War das erstellen der Raumes erfolgreich wird der User in die \texttt{ChatView} des neu angelegten Raumes geleitet.
+
     \newpage
     \subsection{Chatfenster}
+    Die in Abbildung~\ref{fig:chatview} gezeigte \texttt{ChatView} ist eine weitere Kernansicht der App.
+    Sie ermöglicht es dem User Konverstaionen eines Raumes einzusehen und neue Nachrichten an diesen zu senden.
+    Die Abbildung zeigt Beispielnachrichten für alle unterstützten Nachrichtentypen.
+    Es können einfache Textnachrichten versendet werden, Fotos welche durch antippen in einem Fullscreen \texttt{ImageViewer} angezeigt werden,
+    PDF-Dateien welche in einem \texttt{PDFViewer} eingesehen werden können, und Videos welche mittels \texttt{AZVideoPlayer} abgespielt werden können.
+    Der Videoplayer unterstützt sowohl das abspielen direkt in der \texttt{ChatView} als auch im Fullscreenmode, sowohl im Landscape- als auch im Portrait-format.
 
     \begin{figure}[h]
         \includegraphics[scale=0.5]{chat}
         \centering
         \caption{ChatView}\label{fig:chatview}
     \end{figure}
+
+    Des weiteren wird dem User ein Typing-Indikator gezeigt welcher der User darüber informiert ob der Gesprächspartner (oder in Multiuser Räumen welche Gesprächspartner) gerade eine Nachricht schreiben.
+    Im Fuß der Ansicht befindet sich das Nachrichtenfenster über welches Nachrichten verfasst und an der Raum gesendet werden können.
+    Durch klicken des Bild-Icons öffnet sich ein \texttt{ImagePicker} über welchen sowohl Fotos als auch Videos aus der Galerie gewählt und an den Raum gesendet werden können.
+    Das Kamera-Icon daneben öffnet eine Kamera Ansicht über welche Fotos und videos direkt aus der App aufgenommen und versendet werden können.
+    Über das Büroklammer-Icon lassen sich Datein die auf dem Gerät gespeichert sind durchsuchen und an den Raum senden.
+    Da nur Dateien vom Typ PDF von der App unterstützt werden wird im Datei Picker ebenfalls nach PDF gefiltert.
+    Im Kopf der Ansicht erkennt man eine Hinweismeldung darauf, dass man das Ende der geladenen Nachrichten erreicht hat und nach unten wischen muss um weitere Nachrichten zu laden.
+    Bei öffnen der \texttt{ChatView} werden sofern vorhanden 25 Nachrichten geladen.
+    Dies geschieht mittels pagination der Matrix Timeline eines Raumes.
+    Bei jedem weiteren laden von Nachrichten werden 25 weitere Nachrichten geladen und angezeigt.
+    Es muss darauf geachtet werden, dass die Reihenfolge der Nachrichten ordnungsgemäß angezeigt wird.
+    Die Lazy-Loading-Methode erlaubt hierbei eine angemessene Performance beim öffnen des Chats.
+    Eine besondere Herausforderung ist die Position der scrollbaren Liste.
+    Beim öffnen der View muss an das Ende der Liste gesprungen werden, da sich dort die neusten Nachrichten befinden.
+    Falls eine neue Nachricht eintrifft während die View geöffnet ist springt die Liste ebenfalls an das Ende um dem USer die neuste Nachricht anzuzeigen.
+    Beim Laden älterer Nachrichten soll jedoch nicht zum Ende gesprungen werden.
+    Über die drei Punkte in der oberen rechten Ecke der Ansicht öffnet sich ein Drop-Down-Menu über welches ein Raum verlassen werden kann oder sich eine Übersicht über den aktuellen Raum öffnet, wo Titel, Beschreibung und Bild des Raumes geändert werden können.
+    Darüber hinaus zeigt sie einige Informationen über den Raum an wie die Anzahl an Teilnehmern, den Ersteller des Raumes und ob die Verschlüsselung aktiv ist.
 
     \newpage
     \subsection{Profile}
@@ -603,7 +665,7 @@ end
 
     \section{Start der Matrix Session}\label{sec:start-der-matrix-session}
 
-    \subsection{Verschlüsselung der Nachrichten}
+    \subsection{Verschlüsselung der Nachrichten}\label{subsec:verschlusselung-der-nachrichten}
 
     \subsection{Benachrichtigungen}
 
@@ -613,19 +675,8 @@ end
     Nachdem die App das erste mal gestartet wird
     \newpage
 
-    \section{Raum erstellung}\label{sec:raum-erstellung}
-    User directory
 
     \newpage
-
-    \subsection{Text}\label{subsec:text}
-    Der wohl wichtigste Nachrichtentyp in
-    \subsection{Foto}\label{subsec:foto}
-    text
-    \subsection{Video}\label{subsec:video}
-    text
-    \subsection{Datei}\label{subsec:datei}
-    text
 
     \section{Account Deactivation Flow}\label{sec:account-deactivation-flow}
     text
@@ -674,10 +725,16 @@ end
     \chapter{Evaluation}
     \chapter{Fazit}\label{ch:fazit}
     Zwar wurde während der Implementierung darauf geachtet, dass jegliche Daten zwischen Arzt und Patient verschlüsselt und vor unbefugtem Zugriff geschützt sind, jedoch müsste die genaue Rechtslage zum Einsatz der Plattform genauer untersucht werden.
-    Das Userinterface der App erfüllt zwar die gesetzten Anspruche jedoch lässt das Design noch deutlich Platz für Verbesserungen.
+    Das Userinterface der App erfüllt zwar die gesetzten Ansprüche jedoch lässt das Design noch deutlich Platz für Verbesserungen.
     Alle im Kapitel~\ref{sec:anforderungen} als 'Must' definierten Funktionen sind implementiert.
     Ebenfalls wurden alle Anforderungen aus der
+
     \chapter{Ausblick}\label{ch:ausblick}
+    Der nächste Schritt in der Entwicklung der Plattform sollte es sein ein geeignetes Key-Management-System zu implementieren um es zu ermöglichen den selber Account auf mehreren Geräten nutzen zu können.
+
+    Außerdem könnte ein zusätzlicher Layer implementiert werden, welcher es ermöglicht Informationen über beigetretene Räume und deren jeweilige Konversationen geschützt auf dem Gerät zu speichern.
+    Somit hat der User auch ohne bestehende Verbindung zum Internet, Zugriff auf seine Konversationen und mögliche geteilter Daten.
+    Ferner sollten zusätzliche Dateitypen für Nachrichten unterstützt werden um es
 
 %\include{source/content/Test}
 
