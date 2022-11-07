@@ -49,6 +49,46 @@
         {]}{{{\color{delim}{]}}}}{1},
 }
 
+
+\newcommand\YAMLcolonstyle{\color{red}\mdseries}
+\newcommand\YAMLkeystyle{\color{black}\bfseries}
+\newcommand\YAMLvaluestyle{\color{blue}\mdseries}
+
+\makeatletter
+
+% here is a macro expanding to the name of the language
+% (handy if you decide to change it further down the road)
+\newcommand\language@yaml{yaml}
+
+\expandafter\expandafter\expandafter\lstdefinelanguage
+\expandafter{\language@yaml}
+{
+    keywords={true,false,null,y,n},
+    keywordstyle=\color{darkgray}\bfseries,
+    basicstyle=\YAMLkeystyle,                                 % assuming a key comes first
+    sensitive=false,
+    comment=[l]{\#},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{purple}\ttfamily,
+    stringstyle=\YAMLvaluestyle\ttfamily,
+    moredelim=[l][\color{orange}]{\&},
+    moredelim=[l][\color{magenta}]{*},
+    moredelim=**[il][\YAMLcolonstyle{:}\YAMLvaluestyle]{:},   % switch to value style at :
+    morestring=[b]',
+    morestring=[b]",
+    literate =    {---}{{\ProcessThreeDashes}}3
+        {>}{{\textcolor{red}\textgreater}}1
+        {|}{{\textcolor{red}\textbar}}1
+        {\ -\ }{{\mdseries\ -\ }}3,
+}
+
+% switch to key style at EOL
+\lst@AddToHook{EveryLine}{\ifx\lst@language\language@yaml\YAMLkeystyle\fi}
+\makeatother
+
+\newcommand\ProcessThreeDashes{\llap{\color{cyan}\mdseries-{-}-}}
+
+
 % Beginn des Dokuments
 \begin{document}
 
@@ -113,10 +153,10 @@
     Anschließend wird das Matrix Protokoll genauer betrachtet und das Grundprinzip erklärt.
     Desweiteren werden die in der End-to-End Verschlüsselung genutzten keys erläutert und genauer auf die verschiedenen Verschlüsselungsalgorithmen eingegangen.
 
-    \section{Datenschutz im Gesundheitswesen}
+    \section{Datenschutz im Gesundheitswesen}\label{sec:datenschutz-im-gesundheitswesen}
     Die Rechtlichen Rahmenbedingungen für das Speicher und Verarbeiten medizinischer Daten sind in der EU-Datenschutz-Grundverordnung\footnote{https://dsgvo-gesetz.de/} (DSGVO) festgelegt.
     Diese fordert ebenfalls zur Einhaltung des IT-Sicherheitsgesetzes und des E-Health-Gesetzes auf.
-    Medizinische Daten werden vom Gesetzgeber als besondere Arten personenbezogener Daten eingeordnet, da sie besonders sensible Informationen enthalten.~\cite{datenschutzimgesundeitswesen}
+    Medizinische Daten werden vom Gesetzgeber als besondere Arten personenbezogener Daten eingeordnet, da sie besonders sensible Informationen enthalten~\cite{datenschutzimgesundeitswesen}.
 
     \textit{Das am 29. Dezember 2015 in Kraft getretene "Gesetz für sichere digitale Kommunikation und Anwendungen im Gesundheitswesen (E-Health-Gesetz)" hat die ersten Weichen für den Aufbau der sicheren Telematikinfrastruktur (TI) und die Einführung medizinischer digitaler Anwendungen gestellt.
     Ziel dieses Gesetzes war es, die Chancen der Digitalisierung für die Gesundheitsversorgung zu nutzen und eine schnelle Einführung medizinischer Anwendungen für die Patientinnen und Patienten zu ermöglichen.}~\cite{ehealthgesetz}
@@ -241,29 +281,29 @@
     Die Daten im Model sind somit unabhängig von ihrer Präsentation.
     Deshalb ist es möglich mehrere Views an dasselbe Model, und somit dieselben Daten zu binden.
     Hierbei sind jedoch die Präsentationen der Daten auf den einzelnen Views ebenfalls unabhängig voneinander.
-    Sollten sich die Daten im Model ändern werden die Views über diese Änderung informiert.~\cite{https://doi.org/10.48550/arxiv.1408.5786}
+    Sollten sich die Daten im Model ändern werden die Views über diese Änderung informiert~\cite{https://doi.org/10.48550/arxiv.1408.5786}.
 
     Die \textbf{View} stellt die optische Oberfläche der Anwendung dar.
     Sie enthält alle grafischen Elemente wie Textfelder, Bilder oder anderer Elemente die zur Darstellung der Daten aus dem Model benötigt werden.
-    Zudem nimmt sie die Eingaben des Users entgegen und leitet diese an den Controller weiter.~\cite{https://doi.org/10.48550/arxiv.1408.5786}
+    Zudem nimmt sie die Eingaben des Users entgegen und leitet diese an den Controller weiter~\cite{https://doi.org/10.48550/arxiv.1408.5786}.
 
 
     Der \textbf{Controller} ist für die Steuerung der Anwendung zuständig.
     Seine Aufgabe ist es je nach Eingabe des Benutzers das Model manipulieren.
-    Basierend auf der Eingabe des Benutzers ist er ebenfalls dafür zuständig die aktuelle View zu wechseln.~\cite{https://doi.org/10.48550/arxiv.1408.5786}
+    Basierend auf der Eingabe des Benutzers ist er ebenfalls dafür zuständig die aktuelle View zu wechseln~\cite{https://doi.org/10.48550/arxiv.1408.5786}.
 
 
     Im Model-View-Controller Pattern sind Programmlogik, Datenstruktur und die Präsentation der Daten derart getrennt, dass es möglich ist diese Unabhängig voneinander zu verändern, ohne damit Einfluss auf einen der anderen Bereiche zu nehmen.
-    Somit ist es möglich beispielsweise die Oberfläche eines Programmes zu überarbeiten, ohne sich dabei Gedanken über die darunter liegende Ausführungslogik zu machen. ~\cite{mvc}
+    Somit ist es möglich beispielsweise die Oberfläche eines Programmes zu überarbeiten, ohne sich dabei Gedanken über die darunter liegende Ausführungslogik zu machen~\cite{mvc}.
 
     \subsection{Model-View-Presenter}\label{subsec:model-view-presenter}
     Die Model-View-Presenter Architektur ist eine weiterentwicklung der Model-View-Controller Architektur und dieser somit sehr ähnlich.
     Sie ist ebenfalls in 3 Bereiche geteilt, die View und das Model übernehmen die gleichen Funktionieren wie auch schon in der Model-View-Controller Architektur.
     Entscheidender Unterschied hierbei ist jedoch, dass View und Controller nicht direkt miteinander verbunden sind.
-    Wie in Abbildung \ref{fig:mvp} zu sehen werden Model und View über den Presenter verbunden.
+    Wie in Abbildung~\ref{fig:mvp} zu sehen werden Model und View über den Presenter verbunden.
     Dieser ersetzt den Controller und fungiert als Schnittstelle beider Komponenten.
     Die über die View eintreffenden Eingaben der Users werden vom Presenter verarbeitet und damit das jeweilige Model manipuliert.
-    Das daraus resultierende aktualisierte Model wird dann vom Presenter zurück an die View geschickt um diese zu aktualisieren.~\cite{mvp1}
+    Das daraus resultierende aktualisierte Model wird dann vom Presenter zurück an die View geschickt um diese zu aktualisieren~\cite{mvp1}.
     \begin{figure}[h]
         \centering
         \input{source/diagrams/mvp.tikz}
@@ -447,7 +487,7 @@ end
 
     \section{App}
     Der erste Schritt in der Entwicklung der App ist das Design des User Interfaces.
-    Hierzu wurden mehrer View definiert
+    Hierzu wurden mehrere Views definiert
     Dieses besteht aus mehreren einzelner Views welche welche sich zu verschiedenen Gruppen zusammenführen lassen.
 
     \newpage
@@ -623,7 +663,7 @@ end
     \newpage
     \subsection{Chatfenster}
     Die in Abbildung~\ref{fig:chatview} gezeigte \texttt{ChatView} ist eine weitere Kernansicht der App.
-    Sie ermöglicht es dem User Konverstaionen eines Raumes einzusehen und neue Nachrichten an diesen zu senden.
+    Sie ermöglicht es dem User Konversationen eines Raumes einzusehen und neue Nachrichten an diesen zu senden.
     Die Abbildung zeigt Beispielnachrichten für alle unterstützten Nachrichtentypen.
     Es können einfache Textnachrichten versendet werden, Fotos welche durch antippen in einem Fullscreen \texttt{ImageViewer} angezeigt werden,
     PDF-Dateien welche in einem \texttt{PDFViewer} eingesehen werden können, und Videos welche mittels \texttt{AZVideoPlayer} abgespielt werden können.
@@ -639,7 +679,7 @@ end
     Im Fuß der Ansicht befindet sich das Nachrichtenfenster über welches Nachrichten verfasst und an der Raum gesendet werden können.
     Durch klicken des Bild-Icons öffnet sich ein \texttt{ImagePicker} über welchen sowohl Fotos als auch Videos aus der Galerie gewählt und an den Raum gesendet werden können.
     Das Kamera-Icon daneben öffnet eine Kamera Ansicht über welche Fotos und videos direkt aus der App aufgenommen und versendet werden können.
-    Über das Büroklammer-Icon lassen sich Datein die auf dem Gerät gespeichert sind durchsuchen und an den Raum senden.
+    Über das Büroklammer-Icon lassen sich Dateien die auf dem Gerät gespeichert sind durchsuchen und an den Raum senden.
     Da nur Dateien vom Typ PDF von der App unterstützt werden wird im Datei Picker ebenfalls nach PDF gefiltert.
     Im Kopf der Ansicht erkennt man eine Hinweismeldung darauf, dass man das Ende der geladenen Nachrichten erreicht hat und nach unten wischen muss um weitere Nachrichten zu laden.
     Bei öffnen der \texttt{ChatView} werden sofern vorhanden 25 Nachrichten geladen.
@@ -655,31 +695,13 @@ end
     Darüber hinaus zeigt sie einige Informationen über den Raum an wie die Anzahl an Teilnehmern, den Ersteller des Raumes und ob die Verschlüsselung aktiv ist.
 
     \newpage
-    \subsection{Profile}
+    \subsection{Profile}\label{subsec:profile}
 
     \begin{figure}[h]
         \includegraphics[scale=0.5]{profile}
         \centering
         \caption{ProfileView}\label{fig:profileview}
     \end{figure}
-
-    \section{Start der Matrix Session}\label{sec:start-der-matrix-session}
-
-    \subsection{Verschlüsselung der Nachrichten}\label{subsec:verschlusselung-der-nachrichten}
-
-    \subsection{Benachrichtigungen}
-
-    \section{Homeserver}\label{sec:homeserver}
-
-
-    Nachdem die App das erste mal gestartet wird
-    \newpage
-
-
-    \newpage
-
-    \section{Account Deactivation Flow}\label{sec:account-deactivation-flow}
-    text
 
     \begin{figure}[h]
         \centering
@@ -698,28 +720,55 @@ end
                 \end{call}
             \end{sdblock}
         \end{sequencediagram}
-        \caption{Account löschen Flow}
+        \caption{Account löschen Flow}\label{fig:figure}
     \end{figure}
 
-    \section{Nachrichten}\label{sec:nachrichten}
-    some text
+    \subsection{Start der Matrix Session}\label{sec:start-der-matrix-session}
 
-    \begin{lstlisting}[language=json,firstnumber=1]
-{"menu": {
-  "id": "file",
-  "value": "File",
-  "popup": {
-    "menuitem": [
-      {"value": "New", "onclick": "CreateNewDoc()"},
-      {"value": "Open", "onclick": "OpenDoc()"},
-      {"value": "Close", "onclick": "CloseDoc()"}
-    ]
-  }
-}}
-    \end{lstlisting}
+    \subsection{Verschlüsselung der Nachrichten}\label{subsec:verschlusselung-der-nachrichten}
+
+    \subsection{Benachrichtigungen}\label{subsec:benachrichtigungen}
 
     \newpage
-    \section{Benachrichtigungen}\label{sec:benachrichtigungen}
+    \newpage
+    \section{Homeserver}\label{sec:homeserver}
+    Der Homeserver bildet die unterliegende Infrastruktur der Plattform.
+    Hierzu wird die vom Matrix Team bereitgestellte Synapse Software.
+    Diese wird auf mittels eines Docker Containers auf dem Server betrieben.
+    Bevor der Container gestartet werden einige Konfigurationsdateien benötigt welche über folgenden Befehl generiert werden können:
+    \begin{lstlisting}[language=bash,label={lst:synapse-generate}]
+        docker run -it --rm -v /path/on/host/machine/:/data -e SYNAPSE_SERVER_NAME=my.matrix.host -e SYNAPSE_REPORT_STATS=yes matrixdotorg/synapse:latest generate
+    \end{lstlisting}
+    Um später einfacher Änderungen an der Konfiguration des Homeservers vornehmen zu können wird das \texttt{/data} Directory im Host gemounted.
+    Des weiteren muss der Name des Homeservers über \texttt{SYNAPSE\_SERVER\_NAME} definiert werden.
+    Dieser wird später für die Identifikation des Homeservers genutzt.
+    Nach ausführen des Befehls werden 3 Dateien generiert:
+    \begin{description}[leftmargin=!,labelwidth=4cm]
+        \item [homeserver.yaml] Konfigurationsdatei des Homeservers. Hier können alle Funktionalitätet des Homeservers konfiguriert werden.
+        \item [my.matrix.host.log.config] Konfigurationsdatei des Loggers. Hier kann das Fromat für Log-Messages definiert werden und weitere
+        \item [my.matrix.host.signing.key] Key zur Authentifizierung bei anderen Homeservern
+    \end{description}
+
+    Der \texttt{my.matrix.host.signing.key} wird für diese Implementation nicht benötigt, da der einzeln läuft und nicht an das Matrix Netzwerk angeschlossen wird.
+    Bevor der Server gestartet wird sollten noch einige Konfigurationen angepasst werden:
+    \begin{enumerate}
+        \item Standardmäßig wird nur ein Listener auf Port 8008 für ungeschützte Verbindungen über HTTP konfiguriert. Um die App mit dem Homeserver verbinden zu können muss ein zusätzlicher HTTPS Listener auf Port 443 konfiguriert werden.
+        \item Für den zusätzlichen Listener über HTTPS muss ein SSL Zertifikat erstellt werden und in der Konfiguration hinterlegt werden.
+        \item Da der Server nicht mit dem Matrix Netzwerk verbunden wird muss die Key Verifizierung über den Matrix Root Server deaktiviert werden.
+        \item Um das in Abschnitt~\ref{subsec:raumerzeugung} beschriebene durchsuchen des Nutzerverzeichnisses zu ermöglichen muss dies hier erlaubt werden.
+        \item Zusätzlich können Regeln aktiviert werden die beim Erstellen eines Account Prüfen ob das Passwort den gewünschten Richtlinien entspricht. Hier kann definiert werden welche Arten von Zeichen im Passwort enthalten sein müssen und wie lang das Passwort mindestens sein muss.
+        \item Da die Registrierung nur mit einem Registrierungstoken möglich sein soll muss dies ebenfalls angegeben werden.
+    \end{enumerate}
+    Ein Beispiel für die Konfiguration des Homeservers kann dem Anhang entnommen werden.
+
+    Nachdem alle Konfigurationen getätigt urden kann der Homeserver gestartet werden.
+    Es ist darauf zu achten, dass alle benötigten Ports des Containers auf dem Host gemapped werden.
+
+    \begin{lstlisting}[language=bash,label={lst:synapse-start}]
+        docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443:443 matrixdotorg/synapse:latest
+    \end{lstlisting}
+
+    Nun ist der Homeserver einsatzbereit und Client können eine Verbindung aufnehmen.
 
     \newpage
     \chapter{Evaluation}
@@ -735,6 +784,8 @@ end
     Außerdem könnte ein zusätzlicher Layer implementiert werden, welcher es ermöglicht Informationen über beigetretene Räume und deren jeweilige Konversationen geschützt auf dem Gerät zu speichern.
     Somit hat der User auch ohne bestehende Verbindung zum Internet, Zugriff auf seine Konversationen und mögliche geteilter Daten.
     Ferner sollten zusätzliche Dateitypen für Nachrichten unterstützt werden um es
+
+    Des weiteren könnte untersucht werden ob der Synapse Server in der LAge ist den Registrierungstoken über einen SMTP Server direkt an den User zu schicken nach vorheriger angabe einer emailadresse.
 
 %\include{source/content/Test}
 
@@ -756,6 +807,77 @@ end
 
 % Anhang
     \appendix
+
+    \newpage
+    \begin{lstlisting}[language=yaml,firstnumber=1]
+# Configuration file for Synapse.
+#
+# This is a YAML file: see [1] for a quick introduction. Note in particular
+# that *indentation is important*: all the elements of a list or dictionary
+# should have the same indentation.
+#
+# [1] https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html
+#
+# For more information on how to configure Synapse, including a complete accounting of
+# each option, go to docs/usage/configuration/config_documentation.md or
+# https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html
+server_name: "my.matrix.host"
+pid_file: /data/homeserver.pid
+listeners:
+  - port: 8008
+    tls: false
+    type: http
+    x_forwarded: true
+    resources:
+      - names: [client, federation]
+        compress: false
+  - port: 8448
+    type: http
+    tls: true
+    resources:
+      - names: [client, federation]
+  - port: 443
+    type: http
+    tls: true
+    resources:
+      - names: [client, federation]
+database:
+  name: sqlite3
+  args:
+    database: /data/homeserver.db
+log_config: "/data/my.matrix.host.log.config"
+media_store_path: /data/media_store
+registration_shared_secret: "UCn,-xMwqEvUGyUPx+Qhx2eEseVyGYE0xld5cMcx4Y*S,yzrA~"
+report_stats: true
+macaroon_secret_key: "v1WRznXbpNdnEcg~if+2tWEy;fDdfof_n&~Sh8WTH9P*9=,N;~"
+form_secret: "fD8&Dwy4aiiGUruk2pd8IwCp:S0zIV=rM_B&_0JP;WK0@ubDqa"
+signing_key_path: "/data/my.matrix.host.signing.key"
+tls_certificate_path: "/data/certs/cert.pem"
+tls_private_key_path: "data/certs/key.pem"
+federation_verify_certificates: false
+trusted_key_servers:
+  - server_name: "matrix.org"
+    accept_keys_insecurely: true
+    enable_registration_without_verification: true
+enable_registration: true
+registration_requires_token: true
+password_config:
+   enabled: true
+   localdb_enabled: true
+   pepper: "EVEN_MORE_SECRET"
+
+   policy:
+      enabled: true
+      minimum_length: 4
+      require_digit: true
+      require_symbol: false
+      require_lowercase: true
+      require_uppercase: true
+
+user_directory:
+  enabled: true
+  search_all_users: true
+    \end{lstlisting}
 \end{document}
 
 
