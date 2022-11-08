@@ -183,7 +183,7 @@
         \item [Client-Server-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/client-server-api/} zur Kommunikation zwischen Matrix kompatiblen Clients und einem Homeserver
         \item [Server-Server-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/server-server-api/} zum Nachrichtenaustausch und Synchronisation zwischen mehreren Homservern
         \item [Application-Service-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/application-service-api/} zur Erweiterung der Funktionalität von Matrix und Integration anderer Systeme
-        \item [Identity-Service-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/identity-service-api/} beschreibt das Mapping zischen Drittanbietern
+        \item [Identity-Service-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/identity-service-api/} beschreibt das Mapping zwischen Drittanbietern
         \item [Push-Gateway-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/push-gateway-api/} um versenden von Push Notifications an Clients falls neue Events beim Homeserver eintreffen
     \end{description}
 
@@ -751,13 +751,57 @@ end
 
     Der \texttt{my.matrix.host.signing.key} wird für diese Implementation nicht benötigt, da der einzeln läuft und nicht an das Matrix Netzwerk angeschlossen wird.
     Bevor der Server gestartet wird sollten noch einige Konfigurationen angepasst werden:
-    \begin{enumerate}
-        \item Standardmäßig wird nur ein Listener auf Port 8008 für ungeschützte Verbindungen über HTTP konfiguriert. Um die App mit dem Homeserver verbinden zu können muss ein zusätzlicher HTTPS Listener auf Port 443 konfiguriert werden.
+    \begin{enumerate}[label={(\arabic*)}]
+        \item Standardmäßig wird nur ein Listener auf Port 8008 für ungeschützte Verbindungen über HTTP konfiguriert.
+                Um die App mit dem Homeserver verbinden zu können muss ein zusätzlicher HTTPS Listener auf Port 443 konfiguriert werden.
+            \begin{lstlisting}[language=yaml,label={lst:listener}]
+listeners:
+  - port: 443
+    type: http
+    tls: true
+    resources:
+          - names: [client, federation]
+            \end{lstlisting}
         \item Für den zusätzlichen Listener über HTTPS muss ein SSL Zertifikat erstellt werden und in der Konfiguration hinterlegt werden.
+            \begin{lstlisting}[language=yaml,label={lst:ssl-certificate}]
+tls_certificate_path: "/data/certs/cert.pem"
+tls_private_key_path: "data/certs/key.pem"
+            \end{lstlisting}
         \item Da der Server nicht mit dem Matrix Netzwerk verbunden wird muss die Key Verifizierung über den Matrix Root Server deaktiviert werden.
+            \begin{lstlisting}[language=yaml,label={lst:disable-key-verification}]
+federation_verify_certificates: false
+trusted_key_servers:
+  - server_name: "matrix.org"
+    accept_keys_insecurely: true
+    enable_registration_without_verification: true
+            \end{lstlisting}
         \item Um das in Abschnitt~\ref{subsec:raumerzeugung} beschriebene durchsuchen des Nutzerverzeichnisses zu ermöglichen muss dies hier erlaubt werden.
-        \item Zusätzlich können Regeln aktiviert werden die beim Erstellen eines Account Prüfen ob das Passwort den gewünschten Richtlinien entspricht. Hier kann definiert werden welche Arten von Zeichen im Passwort enthalten sein müssen und wie lang das Passwort mindestens sein muss.
+            \begin{lstlisting}[language=yaml,label={lst:user-directory}]
+user_directory:
+  enabled: true
+  search_all_users: true
+            \end{lstlisting}
+        \item Zusätzlich können Regeln aktiviert werden die beim Erstellen eines Account Prüfen ob das Passwort den gewünschten Richtlinien entspricht.
+                Hier kann definiert werden welche Arten von Zeichen im Passwort enthalten sein müssen und wie lang das Passwort mindestens sein muss.
+            \begin{lstlisting}[language=yaml,label={lst:password-policy}]
+password_config:
+   enabled: true
+   localdb_enabled: true
+   pepper: "EVEN_MORE_SECRET"
+
+   policy:
+      enabled: true
+      minimum_length: 8
+      require_digit: true
+      require_symbol: true
+      require_lowercase: true
+      require_uppercase: true
+            \end{lstlisting}
         \item Da die Registrierung nur mit einem Registrierungstoken möglich sein soll muss dies ebenfalls angegeben werden.
+        \begin{lstlisting}[language=yaml,label={lst:enable-registration}]
+enable_registration: true
+registration_requires_token: true
+        \end{lstlisting}
     \end{enumerate}
     Ein Beispiel für die Konfiguration des Homeservers kann dem Anhang entnommen werden.
 
@@ -808,76 +852,6 @@ end
 % Anhang
     \appendix
 
-    \newpage
-    \begin{lstlisting}[language=yaml,firstnumber=1]
-# Configuration file for Synapse.
-#
-# This is a YAML file: see [1] for a quick introduction. Note in particular
-# that *indentation is important*: all the elements of a list or dictionary
-# should have the same indentation.
-#
-# [1] https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html
-#
-# For more information on how to configure Synapse, including a complete accounting of
-# each option, go to docs/usage/configuration/config_documentation.md or
-# https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html
-server_name: "my.matrix.host"
-pid_file: /data/homeserver.pid
-listeners:
-  - port: 8008
-    tls: false
-    type: http
-    x_forwarded: true
-    resources:
-      - names: [client, federation]
-        compress: false
-  - port: 8448
-    type: http
-    tls: true
-    resources:
-      - names: [client, federation]
-  - port: 443
-    type: http
-    tls: true
-    resources:
-      - names: [client, federation]
-database:
-  name: sqlite3
-  args:
-    database: /data/homeserver.db
-log_config: "/data/my.matrix.host.log.config"
-media_store_path: /data/media_store
-registration_shared_secret: "UCn,-xMwqEvUGyUPx+Qhx2eEseVyGYE0xld5cMcx4Y*S,yzrA~"
-report_stats: true
-macaroon_secret_key: "v1WRznXbpNdnEcg~if+2tWEy;fDdfof_n&~Sh8WTH9P*9=,N;~"
-form_secret: "fD8&Dwy4aiiGUruk2pd8IwCp:S0zIV=rM_B&_0JP;WK0@ubDqa"
-signing_key_path: "/data/my.matrix.host.signing.key"
-tls_certificate_path: "/data/certs/cert.pem"
-tls_private_key_path: "data/certs/key.pem"
-federation_verify_certificates: false
-trusted_key_servers:
-  - server_name: "matrix.org"
-    accept_keys_insecurely: true
-    enable_registration_without_verification: true
-enable_registration: true
-registration_requires_token: true
-password_config:
-   enabled: true
-   localdb_enabled: true
-   pepper: "EVEN_MORE_SECRET"
-
-   policy:
-      enabled: true
-      minimum_length: 4
-      require_digit: true
-      require_symbol: false
-      require_lowercase: true
-      require_uppercase: true
-
-user_directory:
-  enabled: true
-  search_all_users: true
-    \end{lstlisting}
 \end{document}
 
 
