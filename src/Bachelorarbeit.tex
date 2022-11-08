@@ -144,14 +144,14 @@
 
     \section{Aufbau der Arbeit}\label{sec:aufbau-der-arbeit}
     Die Arbeit
-    Zu Beginn wird der theoretische Hintergrun über die in der App gen
+    Zu Beginn wird der theoretische Hintergrund über die in der App gen
     Es werden die für die Implementierung genutzten Technologien vorgestellt und erklärt wie diese
 
     \newpage
     \chapter{Theoretische Grundlagen}\label{ch:theoretische-grundlagen}
     In diesem Kapitel werden zunächst die theoretischen Grundlagen, welche die Implementierung der Plattform beeinflusst haben, vorgestellt.
     Anschließend wird das Matrix Protokoll genauer betrachtet und das Grundprinzip erklärt.
-    Desweiteren werden die in der End-to-End Verschlüsselung genutzten keys erläutert und genauer auf die verschiedenen Verschlüsselungsalgorithmen eingegangen.
+    Des weiteren werden die in der End-to-End Verschlüsselung genutzten keys erläutert und genauer auf die verschiedenen Verschlüsselungsalgorithmen eingegangen.
 
     \section{Datenschutz im Gesundheitswesen}\label{sec:datenschutz-im-gesundheitswesen}
     Die Rechtlichen Rahmenbedingungen für das Speicher und Verarbeiten medizinischer Daten sind in der EU-Datenschutz-Grundverordnung\footnote{https://dsgvo-gesetz.de/} (DSGVO) festgelegt.
@@ -312,7 +312,7 @@
     \end{figure}
 
     Durch diesen Aufbau haben View und Model klar definierte Schnittstellen, welche vom Presenter miteinander verbunden werden.
-    Im Vergleich zur Model-View-Controller Architektur erhält man somit eine noch deutlichere Trennung der einzelnen Komponenten.~\cite{mvp2}
+    Im Vergleich zur Model-View-Controller Architektur erhält man somit eine noch deutlichere Trennung der einzelnen Komponenten~\cite{mvp2}.
 
     \subsection{Model-View-ViewModel}\label{subsec:model-view-viewmodel}
     Die Model-View-ViewModel Architektur ist ebenfalls eine weiterentwicklung der Model-View-Controller Architektur.
@@ -325,24 +325,38 @@
         \label{fig:mvvm}
     \end{figure}
 
-
-    bdfsal;fas dfas
-
+    \cite{Anderson2012}
+    \cite{Hoefling2022}
 
     \chapter{Verwendete Technologien}\label{ch:verwendete-technologien}
     In diesem Kapitel werden die für die Implementierung der Plattform verwendeten Technologien vorgestellt.
-
+    Es wird auf deren Funktionsweise eingegangen und ihre Verwendung in der Entwicklung der Plattform erklärt.
 
 
     \section{XCode}\label{sec:xcode}
-
+    XCode\footnote{https://developer.apple.com/xcode/} ist eine von Apple bereitgestellte Entwicklungsumgebung für die Entwicklung von Anwendungen für Apple Betriebssysteme, darunter iOS.
+    Sie ist für die Programmierung in Swift und Objective-C vorgesehen~\cite{xcode}.
+    Sie stellt eine Reihe von Templates zur Verfügung die bei der Erstellung des Projektes helfen können.
+    Für die Entwicklung der Plattform wurde die aktuelle Version XCode 14 verwendet.
+    Diese kann aus dem Appstore heruntergeladen werden.
 
     \section{Simulator}\label{sec:simulator}
-
-
+    Der Simulator wird zusammen mit XCode installiert und ermöglicht das Simulieren und Testen der entwickelten App.
+    Er ist direkt in XCode integriert und erlaubt es das Programm über den debugger zu analysieren.
+    Darüber hinaus sendet er log-Messages zurück an XCode welche ebenfalls zum Überwachen der Anwendung genutzt werden können.
 
 
     \section{Swift}\label{sec:swift}
+    Swift\footnote{https://developer.apple.com/swift/}
+
+    \cite{Goodwill2015}
+
+    \section{SwiftUI}
+    SwiftUI\footnote{https://developer.apple.com/xcode/swiftui/} ist ein GUI-Toolkit zur
+
+    \cite{Cahill2021}
+    \cite{Varma2019}
+
 
     \newpage
     \section{Cocoapods}\label{sec:cocoapods}
@@ -380,7 +394,7 @@ end
     Die Matrix iOS SDK \footnote{https://github.com/matrix-org/matrix-ios-sdk} ist eine Open Source Library welche zur für die Entwicklung Matrix basierter Anwendungen für iOS Geräte gedacht ist.
     Sie fungiert als Schnittstelle zwischen Client Application und Matrix Server.
     Hierzu werden die in der Client-Server-API definierten Operationen bereitgestellt.
-    Um die Matrix SDK in ein Projekt einzubinden muss hierfür ein Eintrag im in Abschnitt \ref{sec:cocoapods} erläuterten Podfile angelegt und installiert werden.
+    Um die Matrix SDK in ein Projekt einzubinden muss hierfür ein Eintrag im in Abschnitt~\ref{sec:cocoapods} erläuterten Podfile angelegt und installiert werden.
     ~\cite{matrixiossdk}
     \begin{lstlisting}[language={},label={lst:matrtix-sdk}]
         pod 'SwiftMatrixSDK'
@@ -390,6 +404,12 @@ end
         import MatrixSDK
     \end{lstlisting}
 
+    \section{Synapse}\label{sec:synapse}
+    Synapse\footnote{https://github.com/matrix-org/synapse/} ist eine von der Matrix.org Foundation bereitgestellte Open Source Implementation eines Homeservers.
+    Sie folgt den im Matrix Protokoll festgelegten REST-APIs.
+    Die Entwicklung begann 2014 und kann seit 2019 im Produktivbetrieb genutzt werden.
+    Der Homeserver ist in Python geschrieben und kann somit auf jedem beliebigen Host betrieben werden, es wird jedoch empfohlen einen von Matrix.org bereitgestellten Dockercontainer zu verenden.
+
     \section{Docker}\label{sec:docker}
     Docker ist eine Containervirtualisierungssoftware welche es ermöglicht Anwendung vom Rest des Systems zu isolieren.
     Auch wenn sie nach außen wie eine virtuelle Maschine wirkt, bietet sie entscheidende Vorteile.
@@ -398,10 +418,10 @@ end
     Dies sorgt für erhebliche Einbußen in der Performance.
     Docker Container sind in der Lage in wenigen Sekunden zu starten.
     Sie laufen direkt auf dem Betriebssystem des Hypervisors sind aber dennoch isoliert vom Rest des Systems.
-    Dies geschieht mithilfe zweier Linux Kernel Technologien, namespaces und cgroups.
-    ~\cite{docker}
+    Dies geschieht mithilfe zweier Linux Kernel Technologien, namespaces und cgroups~\cite{docker}.
+    Docker arbeitet mit Container und Images wobei ein Image eine Reihe von Befehlen darstellt um eine gewünschte Umgebung zu erschaffen.
+    Ein Container ist eine laufende Instanz eines Images.
 
-    \section{Synapse}\label{sec:synapse}
 
     \chapter{Konzept}\label{ch:konzept}
     In diesem Kapitel werden 2 verwandte Projekte analysiert und unter Betrachtung der Zielgruppe einige Anforderungen definiert die die App zu erfüllen hat.
@@ -475,9 +495,6 @@ end
         \item Die App wird Räume und Chat-Verläufe nicht local speichern und offline wiedergeben können.
         \item Die App wird keine Nachrichten entschlüsseln können, die zwischen anderen Gerät versendet wurden.
     \end{enumerate}
-
-
-    \section{Auswahl der Systemarchitektur}\label{sec:auswahl-der-systemarchitektur}
 
     \newpage
     \chapter{Implementierung}\label{ch:implementierung}
