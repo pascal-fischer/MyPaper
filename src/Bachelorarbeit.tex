@@ -150,13 +150,13 @@
     \newpage
     \chapter{Theoretische Grundlagen}\label{ch:theoretische-grundlagen}
     In diesem Kapitel werden zunächst die theoretischen Grundlagen, welche die Implementierung der Plattform beeinflusst haben, vorgestellt.
-    Anschließend wird das Matrix Protokoll genauer betrachtet und das Grundprinzip erklärt.
-    Des weiteren werden die in der End-to-End Verschlüsselung genutzten keys erläutert und genauer auf die verschiedenen Verschlüsselungsalgorithmen eingegangen.
+    Anschließend wird das Matrix Protokoll vorgestellt und seine grundlegenden Prinzipien und Funktionsweise eingegangen..
+    Außerdem werden die zur Verschlüsselung genutzten Algorithmen erklärt.
 
     \section{Datenschutz im Gesundheitswesen}\label{sec:datenschutz-im-gesundheitswesen}
     Die Rechtlichen Rahmenbedingungen für das Speicher und Verarbeiten medizinischer Daten sind in der EU-Datenschutz-Grundverordnung\footnote{https://dsgvo-gesetz.de/} (DSGVO) festgelegt.
     Diese fordert ebenfalls zur Einhaltung des IT-Sicherheitsgesetzes und des E-Health-Gesetzes auf.
-    Medizinische Daten werden vom Gesetzgeber als besondere Arten personenbezogener Daten eingeordnet, da sie besonders sensible Informationen enthalten~\cite{datenschutzimgesundeitswesen}.
+    Medizinische Daten werden vom Gesetzgeber im besonderem Maße geschützt, da sie besonders sensible Informationen enthalten~\cite{datenschutzimgesundeitswesen}.
 
     \textit{Das am 29. Dezember 2015 in Kraft getretene "Gesetz für sichere digitale Kommunikation und Anwendungen im Gesundheitswesen (E-Health-Gesetz)" hat die ersten Weichen für den Aufbau der sicheren Telematikinfrastruktur (TI) und die Einführung medizinischer digitaler Anwendungen gestellt.
     Ziel dieses Gesetzes war es, die Chancen der Digitalisierung für die Gesundheitsversorgung zu nutzen und eine schnelle Einführung medizinischer Anwendungen für die Patientinnen und Patienten zu ermöglichen.}~\cite{ehealthgesetz}
@@ -453,7 +453,7 @@ end
     \chapter{Konzept}\label{ch:konzept}
     In diesem Kapitel werden 2 verwandte Projekte analysiert und unter Betrachtung der Zielgruppe einige Anforderungen definiert die die App zu erfüllen hat.
 
-    \section{Analyse ähnlicher Projekte}\label{sec:analyse-ahnlicher-projekte}
+    \section{Ähnlicher Projekte}\label{sec:analyse-ahnlicher-projekte}
 
     \subsection{TI-Messenger}\label{subsec:ti-messenger}
 
@@ -473,14 +473,14 @@ end
 
     \newpage
     \section{Anforderungen}\label{sec:anforderungen}
-    Nach der Analyse ähnlicher Projekte wurden eine Liste funktionaler Anforderungen erstellt.
+    Nach der Analyse ähnlicher Projekte wurden eine Liste funktionaler Anforderungen erstellt die von der Plattform erfüllt werden müssen.
     Diese wurden nach der MoSCoW-Methode priorisiert.\\
 
     \textbf{Must}:
     \begin{enumerate}[label={\roman*.}, leftmargin=2.5cm]
         \item Der User muss über die App einen Account auf der Plattform anlegen können.
         \item Der User muss sich mit seinem Account in der App einloggen können.
-        \item Der User muss sein Passwort zu ändern können.
+        \item Der User muss sein Passwort ändern können.
         \item Dem User muss alle von beigetretenen Räume sehen können.
         \item Dem User muss neue Räume erstellen können.
         \item Der User muss zu neuen Räumen eingeladen werden können.
@@ -520,22 +520,28 @@ end
     \textbf{Won't}:
     \begin{enumerate}[label={\roman*.}, leftmargin=2.5cm]
         \item Die App wird Räume und Chat-Verläufe nicht local speichern und offline wiedergeben können.
-        \item Die App wird keine Nachrichten entschlüsseln können, die zwischen anderen Gerät versendet wurden.
+        \item Die App wird keine Nachrichten entschlüsseln können, die mit einem anderen Gerät versendet wurden.
     \end{enumerate}
 
     \newpage
     \chapter{Implementierung}\label{ch:implementierung}
-    Dieses Kapitel beschreibt die 3
+    Dieses Kapitel beschreibt die Vorgehensweise bei der Implementierung der Plattform und die Funktionsweise der einzelnen Elemente.
+    Die Plattform selbst besteht aus 2 Teilen.
+
+    die Kommunikation zischen
 
 
 
-    \section{App}
-    Der erste Schritt in der Entwicklung der App ist das Design des User Interfaces.
-    Hierzu wurden mehrere Views definiert
-    Dieses besteht aus mehreren einzelner Views welche welche sich zu verschiedenen Gruppen zusammenführen lassen.
+    \section{App}\label{sec:app}
+    Bei der Entwicklung der App wurde in 2 Etappen vorgegangen.
+    Zuerst wurden basierend auf den in Abschnitt~\ref{sec:anforderungen} definierten Anforderungen mittels SwiftUI die benötigten Views erstellt.
+    Hierbei musste darauf geachtet werden, dass die Elemente im Userinterface in ihrer Größe und Anordnung dynamisch blieben um sowohl auf kleineren Geräten wie dem iPhone 13 mini aber auch auf größeren Geräten wie dem Iphone 14 Pro Max bedienbar zu sein.
+    Anschließend wurden die zugehörigen ViewModel angelegt und mit dem Elementen aus den Views verknüpft.
+    Eine besondere Herausforderung hierbei war es, dass sich die grafischen Elemente bei eintreffen neuer Events ordnungsgemäß aktualisiert haben.
+
 
     \newpage
-    \subsection{Login und Account Erstellung}
+    \subsection{Login und Account Erstellung}\label{subsec:login-und-account-erstellung}
 
     Wenn die App das erste Mal gestartet wird gelangt man zuerst in die in Abbildung~\ref{fig:selecthomeserverview} zu sehende \texttt{SelectHomeserverView}.
     Diese View dient dazu sich mit dem Homeserver verbinden zu können.
@@ -583,7 +589,7 @@ end
     Die Information über \texttt{home\_server}, \texttt{user\_id} und \texttt{device\_id} werden in den \texttt{UserDefaults} der App gespeichert.
     Da der \texttt{access\_token} den Zugriff auf Benutzerkonto des Users ermöglicht, wird dieser mittels eines \texttt{KeychainHelper}\footnote{https://gist.github.com/LeeKahSeng/2452e90a57a5324de367907a36d88a49} in der iCloud Keychain gespeichert.
     Falls die Zugangsdaten nicht korrekt sind wird dem User erneut eine Fehlermeldung gezeigt.
-    Anschließend wird die Matrix Session gestartet (dazu mehr in Abschnitt~\ref{sec:start-der-matrix-session}).
+    Anschließend wird mit diesen Information eine Matrix Session gestartet welche vollen Zugriff auf die Nutzerdaten
     War das starten der Session erfolgreich gelangt der User in die \texttt{RoomsView}.\\
 
     Für Den Fall das der User noch keinen Account besitzt kann über den Button "Create Account" der \texttt{LoginView} zur \texttt{CreateAccountView} gelangen welche in Abbildung~\ref{fig:createaccountview} dargestellt ist.
@@ -733,7 +739,7 @@ end
     Die Lazy-Loading-Methode erlaubt hierbei eine angemessene Performance beim öffnen des Chats.
     Eine besondere Herausforderung ist die Position der scrollbaren Liste.
     Beim öffnen der View muss an das Ende der Liste gesprungen werden, da sich dort die neusten Nachrichten befinden.
-    Falls eine neue Nachricht eintrifft während die View geöffnet ist springt die Liste ebenfalls an das Ende um dem USer die neuste Nachricht anzuzeigen.
+    Falls eine neue Nachricht eintrifft während die View geöffnet ist springt die Liste ebenfalls an das Ende um dem Nutzer die neuste Nachricht anzuzeigen.
     Beim Laden älterer Nachrichten soll jedoch nicht zum Ende gesprungen werden.
     Über die drei Punkte in der oberen rechten Ecke der Ansicht öffnet sich ein Drop-Down-Menu über welches ein Raum verlassen werden kann oder sich eine Übersicht über den aktuellen Raum öffnet, wo Titel, Beschreibung und Bild des Raumes geändert werden können.
     Darüber hinaus zeigt sie einige Informationen über den Raum an wie die Anzahl an Teilnehmern, den Ersteller des Raumes und ob die Verschlüsselung aktiv ist.
@@ -771,12 +777,12 @@ end
 %    \subsection{Start der Matrix Session}\label{sec:start-der-matrix-session}
 
     \subsection{Verschlüsselung der Nachrichten}\label{subsec:verschlusselung-der-nachrichten}
-    Der erste Schritt um eine Verschlüsselung der Nachrichten zu erreichen ist es beim Start der Matrix Session End-to-End Verschlüsselung zu aktivieren.
+    Der erste Schritt um eine Verschlüsselung der Nachrichten zu erreichen ist es beim Start der Matrix Session die End-to-End Verschlüsselung zu aktivieren.
     Dies geschieht durch die von der SDK bereitgestellte funktion \texttt{enableCrypto}.
-    Hierdurch erstellt die SDK die in Abschnitt~\ref{subsec:verwendete-schlussel} aufgelisteten Keys und synchronisiert diese mit dem Homeserver.
+    Hierdurch erstellt die SDK die in Abschnitt~\ref{subsec:verwendete-schlussel} aufgelisteten Schlüssel und synchronisiert diese mit dem Homeserver.
     Außerdem
 
-    Um zu bestätigen das die
+    Um zu bestätigen das die Kommunikation zwischen
 
     \subsection{Benachrichtigungen}\label{subsec:benachrichtigungen}
 
@@ -870,7 +876,8 @@ registration_requires_token: true
 
 
     \chapter{Fazit}\label{ch:fazit}
-    Die Plattform bietet alle
+    Die Plattform erfüllt die grundlegenden Anforderungen welche man an eine Messanger-App hat.
+    Sie erlaubt es dem Benutzer einen Account anzulegen verhindert dabei aber gleichzeitig eine Überschwemmung der Plattform mit Accounts durch unkontrolliertes
     Zwar wurde während der Implementierung darauf geachtet, dass jegliche Daten zwischen Arzt und Patient verschlüsselt und vor unbefugtem Zugriff geschützt sind, jedoch müsste die genaue Rechtslage zum Einsatz der Plattform genauer untersucht werden.
     Das Userinterface der App erfüllt zwar die gesetzten Ansprüche jedoch lässt das Design noch deutlich Platz für Verbesserungen.
     Alle im Kapitel~\ref{sec:anforderungen} als 'Must' definierten Funktionen sind implementiert.
@@ -879,12 +886,14 @@ registration_requires_token: true
     \chapter{Ausblick}\label{ch:ausblick}
     Der nächste Schritt in der Entwicklung der Plattform sollte es sein die Cross-Signing-Funktion der End-to-End Verschlüsslung zu unterstützen.
     Hierzu muss ein geeignetes Key-Management-System implementiert werden welches es ermöglicht ein Gerät von einem anderen zu verifizieren und die Private Keys die zur Verschlüsselung der Nachrichten verwendet wurden zwischen den Geräten zu synchronisieren.
-    Dies würde die parallele Nutzung des gleichen Accounts auf mehreren Geräten ermöglichen.
     Darüber hinaus sollte eine Prozess implementiert werden der es ermöglicht auch ohne Zugriff auf eines der anderen Geräte die verwendeten Schlüssel wiederherzustellen.
-    Somit könnte beispielsweise bei Verlust oder bei Beschädigung des Gerätes trotzdem noch auf bestehende Chat-Verläufe zugegriffen werden.\\
-
+    Somit könnte beispielsweise bei Verlust oder bei Beschädigung des Gerätes trotzdem noch auf bestehende Chat-Verläufe zugegriffen werden.
+    Mittels des Recovery Services des Crypto Moduls kann ein Backup der Session Keys auf der Server angelegt werden, welches über einen Recovery Key oder eine Passphrase geschützt werden kann.
+    Von diesem Backup können dann bei Bedarf alle gespeicherten Keys wiederhergestellt werden.
+    Die Dokumentation hierfür ist noch in der Erstellung~\cite{advancede2e} was die Implementation zum aktuellen Zeitpunkt deutlich erschwert.\\
     Des weiteren kann die Plattform um zusätzliche Nachrichtentypen erweitert werden.
     Es könnte beispielsweise das Aufnehmen und versenden von Audiodateien hinzugefügt werden.
+    Außerdem kann der Datei-Message-Typ um weiter Dateitypen erweitert werden.
 
 %    Außerdem könnte ein zusätzlicher Layer implementiert werden, welcher es ermöglicht Informationen über beigetretene Räume und deren jeweilige Konversationen geschützt auf dem Gerät zu speichern.
 %    Somit hat der User auch ohne bestehende Verbindung zum Internet, Zugriff auf seine Konversationen und mögliche geteilter Daten.
