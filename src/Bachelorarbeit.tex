@@ -200,6 +200,10 @@
 %\end{figure}
 
     \subsection{Events}\label{sec:events}
+    Jeglicher Datenaustausch im Matrix Protokoll wird als Event bezeichnet.
+    Dies können
+
+
     Im Matrix Protokoll werden alle Ereignisse (Events) in einer einzigen großen Kette (Timeline) gespeichert. Diese Events können in zwei Kategorien unterteilt werden. Zum einen gibt es State Events, welche Ereginsse wie die Erzeugung eines Raumes oder das Beitreten eines Users zu einem Raum beschreiben.
     Zum anderen gibt es Message Events welche realen Datenaustausch zwischen Usern beschreiben. Dies können beispielsweise Textnachrichten, Fotos oder Videos sein. Jedes Event enthält unter anderem folgende Attribute:
     \begin{description}[leftmargin=!,labelwidth=3.5cm]
@@ -230,25 +234,48 @@
 
 
     \subsection{Devices}
+    Ein Device im Matrix Protokoll beschreibt weniger ein reales Gerät wie ein Computer oder Smartphone sondern viel mehr eine Instanz eines Matrixclients auf einem Gerät.
+    So können beispielsweise mehrere Anwendungen auf einem Gerät installiert sein und jedes wäre sein eigenes Device.
+    Jedes Device bekommt seine eigene \texttt{device\_id} zugewiesen.
+    Dabei ist zu beachten, dass falls sich ein User von einer Anwendung abmeldet und sich auch dem selben Gerät bei der selben Anwendung erneut anmeldet nicht die gleiche \texttt{device\_id} zugewiesen bekommt.
+    Je nach Client wird eine somit unterschiedlich häufig die \texttt{device\_id} gewechselt.
+    In Webanwendungen wird bei jedem Anmelden ein neue \texttt{device\_id} angelegt wohingegen bei Client auf Mobilgeräten oder Computern die gleiche \texttt{device\_id}
+    Devices finden hauptsächlich Anwendung
+
+    \newpage
+    \subsection{End-to-End-Encryption}\label{subsec:verwendete-schlussel}
+    Zur Verschlüsselung von Nachrichten werden der Olm und der Megolm Algorithmus verwendet.\\
+
+    Der Olm Algorithmus ist ein Double-Ratchet-Algorithmus.
+    Er wird dafür genutzt verschlüsselte Nachrichten zwischen 2 Parteien auszutauschen, wobei mit jeder Nachricht ein neuer Key zur Verschlüsselung abgeleitet wird.
+    Dies geschieht durch verkettung einer Key Derivation Function (KDF)~\cite{perrin2016double}.
+    Für die Erstellung des Wurzelknotens werden 4 Keys benötigt.
+    Man benötigt die Identity Keys beider Teilnehmer($I_A$ und $I_B$) und jeweils einen Curve25519 one-time key ($E_A$ und $E_B$).
+    Mithilfe des Diffie-Hellman-Verfahrens wird ein gemeinsamer geheimer Schlüssel S erzeugt.
+    Zur Berechnung dieses Schlüssels wird die Elliptic Curve Diffie-Hellman (ECDH) angewendet.
+    \begin{displaymath}
+        S = ECDH(I_A,E_B)\parallel ECDH(E_A,I_B) \parallel ECDH(E_A,E_B)
+    \end{displaymath}
+    Aus diesem geheimen Schlüssel lassen sich dann mittels HKDF-SHA-256 der Chain-Key $C_{0,0}$ und der Root Key $R_0$ ableiten.
+    \begin{displaymath}
+        R_0 \parallel C_{0,0} = HKDF(0,S,"OLM\_ROOT",64)
+    \end{displaymath}
+    Mit diesen Keys können anschließend alle fortlaufenden Keys berechnet werden~\cite{olm}.\\
+
+    Der Megolm Algorithums wird zur Verschlüsslung von Gruppen-Chats verwendet.
+    Es ist ein auf dem Advanced Encryption Standard (AES) basierender Ratchet-Algorithmus~\cite{megolm}.
+
+    Zusammengefasst werden folgende Schlüssel für die End-to-End-Verschlüsselung im Matrix Protokoll benötigt:
+    \begin{description}[leftmargin=!,labelwidth=3cm]
+        \item [Ed25519 fingerprint key pair] wird benutzt um ein Gerät zu identifizieren. Jedes Device besitzt seinen eigenen Ed25519 Schlüssel.
+        \item [Curve25519 identity key pair] wird genutzt um den gemeinsamen geheimen Schlüssel zu erstellen.
+        \item [Curve25519 one-time keys] ein Set von einmal verwendbarer Keys um Aufbau einer Olm Sitzung.
+        \item [Megolm encryption keys] wird benutzt um Nachrichten in Gruppen-Chats zu verschlüsseln.
+        \item [Ed25519 Megolm signing key pair] Schlüssel zum Signieren von Nachrichten in Gruppen-Chats, dient der Authentifizierung des Absenders.
+    \end{description}
+    ~\cite{matrix-end-to-end-encryption}
 
 
-    \subsection{Verwendete Schlüssel}\label{subsec:verwendete-schlussel}
-    text
-
-
-    \section{Verschlüsselung}\label{sec:verschlusselung}
-
-    \subsection{Ed25519}\label{subsec:ed25519}
-    text
-
-    \subsection{Curve25519}\label{subsec:curve25519}
-    text
-
-    \subsection{AES-256}\label{subsec:aes-256}
-    text
-
-    \subsection{HMAC-SHA-256}\label{subsec:hmac-sha-256}
-    text
 
     \section{REST-API}\label{sec:rest}
 
@@ -326,7 +353,7 @@
     \end{figure}
 
     \cite{Anderson2012}
-    \cite{Hoefling2022}
+%    \cite{Hoefling2022}
 
     \chapter{Verwendete Technologien}\label{ch:verwendete-technologien}
     In diesem Kapitel werden die für die Implementierung der Plattform verwendeten Technologien vorgestellt.
@@ -457,8 +484,8 @@ end
         \item Dem User muss alle von beigetretenen Räume sehen können.
         \item Dem User muss neue Räume erstellen können.
         \item Der User muss zu neuen Räumen eingeladen werden können.
-        \item Der User muss alle Nachrichten die in einem Raum gesendet wurden einzusehen können.
-        \item Der User muss Nachrichten in einem Raum zu senden können.
+        \item Der User muss alle Nachrichten die in einem Raum gesendet wurden einsehen können.
+        \item Der User muss Nachrichten in einem Raum senden können.
         \item Nachrichten zwischen Usern müssen End-to-End Verschlüsselt sein.
         \item Der User muss einen Raum verlassen können.
         \item Der User muss seinen Account deaktivieren können.
@@ -713,6 +740,7 @@ end
 
     \newpage
     \subsection{Profile}\label{subsec:profile}
+    Die \texttt{ProfileView} dient dazu
 
     \begin{figure}[h]
         \includegraphics[scale=0.5]{profile}
@@ -740,13 +768,19 @@ end
         \caption{Account löschen Flow}\label{fig:figure}
     \end{figure}
 
-    \subsection{Start der Matrix Session}\label{sec:start-der-matrix-session}
+%    \subsection{Start der Matrix Session}\label{sec:start-der-matrix-session}
 
     \subsection{Verschlüsselung der Nachrichten}\label{subsec:verschlusselung-der-nachrichten}
+    Der erste Schritt um eine Verschlüsselung der Nachrichten zu erreichen ist es beim Start der Matrix Session End-to-End Verschlüsselung zu aktivieren.
+    Dies geschieht durch die von der SDK bereitgestellte funktion \texttt{enableCrypto}.
+    Hierdurch erstellt die SDK die in Abschnitt~\ref{subsec:verwendete-schlussel} aufgelisteten Keys und synchronisiert diese mit dem Homeserver.
+    Außerdem
+
+    Um zu bestätigen das die
 
     \subsection{Benachrichtigungen}\label{subsec:benachrichtigungen}
 
-    \newpage
+
     \newpage
     \section{Homeserver}\label{sec:homeserver}
     Der Homeserver bildet die unterliegende Infrastruktur der Plattform.
@@ -822,7 +856,7 @@ registration_requires_token: true
     \end{enumerate}
     Ein Beispiel für die Konfiguration des Homeservers kann dem Anhang entnommen werden.
 
-    Nachdem alle Konfigurationen getätigt urden kann der Homeserver gestartet werden.
+    Nachdem alle Konfigurationen getätigt wurden kann der Homeserver gestartet werden.
     Es ist darauf zu achten, dass alle benötigten Ports des Containers auf dem Host gemapped werden.
 
     \begin{lstlisting}[language=bash,label={lst:synapse-start}]
@@ -832,21 +866,31 @@ registration_requires_token: true
     Nun ist der Homeserver einsatzbereit und Client können eine Verbindung aufnehmen.
 
     \newpage
-    \chapter{Evaluation}
+    \chapter{Evaluation}\label{ch:evaluation}
+
+
     \chapter{Fazit}\label{ch:fazit}
+    Die Plattform bietet alle
     Zwar wurde während der Implementierung darauf geachtet, dass jegliche Daten zwischen Arzt und Patient verschlüsselt und vor unbefugtem Zugriff geschützt sind, jedoch müsste die genaue Rechtslage zum Einsatz der Plattform genauer untersucht werden.
     Das Userinterface der App erfüllt zwar die gesetzten Ansprüche jedoch lässt das Design noch deutlich Platz für Verbesserungen.
     Alle im Kapitel~\ref{sec:anforderungen} als 'Must' definierten Funktionen sind implementiert.
     Ebenfalls wurden alle Anforderungen aus der
 
     \chapter{Ausblick}\label{ch:ausblick}
-    Der nächste Schritt in der Entwicklung der Plattform sollte es sein ein geeignetes Key-Management-System zu implementieren um es zu ermöglichen den selber Account auf mehreren Geräten nutzen zu können.
+    Der nächste Schritt in der Entwicklung der Plattform sollte es sein die Cross-Signing-Funktion der End-to-End Verschlüsslung zu unterstützen.
+    Hierzu muss ein geeignetes Key-Management-System implementiert werden welches es ermöglicht ein Gerät von einem anderen zu verifizieren und die Private Keys die zur Verschlüsselung der Nachrichten verwendet wurden zwischen den Geräten zu synchronisieren.
+    Dies würde die parallele Nutzung des gleichen Accounts auf mehreren Geräten ermöglichen.
+    Darüber hinaus sollte eine Prozess implementiert werden der es ermöglicht auch ohne Zugriff auf eines der anderen Geräte die verwendeten Schlüssel wiederherzustellen.
+    Somit könnte beispielsweise bei Verlust oder bei Beschädigung des Gerätes trotzdem noch auf bestehende Chat-Verläufe zugegriffen werden.\\
 
-    Außerdem könnte ein zusätzlicher Layer implementiert werden, welcher es ermöglicht Informationen über beigetretene Räume und deren jeweilige Konversationen geschützt auf dem Gerät zu speichern.
-    Somit hat der User auch ohne bestehende Verbindung zum Internet, Zugriff auf seine Konversationen und mögliche geteilter Daten.
-    Ferner sollten zusätzliche Dateitypen für Nachrichten unterstützt werden um es
+    Des weiteren kann die Plattform um zusätzliche Nachrichtentypen erweitert werden.
+    Es könnte beispielsweise das Aufnehmen und versenden von Audiodateien hinzugefügt werden.
 
-    Des weiteren könnte untersucht werden ob der Synapse Server in der LAge ist den Registrierungstoken über einen SMTP Server direkt an den User zu schicken nach vorheriger angabe einer emailadresse.
+%    Außerdem könnte ein zusätzlicher Layer implementiert werden, welcher es ermöglicht Informationen über beigetretene Räume und deren jeweilige Konversationen geschützt auf dem Gerät zu speichern.
+%    Somit hat der User auch ohne bestehende Verbindung zum Internet, Zugriff auf seine Konversationen und mögliche geteilter Daten.
+%    Ferner sollten zusätzliche Dateitypen für Nachrichten unterstützt werden um es
+%
+%    Des weiteren könnte untersucht werden ob der Synapse Server in der LAge ist den Registrierungstoken über einen SMTP Server direkt an den User zu schicken nach vorheriger angabe einer emailadresse.
 
 %\include{source/content/Test}
 
