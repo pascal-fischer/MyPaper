@@ -129,6 +129,7 @@
     Mit voranschreiten der Digitalisierung
     Im Zuge der Coronapandemie im Jahre 2019 wurden nicht nur die Rufe nach
 
+    \newpage
     \section{Zielsetzung}\label{sec:zielsetzung}
     Ziel dieser Arbeit ist es eine Plattform zu entwickeln welchen es Ärzten und Patienten ermöglicht in Kontakt zu treten und Nachrichten auszutauschen.
     Hierfür soll eine Chat-App auf basis des Matrix.org-Protokolls implementiert werden.
@@ -143,9 +144,14 @@
 %    So sollte beispielsweise darauf geachtet werden, dass
 
     \section{Aufbau der Arbeit}\label{sec:aufbau-der-arbeit}
-    Die Arbeit
-    Zu Beginn wird der theoretische Hintergrund über die in der App gen
-    Es werden die für die Implementierung genutzten Technologien vorgestellt und erklärt wie diese
+    Zuerst werden die gesetzlichen Ansprüche an eine Messaging-Plattform im medizinischen Bereich beleuchtet.
+    Anschließend wird das Matrix Protokoll vorgestellt und seine allgemeine Funktionsweise beschrieben.
+    Außerdem werden die zur Verschlüsselung verendeten Algorithmen erklÄrt und die dafür verwendeten Schlüssel aufgezeigt.
+    Es werden die zur Implementierung der Plattform genutzten Technologien vorgestellt und deren Verwendung beschrieben.
+    Danach werden einige ähnlicher Projekte vorgestellt und analysiert.
+    Basierend auf dieser Analyse werden eine eine Reihe von technischen Anforderungen definiert welche von der implementierten Plattform erfüllt werden sollen.
+    Anschließend wird die implementierte Plattform vorgestellt und deren Funktionsweise erklärt.
+    Abschließend wird Plattform unter betrachtung der definierten Anforderungen evaluiert.
 
     \newpage
     \chapter{Theoretische Grundlagen}\label{ch:theoretische-grundlagen}
@@ -162,6 +168,41 @@
     Ziel dieses Gesetzes war es, die Chancen der Digitalisierung für die Gesundheitsversorgung zu nutzen und eine schnelle Einführung medizinischer Anwendungen für die Patientinnen und Patienten zu ermöglichen.}~\cite{ehealthgesetz}
 
     Ein Teil der Telematikinfrastruktur ist der TI-Messenger der Gematik GmbH welcher im Abschnitt~\ref{subsec:ti-messenger} genauer betrachtet wird.
+    Am 07.11.2019 hat dann die Konferenz der unabhängigen Datenschutzaufsichtsbehörden des Bundes und der Länder ein Whitepaper veröffentlicht welche die "Technischen Datenschutzanforderungen an Messenger-Dienste im Krankenhausbereich" aus Sicht der DSGVO offenlegt.
+    Einige dieser Anforderungen sind:
+    \begin{enumerate}[label={(\arabic*)}]
+        \item Die Applikation muss über die Möglichkeit verfügen, die Nutzung bzw. den Zugriff
+    auf die darüber gespeicherten Daten an eine eigene vorherige Authentifizierung (z.B.
+    PIN, Fingerabdruck etc.) zu knüpfen
+        \item Die Applikation muss über die Möglichkeit verfügen, Kontaktdaten von
+    Kommunikationsteilnehmern in einem eigenen, vom allgemeinen Adressbuch des
+    Smartphones getrennten Speicher abzulegen.
+        \item Sie muss weiterhin über die Möglichkeit verfügen,
+    Nachrichten sowie Dateianhänge wie Bilder, Videos, Dokumente etc. ausschließlich
+    in einem eigenen, von den allgemeinen Speicherbereichen des Smartphones
+    getrennten Speicher in verschlüsselter Form abzulegen
+        \item Eine Kommunikation über die Messenger-Applikation sollte nur auf
+    der Grundlage einer verlässlichen Identifizierung und Authentifizierung der
+    Kommunikationspartner möglich sein
+        \item Werden elektronische Signaturen oder andere elektronischer Zertifikate genutzt,
+    muss ein Zertifikatsmanagement vorhanden sein. Dies beinhaltet die Sicherstellung,
+    dass elektronische Schlüssel oder Zertifikate eindeutig einer juristischen oder
+    natürlichen Person zugeordnet werden, aber auch die Überprüfung der Gültigkeit der
+    elektronischen Schlüssel bzw. Zertifikate. Insbesondere müssen kompromittierte
+    Schlüsseln bzw. Zertifikate bzw. unbrauchbar gemacht werden können
+        \item Die Applikation muss über die Möglichkeit verfügen, die über sie verwalteten Daten
+    gezielt oder allgemein zu löschen.
+        \item Soweit die Speicherung unter Einhaltung von Art. 28 DS-GVO durch einen Dienstleister übernommen wird, welcher nicht die Anforderungen des Art. 9 Abs. 3 DS-GVO erfüllt,
+    muss die Möglichkeit bestehen, die Daten nach dem Stand der Technik vor ihrer
+    Übergabe derart zu verschlüsseln, dass eine Entschlüsselung nur mit einem
+    Schlüssel möglich ist, der nicht an den Dienstleister offenbart und separat gesichert
+    wird.
+        \item Die Vertraulichkeit und Integrität der über den Messenger-Dienst geführten
+    ärztlichen Kommunikation muss unter Berücksichtigung des Stands der Technik
+    über eine Ende-zu-Ende-Verschlüsselung zwischen den
+    Kommunikationsteilnehmern gewährleistet werden
+    \end{enumerate}
+
 
     \newpage
     \section{Matrix}\label{sec:matrix}
@@ -245,12 +286,13 @@
     \newpage
     \subsection{End-to-End-Encryption}\label{subsec:verwendete-schlussel}
     Zur Verschlüsselung von Nachrichten werden der Olm und der Megolm Algorithmus verwendet.\\
-
     Der Olm Algorithmus ist ein Double-Ratchet-Algorithmus.
     Er wird dafür genutzt verschlüsselte Nachrichten zwischen 2 Parteien auszutauschen, wobei mit jeder Nachricht ein neuer Key zur Verschlüsselung abgeleitet wird.
-    Dies geschieht durch verkettung einer Key Derivation Function (KDF)~\cite{perrin2016double}.
+    Dies geschieht durch verkettung einer Key Derivation Function (KDF).
+    Hierbei werden 3 Ketten geführt, die root chain, sending chain und receiving chain.
+    Die sending chain einer Partei gleicht der receiving chain der anderen Partei und andersrum~\cite{perrin2016double}.
     Für die Erstellung des Wurzelknotens werden 4 Keys benötigt.
-    Man benötigt die Identity Keys beider Teilnehmer($I_A$ und $I_B$) und jeweils einen Curve25519 one-time key ($E_A$ und $E_B$).
+    Man benötigt die Identity Keys beider Teilnehmer ($I_A$ und $I_B$) und jeweils einen Curve25519 one-time key ($E_A$ und $E_B$).
     Mithilfe des Diffie-Hellman-Verfahrens wird ein gemeinsamer geheimer Schlüssel S erzeugt.
     Zur Berechnung dieses Schlüssels wird die Elliptic Curve Diffie-Hellman (ECDH) angewendet.
     \begin{displaymath}
@@ -260,7 +302,15 @@
     \begin{displaymath}
         R_0 \parallel C_{0,0} = HKDF(0,S,"OLM\_ROOT",64)
     \end{displaymath}
-    Mit diesen Keys können anschließend alle fortlaufenden Keys berechnet werden~\cite{olm}.\\
+    Mit diesen Keys können anschließend alle fortlaufenden Keys berechnet werden~\cite{olm}.
+    Der berechnete Schlüssel der root chain wird als input der KDF für die sending bzw. receiving chain genutzt.
+    Der hierbei entstehende schlüssel ird zum Verschlüsseln der eigentlichen Nachricht genutzt.
+    Somit erfüllt der Olm Algorithmus folgende Eigenschaften:
+    \begin{description}[leftmargin=!,labelwidth=3cm]
+        \item [Resilience] wird benutzt um ein Gerät zu identifizieren. Jedes Device besitzt seinen eigenen Ed25519 Schlüssel.
+        \item [Forward security] wird genutzt um den gemeinsamen geheimen Schlüssel zu erstellen.
+        \item [Break-in recovery] ein Set von einmal verwendbarer Keys um Aufbau einer Olm Sitzung.
+    \end{description}
 
     Der Megolm Algorithums wird zur Verschlüsslung von Gruppen-Chats verwendet.
     Es ist ein auf dem Advanced Encryption Standard (AES) basierender Ratchet-Algorithmus~\cite{megolm}.
@@ -777,12 +827,20 @@ end
 %    \subsection{Start der Matrix Session}\label{sec:start-der-matrix-session}
 
     \subsection{Verschlüsselung der Nachrichten}\label{subsec:verschlusselung-der-nachrichten}
-    Der erste Schritt um eine Verschlüsselung der Nachrichten zu erreichen ist es beim Start der Matrix Session die End-to-End Verschlüsselung zu aktivieren.
-    Dies geschieht durch die von der SDK bereitgestellte funktion \texttt{enableCrypto}.
-    Hierdurch erstellt die SDK die in Abschnitt~\ref{subsec:verwendete-schlussel} aufgelisteten Schlüssel und synchronisiert diese mit dem Homeserver.
-    Außerdem
-
-    Um zu bestätigen das die Kommunikation zwischen
+    Zur Verschlüsselung der Nachrichten sind mehrere Schritte notending.
+    Zuerset muss die Verschlüsselung in der Sitzung aktiviert werden.
+    Dies geschieht durch starten und aktivieren des Crypto Modules der SDK.
+    Dabei werden die im Abschnitt~\ref{subsec:verwendete-schlussel} aufgeführten Schlüssel erstellt und mit dem Server synchronisiert.
+    Zusätzlich mus beim erstellen eines Raumes zuallererst ein encryption Event gesendet werden, welches die anderen Teilnehmer eines Raums darüber informiert, dass die Kommunikation in einem Raum verschlüsselt zu erfolgen hat.
+    Hierbei muss der für die Verschlüssleung der Nachricht verwendete Algorithmus angegeben werden.
+    Zur Zeit wird nur die \texttt{m.megolm.v1.aes-sha2} Verschlüsselung von der SDK unterstützt.
+    Falls nun eine Nachricht über die Sitzung an den erstellten Raum gesendet wird, wird diese beim senden automatisch von der SDK verschlüsselt.
+    Beim Empfangen von Nachrichten wird das Event ebenfalls automatisch entschlüsselt.
+    Bei Fotos, Videos und Datein ist zu beachten, dass das Event lediglich einen Pfad zum Ablageort der gesendeten Datei auf dem Server enthält.
+    Dieser Pfad muss nun übersetzt werden und anschließend heruntergeladen werden.
+    Da die Dateien nach dem herunterladen noch immer verschlüsselt sind müssen diese anschließend mit der von der SDK bereitgestellten Funktion \texttt{MXEncryptedAttachments.decryptAttachment()} separat entschlüsselt werden.
+    Anhand der Notwendigkeit des entschlüsselns der Dateien kann bestätigt werden, dass die Verschlüsslung aktiv ist.
+    Zusätzlich kann auf dem Homeserver unter \texttt{/data/media\_store} geprüfte werden, dass die Dateien verschlüsselt auf dem Server abgelegt werden.
 
     \subsection{Benachrichtigungen}\label{subsec:benachrichtigungen}
 
