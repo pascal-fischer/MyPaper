@@ -333,79 +333,79 @@
 
     \cite{dazer2012restful}
 
-    \newpage
-    \section{Anwendungsarchitektur}\label{sec:anwendungsarchitektur}
-    Wie im Bereich von Webapplications haben sich auch im Bereich von Mobile Apps über die Zeit bestimmte Anwendungsarchitekturen (Design Patterns) entwickelt.
-    Diese dienen als Muster um wiederkehrende Entwurfsprobleme zu lösen, indem man auf bewährte Praktiken zurückgreift.
-    Sie beschreiben die allgemeine Struktur der Anwendung und geben somit auch die Aufteilung des Quellcodes vor.
-    Die richtige Wahl der Anwendungsarchitektur kann einen entscheidenden Einfluss darauf nehmen wie effizient die Entwicklung des Projektes verläuft.
-    Darüber hinaus erleichtern sie die Arbeit im Team da sie ein einheitliches Vokabular bieten.
-    Im Folgenden werden 3 der bekanntesten Architekturen für Mobile Apps näher erläutert.
-
-    \newpage
-    \subsection{Model-View-Controller}\label{subsec:model-view-controller}
-    Die Model-View-Controller Architektur teilt eine Anwendung in 3 Bereiche auf welche in Abbildung~\ref{fig:mvc} dargestellt sind.
-
-    \begin{figure}[h]
-        \centering
-        \input{source/diagrams/mvc.tikz}
-        \caption{Interaktionen im Model-View-Controller}
-        \label{fig:mvc}
-    \end{figure}
-
-    Das \textbf{Model} repräsentiert die Struktur der Daten und hält Informationen über den aktuellen Zustand der Anwendung.
-    Außerdem ist es verantwortlich für die Kommunikation mit externen Datenquellen wie beispielsweise Datenbanken.
-    ~\cite{mvc}
-    Es liefert die Daten an die View weiter, ohne diese zu verändern.
-    Die Daten im Model sind somit unabhängig von ihrer Präsentation.
-    Deshalb ist es möglich mehrere Views an dasselbe Model, und somit dieselben Daten zu binden.
-    Hierbei sind jedoch die Präsentationen der Daten auf den einzelnen Views ebenfalls unabhängig voneinander.
-    Sollten sich die Daten im Model ändern werden die Views über diese Änderung informiert~\cite{https://doi.org/10.48550/arxiv.1408.5786}.
-
-    Die \textbf{View} stellt die optische Oberfläche der Anwendung dar.
-    Sie enthält alle grafischen Elemente wie Textfelder, Bilder oder anderer Elemente die zur Darstellung der Daten aus dem Model benötigt werden.
-    Zudem nimmt sie die Eingaben des Users entgegen und leitet diese an den Controller weiter~\cite{https://doi.org/10.48550/arxiv.1408.5786}.
-
-
-    Der \textbf{Controller} ist für die Steuerung der Anwendung zuständig.
-    Seine Aufgabe ist es je nach Eingabe des Benutzers das Model manipulieren.
-    Basierend auf der Eingabe des Benutzers ist er ebenfalls dafür zuständig die aktuelle View zu wechseln~\cite{https://doi.org/10.48550/arxiv.1408.5786}.
-
-
-    Im Model-View-Controller Pattern sind Programmlogik, Datenstruktur und die Präsentation der Daten derart getrennt, dass es möglich ist diese Unabhängig voneinander zu verändern, ohne damit Einfluss auf einen der anderen Bereiche zu nehmen.
-    Somit ist es möglich beispielsweise die Oberfläche eines Programmes zu überarbeiten, ohne sich dabei Gedanken über die darunter liegende Ausführungslogik zu machen~\cite{mvc}.
-
-    \subsection{Model-View-Presenter}\label{subsec:model-view-presenter}
-    Die Model-View-Presenter Architektur ist eine weiterentwicklung der Model-View-Controller Architektur und dieser somit sehr ähnlich.
-    Sie ist ebenfalls in 3 Bereiche geteilt, die View und das Model übernehmen die gleichen Funktionieren wie auch schon in der Model-View-Controller Architektur.
-    Entscheidender Unterschied hierbei ist jedoch, dass View und Controller nicht direkt miteinander verbunden sind.
-    Wie in Abbildung~\ref{fig:mvp} zu sehen werden Model und View über den Presenter verbunden.
-    Dieser ersetzt den Controller und fungiert als Schnittstelle beider Komponenten.
-    Die über die View eintreffenden Eingaben der Users werden vom Presenter verarbeitet und damit das jeweilige Model manipuliert.
-    Das daraus resultierende aktualisierte Model wird dann vom Presenter zurück an die View geschickt um diese zu aktualisieren~\cite{mvp1}.
-    \begin{figure}[h]
-        \centering
-        \input{source/diagrams/mvp.tikz}
-        \caption{Interaktionen im Model-View-Presenter}
-        \label{fig:mvp}
-    \end{figure}
-
-    Durch diesen Aufbau haben View und Model klar definierte Schnittstellen, welche vom Presenter miteinander verbunden werden.
-    Im Vergleich zur Model-View-Controller Architektur erhält man somit eine noch deutlichere Trennung der einzelnen Komponenten~\cite{mvp2}.
-
-    \subsection{Model-View-ViewModel}\label{subsec:model-view-viewmodel}
-    Die Model-View-ViewModel Architektur ist ebenfalls eine weiterentwicklung der Model-View-Controller Architektur.
-
-
-    \begin{figure}[h]
-        \centering
-        \input{source/diagrams/mvvm.tikz}
-        \caption{Interaktionen im Model-View-Presenter}
-        \label{fig:mvvm}
-    \end{figure}
-
-    \cite{Anderson2012}
-%    \cite{Hoefling2022}
+%    \newpage
+%    \section{Anwendungsarchitektur}\label{sec:anwendungsarchitektur}
+%    Wie im Bereich von Webapplications haben sich auch im Bereich von Mobile Apps über die Zeit bestimmte Anwendungsarchitekturen (Design Patterns) entwickelt.
+%    Diese dienen als Muster um wiederkehrende Entwurfsprobleme zu lösen, indem man auf bewährte Praktiken zurückgreift.
+%    Sie beschreiben die allgemeine Struktur der Anwendung und geben somit auch die Aufteilung des Quellcodes vor.
+%    Die richtige Wahl der Anwendungsarchitektur kann einen entscheidenden Einfluss darauf nehmen wie effizient die Entwicklung des Projektes verläuft.
+%    Darüber hinaus erleichtern sie die Arbeit im Team da sie ein einheitliches Vokabular bieten.
+%    Im Folgenden werden 3 der bekanntesten Architekturen für Mobile Apps näher erläutert.
+%
+%    \newpage
+%    \subsection{Model-View-Controller}\label{subsec:model-view-controller}
+%    Die Model-View-Controller Architektur teilt eine Anwendung in 3 Bereiche auf welche in Abbildung~\ref{fig:mvc} dargestellt sind.
+%
+%    \begin{figure}[h]
+%        \centering
+%        \input{source/diagrams/mvc.tikz}
+%        \caption{Interaktionen im Model-View-Controller}
+%        \label{fig:mvc}
+%    \end{figure}
+%
+%    Das \textbf{Model} repräsentiert die Struktur der Daten und hält Informationen über den aktuellen Zustand der Anwendung.
+%    Außerdem ist es verantwortlich für die Kommunikation mit externen Datenquellen wie beispielsweise Datenbanken.
+%    ~\cite{mvc}
+%    Es liefert die Daten an die View weiter, ohne diese zu verändern.
+%    Die Daten im Model sind somit unabhängig von ihrer Präsentation.
+%    Deshalb ist es möglich mehrere Views an dasselbe Model, und somit dieselben Daten zu binden.
+%    Hierbei sind jedoch die Präsentationen der Daten auf den einzelnen Views ebenfalls unabhängig voneinander.
+%    Sollten sich die Daten im Model ändern werden die Views über diese Änderung informiert~\cite{https://doi.org/10.48550/arxiv.1408.5786}.
+%
+%    Die \textbf{View} stellt die optische Oberfläche der Anwendung dar.
+%    Sie enthält alle grafischen Elemente wie Textfelder, Bilder oder anderer Elemente die zur Darstellung der Daten aus dem Model benötigt werden.
+%    Zudem nimmt sie die Eingaben des Users entgegen und leitet diese an den Controller weiter~\cite{https://doi.org/10.48550/arxiv.1408.5786}.
+%
+%
+%    Der \textbf{Controller} ist für die Steuerung der Anwendung zuständig.
+%    Seine Aufgabe ist es je nach Eingabe des Benutzers das Model manipulieren.
+%    Basierend auf der Eingabe des Benutzers ist er ebenfalls dafür zuständig die aktuelle View zu wechseln~\cite{https://doi.org/10.48550/arxiv.1408.5786}.
+%
+%
+%    Im Model-View-Controller Pattern sind Programmlogik, Datenstruktur und die Präsentation der Daten derart getrennt, dass es möglich ist diese Unabhängig voneinander zu verändern, ohne damit Einfluss auf einen der anderen Bereiche zu nehmen.
+%    Somit ist es möglich beispielsweise die Oberfläche eines Programmes zu überarbeiten, ohne sich dabei Gedanken über die darunter liegende Ausführungslogik zu machen~\cite{mvc}.
+%
+%    \subsection{Model-View-Presenter}\label{subsec:model-view-presenter}
+%    Die Model-View-Presenter Architektur ist eine weiterentwicklung der Model-View-Controller Architektur und dieser somit sehr ähnlich.
+%    Sie ist ebenfalls in 3 Bereiche geteilt, die View und das Model übernehmen die gleichen Funktionieren wie auch schon in der Model-View-Controller Architektur.
+%    Entscheidender Unterschied hierbei ist jedoch, dass View und Controller nicht direkt miteinander verbunden sind.
+%    Wie in Abbildung~\ref{fig:mvp} zu sehen werden Model und View über den Presenter verbunden.
+%    Dieser ersetzt den Controller und fungiert als Schnittstelle beider Komponenten.
+%    Die über die View eintreffenden Eingaben der Users werden vom Presenter verarbeitet und damit das jeweilige Model manipuliert.
+%    Das daraus resultierende aktualisierte Model wird dann vom Presenter zurück an die View geschickt um diese zu aktualisieren~\cite{mvp1}.
+%    \begin{figure}[h]
+%        \centering
+%        \input{source/diagrams/mvp.tikz}
+%        \caption{Interaktionen im Model-View-Presenter}
+%        \label{fig:mvp}
+%    \end{figure}
+%
+%    Durch diesen Aufbau haben View und Model klar definierte Schnittstellen, welche vom Presenter miteinander verbunden werden.
+%    Im Vergleich zur Model-View-Controller Architektur erhält man somit eine noch deutlichere Trennung der einzelnen Komponenten~\cite{mvp2}.
+%
+%    \subsection{Model-View-ViewModel}\label{subsec:model-view-viewmodel}
+%    Die Model-View-ViewModel Architektur ist ebenfalls eine weiterentwicklung der Model-View-Controller Architektur.
+%
+%
+%    \begin{figure}[h]
+%        \centering
+%        \input{source/diagrams/mvvm.tikz}
+%        \caption{Interaktionen im Model-View-Presenter}
+%        \label{fig:mvvm}
+%    \end{figure}
+%
+%    \cite{Anderson2012}
+%%    \cite{Hoefling2022}
 
     \chapter{Verwendete Technologien}\label{ch:verwendete-technologien}
     In diesem Kapitel werden die für die Implementierung der Plattform verwendeten Technologien vorgestellt.
@@ -547,7 +547,7 @@ end
         \item Nachrichten zwischen Usern müssen End-to-End Verschlüsselt sein.
         \item Der User muss einen Raum verlassen können.
         \item Der User muss seinen Account deaktivieren können.
-        \item Die App darf keinen Zugriff auf das Adressbuch des EndgerÄtes haben.
+        \item Die App darf keinen Zugriff auf das Adressbuch des Endgerätes haben.
     \end{enumerate}
 
 
@@ -558,7 +558,7 @@ end
         \item Der User soll sich ausloggen können.
         \item Der Benutzer soll die Möglichkeit haben sein Profilbild und seinen Anzeigenamen anzupassen.
         \item Der vollständige Chat-Verlauf soll nur bei Bedarf geladen werden.
-        \item Die App soll neben Textnachrichten auch andere Nachrichtentypen wie Fotos oder Videos unterstützen.
+        \item Die App soll neben Textnachrichten auch andere Nachrichtentypen wie Fotos, Videos oder Audiodateien unterstützen.
         \item Die App soll den User über den Erhalt einer neuen Nachricht informieren.
         \item Die Übersicht der beigetretenen Räume soll nach letzter Aktivität sortiert werden.
     \end{enumerate}
@@ -572,6 +572,7 @@ end
         \item Die App kann auch mit anderen Homeservern verbunden werden.
         \item Der User kann den Inhalt einer Textnachricht in die Zwischenablage kopieren.
         \item Der User kann eine Nachricht weiterleiten.
+        \item Der User kann eine Nachricht löschen.
         \item Der User kann Dateien welche in einem Raum verschickt wurden herunterladen.
         \item Die App kann im Landscape mode genutzt werden.
     \end{enumerate}
@@ -928,7 +929,6 @@ enable_registration: true
 registration_requires_token: true
         \end{lstlisting}
     \end{enumerate}
-    Ein Beispiel für die Konfiguration des Homeservers kann dem Anhang entnommen werden.
 
     Nachdem alle Konfigurationen getätigt wurden kann der Homeserver gestartet werden.
     Es ist darauf zu achten, dass alle benötigten Ports des Containers auf dem Host gemapped werden.
@@ -937,10 +937,107 @@ registration_requires_token: true
         docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443:443 matrixdotorg/synapse:latest
     \end{lstlisting}
 
-    Nun ist der Homeserver einsatzbereit und Client können eine Verbindung aufnehmen.
+    Nun ist der Homeserver einsatzbereit und Clients können eine Verbindung aufnehmen.
 
     \newpage
     \chapter{Evaluation}\label{ch:evaluation}
+    In diesem Kapitel werden die in Abschnitt~\ref{sec:anforderungen} definierten Anforderungen auf ihre Implementation geprüft.
+    Hierbei werden die mit Won't priorisierten Anforderungen nicht beachtet.
+
+    \newpage
+    \section{Must-Anforderungen}\label{sec:must-anforderungen}
+    \begin{table}[h]
+        \centering
+        \begin{tabular}{p{0.47\textwidth}|p{0.47\textwidth}}
+            Anforderung & Status\\
+            \cline{1-2}
+            Der User muss über die App einen Account auf der Plattform anlegen können.
+            &  \textbf{Erfüllt} \\
+            \cline{1-2}
+            Der User muss sich mit seinem Account in der App einloggen können. &  \textbf{Erfüllt} \\
+            \cline{1-2}
+            Der User muss sein Passwort ändern können. & \textbf{Erfüllt}  \\
+            \cline{1-2}
+            Dem User muss alle von beigetretenen Räume sehen können. &  \textbf{Erfüllt} \\
+            \cline{1-2}
+            Dem User muss neue Räume erstellen können. & \textbf{Erfüllt} \\
+            \cline{1-2}
+            Der User muss zu neuen Räumen eingeladen werden können. & \textbf{Erfüllt} \\
+            \cline{1-2}
+            Der User muss alle Nachrichten die in einem Raum gesendet wurden einsehen können. & \textbf{Erfüllt} \\
+            \cline{1-2}
+            Der User muss Nachrichten in einem Raum senden können. & \textbf{Erfüllt} \\
+            \cline{1-2}
+            Nachrichten zwischen Usern müssen End-to-End Verschlüsselt sein. & \textbf{Erfüllt} \\
+            \cline{1-2}
+            Der User muss einen Raum verlassen können. & \textbf{Erfüllt} \\
+            \cline{1-2}
+            Der User muss seinen Account deaktivieren können. & \textbf{Erfüllt} (kein automatisches Löschen der Daten erfolgt)\\
+            \cline{1-2}
+            Die App darf keinen Zugriff auf das Adressbuch des Endgerätes haben. & \textbf{Erfüllt}
+        \end{tabular}
+        \caption{Übersicht über erfüllte Must-Anforderungen}
+        \label{tab:erfüllte-must-anforderungen}
+    \end{table}
+
+    \newpage
+    \section{Should-Anforderungen}\label{sec:should-anforderungen}
+    \begin{table}[h]
+        \centering
+        \begin{tabular}{p{0.47\textwidth}|p{0.47\textwidth}}
+            Anforderung & Status\\
+            \cline{1-2}
+            Beim erstellen des Accounts soll eine zusätzliche Authentifizierungsmethode verwendet werden um Wahloses erstellen zon Accounts zu verhindern.
+            &  \textbf{Erfüllt} (mittels Registrierungstoken)\\
+            \cline{1-2}
+            Der User soll sich nur einmal einloggen müssen. &  \textbf{Erfüllt} \\
+            \cline{1-2}
+            Der User soll sich ausloggen können. & \textbf{Erfüllt}  \\
+            \cline{1-2}
+            Der Benutzer soll die Möglichkeit haben sein Profilbild und seinen Anzeigenamen anzupassen. &  \textbf{Erfüllt} \\
+            \cline{1-2}
+            Der vollständige Chat-Verlauf soll nur bei Bedarf geladen werden. & \textbf{Erfüllt} (Lazy-Loading)\\
+            \cline{1-2}
+            Die App soll neben Textnachrichten auch andere Nachrichtentypen wie Fotos, Videos oder Audiodateien unterstützen. & \textbf{Teilweise erfüllt} (unterstützt Foto, Video und PDF) \\
+            \cline{1-2}
+            Die App soll den User über den Erhalt einer neuen Nachricht informieren. & \textbf{Erfüllt} \\
+            \cline{1-2}
+            Der User muss Nachrichten in einem Raum senden können. & \textbf{Erfüllt} \\
+            \cline{1-2}
+            Die Übersicht der beigetretenen Räume soll nach letzter Aktivität sortiert werden. & \textbf{Erfüllt}
+        \end{tabular}
+        \caption{Übersicht über erfüllte Should-Anforderungen}
+        \label{tab:erfüllte-should-anforderungen}
+    \end{table}
+
+    \newpage
+    \section{Could-Anforderungen}\label{sec:could-anforderungen}
+    \begin{table}[h]
+        \centering
+        \begin{tabular}{p{0.47\textwidth}|p{0.47\textwidth}}
+            Anforderung & Status\\
+            \cline{1-2}
+            Die Liste der beigetretenen Räume kann gefiltert werden. &  \textbf{Erfüllt} \\
+            \cline{1-2}
+            Dem Erstellen eines Raumes kann dem User eine Liste von Usern vorgeschlagen werden, welche dem gesuchten Namen entsprechen. & \textbf{Erfüllt}  \\
+            \cline{1-2}
+            Dem User kann ein Typing-Indikator gezeigt werden. &  \textbf{Erfüllt} \\
+            \cline{1-2}
+            Die App kann auch mit anderen Homeservern verbunden werden. & \textbf{Teilweise erfüllt} (Accounterstellung nicht möglich)\\
+            \cline{1-2}
+            Der User kann den Inhalt einer Textnachricht in die Zwischenablage kopieren. & \textbf{Nicht erfüllt} \\
+            \cline{1-2}
+            Der User kann eine Nachricht weiterleiten. & \textbf{Nicht erfüllt}  \\
+            \cline{1-2}
+            Der User kann eine Nachricht löschen. & \textbf{Nicht erfüllt}  \\
+            \cline{1-2}
+            Der User kann Dateien welche in einem Raum verschickt wurden herunterladen. & \textbf{Nicht erfüllt}  \\
+            \cline{1-2}
+            Die App kann im Landscape mode genutzt werden. & \textbf{Teilweise erfüllt}
+        \end{tabular}
+        \caption{Übersicht über erfüllte Could-Anforderungen}
+        \label{tab:erfüllte-could-anforderungen}
+    \end{table}
 
 
     \chapter{Fazit}\label{ch:fazit}
@@ -950,7 +1047,9 @@ registration_requires_token: true
     Das senden und empfangen von Nachrichten geschieht in echtzeit und mit End-to-End Verschlüsselung, sodass der betreiber der Platform keinerlei Zugriff auf die Daten der Nutzer hat.
     Dabei unterstützt die Platform die gängigsten Nachrichtentypen und informiert den Nutzer über das eintreffen neuer Nachrichten.\\
     Betrachtet man jedoch die Anforderungen welche von der DSGVO an eine Messaging-App im medizinischen Bereich gestellt werden muss man feststellen, dass eine vielzahl weiterer Funktionen implementiert werden müssen bevor sie als DSGVO konform eingestuft werden kann und somit zum Einsatz in der Praxis zugelassen wird.
-
+    Das Matrix Protokol unterstützt den Großteil der notwendigen Implementierungen um DSGVO konform zu werden.
+    Die einzige nicht unterstützte Funktionalität die während der Implementation entdeckt wurde ist das Löschen von Nachrichten bzw. Inhalten auf dem Server.
+    Hierzu wird vom Protokol zur Zeit noch keine Möglichkeit bereitgestellt und somit muss ein eigenes System zum löschen der Daten entwickelt werden.
 
 %    Zwar wurde während der Implementierung darauf geachtet, dass jegliche Daten zwischen Arzt und Patient verschlüsselt und vor unbefugtem Zugriff geschützt sind, jedoch müsste die genaue Rechtslage zum Einsatz der Plattform genauer untersucht werden.
 %    Das Userinterface der App erfüllt zwar die gesetzten Ansprüche jedoch lässt das Design noch deutlich Platz für Verbesserungen.
@@ -983,7 +1082,7 @@ registration_requires_token: true
 
     \backmatter
 %Liste der Tabellen
-%    \listoftables
+    \listoftables
 %Einbinden des Tabellenverzeichnisses
     \listoffigures
 %Einbinden des Sourcecodeverzeichnisses
