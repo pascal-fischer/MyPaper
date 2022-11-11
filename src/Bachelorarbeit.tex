@@ -126,14 +126,16 @@
     \chapter{Einleitung}\label{ch:einleitung}
 
     \section{Motivation}\label{sec:motivation}
-    Mit voranschreiten der Digitalisierung
-    Im Zuge der Coronapandemie im Jahre 2019 wurden nicht nur die Rufe nach
+    Die Digitalisierung findet immer Einzug in unser alltägliches Leben, so auch in der Medizin.
+    Besonders seit Beginn der Coronapandemie im Jahr 2019 werden Rufe nach Softwarelösungen für den Einsatz in der Telemedizin immer lauter.
+    Da viele gängige Messenger wie Whatsapp oder Telegramm nicht den Datenschutz Vorschriften der DSGVO entsprechen müssen hierfür Alternativen geschaffen werden.
+
 
     \newpage
     \section{Zielsetzung}\label{sec:zielsetzung}
     Ziel dieser Arbeit ist es eine Plattform zu entwickeln welchen es Ärzten und Patienten ermöglicht in Kontakt zu treten und Nachrichten auszutauschen.
     Hierfür soll eine Chat-App auf basis des Matrix.org-Protokolls implementiert werden.
-    Die App ist in der Programmiersprache Swift zu entwickeln und soll auf allen gängigen iOS geräten unterstützt werden.
+    Die App ist in der Programmiersprache Swift zu entwickeln und soll auf allen gängigen iOS Geräten unterstützt werden.
     Darüber hinaus muss die benötigte Infrastruktur bereitgestellt werden um Nachrichten und Daten zu speichern und zu übermitteln.
     Diese soll jedoch isoliert laufen und nicht an das existierende Matrix Netzwerk angeschlossen werden.
     Da medizinische Daten dem Datenschutz in besonderer Maße unterliegen ist es besonders wichtig,
@@ -506,6 +508,13 @@ end
     \section{Ähnlicher Projekte}\label{sec:analyse-ahnlicher-projekte}
 
     \subsection{TI-Messenger}\label{subsec:ti-messenger}
+    Der TI-Messenger ist ein Projekt der Gematik GmbH.
+    Es dient der Entwicklung eines Messaging-Standards für das deutsche Gesundheitswesen.
+    Hierbei ist zu beachten, dass der TI-Messenger keine spezifische Anwendung beschreibt sondern vielmehr die Vernetzung einzelner Anbieter- und Sektorübergreifender Plattformen gewährleistet.
+    Da jeder Bereich des Gesundheitswesens andere Ansprüche an einen Messenger hat muss eine freie Wahl der Plattform möglich sein, wobei jedoch eine Plattformübergreifende Kommunikation möglich sein muss.
+    Am 29.07.2022 hat die Gematik GmbH die Spezifikationen zur ersten Ausbaustufe des TI-Messengers veröffentlicht.
+    Diese soll zum Sommer 2023 in Betrieb gehen und sowohl Textnachrichten als auch Bild- und Tonübertragungen unterstützen~\cite{timessenger2}.
+
 
     \subsection{Nio}
     Nio\footnote{https://github.com/niochat/nio} ist ein vom User kiliankoe gestartetes Projekt.
@@ -517,14 +526,14 @@ end
     Es können sowohl Textnachrichten als auch Fotos versendet werden.
     Darüber hinaus kann auf Nachrichten mittels Emojis reagiert werden.
     Es werden direkte Chats und Räume mit mehreren Personen unterstützt.
-    Das erstellen von Accounts über den Nio Client ist zum Zeitpunkt der Analyse noch nicht möglich.
+    Das Erstellen von Accounts über den Nio Client ist zum Zeitpunkt der Analyse noch nicht möglich.
     Ebenfalls wird auch keine End-2-End Verschlüsselung unterstützt.
     Darüber hinaus unterstützt der Nio Client eine Vielzahl von Sprachen.
 
     \newpage
     \section{Anforderungen}\label{sec:anforderungen}
-    Nach der Analyse ähnlicher Projekte wurden eine Liste funktionaler Anforderungen erstellt die von der Plattform erfüllt werden müssen.
-    Diese wurden nach der MoSCoW-Methode priorisiert.\\
+    Nach der Analyse ähnlicher Projekte wurden unter Beachtung der in der DSGVO festgelegten Anforderungen, eine Liste funktionaler Anforderungen erstellt, die von der Plattform erfüllt werden müssen.
+    Diese wurden nach der MoSCoW-Methode, einer Methodik die häufig Anwendung im Bereich des Projektmanagement findet, priorisiert.\\
 
     \textbf{Must}:
     \begin{enumerate}[label={\roman*.}, leftmargin=2.5cm]
@@ -539,6 +548,7 @@ end
         \item Nachrichten zwischen Usern müssen End-to-End Verschlüsselt sein.
         \item Der User muss einen Raum verlassen können.
         \item Der User muss seinen Account deaktivieren können.
+        \item Die App darf keinen Zugriff auf das Adressbuch des EndgerÄtes haben.
     \end{enumerate}
 
 
@@ -571,6 +581,7 @@ end
     \begin{enumerate}[label={\roman*.}, leftmargin=2.5cm]
         \item Die App wird Räume und Chat-Verläufe nicht local speichern und offline wiedergeben können.
         \item Die App wird keine Nachrichten entschlüsseln können, die mit einem anderen Gerät versendet wurden.
+        \item Die App wird keine weiteren Sprachen unterstützen.
     \end{enumerate}
 
     \newpage
@@ -587,7 +598,7 @@ end
     Zuerst wurden basierend auf den in Abschnitt~\ref{sec:anforderungen} definierten Anforderungen mittels SwiftUI die benötigten Views erstellt.
     Hierbei musste darauf geachtet werden, dass die Elemente im Userinterface in ihrer Größe und Anordnung dynamisch blieben um sowohl auf kleineren Geräten wie dem iPhone 13 mini aber auch auf größeren Geräten wie dem Iphone 14 Pro Max bedienbar zu sein.
     Anschließend wurden die zugehörigen ViewModel angelegt und mit dem Elementen aus den Views verknüpft.
-    Eine besondere Herausforderung hierbei war es, dass sich die grafischen Elemente bei eintreffen neuer Events ordnungsgemäß aktualisiert haben.
+    Eine besondere Herausforderung hierbei war es dafür zu sorgen, dass sich die grafischen Elemente bei eintreffen neuer Events ordnungsgemäß aktualisieren.
 
 
     \newpage
@@ -664,7 +675,7 @@ end
     \end{description}
 
     Der eigentliche Registrierungsvorgang kann mehrere Authentifizierungsstufen enthalten.
-    Bevor der Registrierungsvorgang gestartet wird ir zuvor mit der vom \texttt{MXRestClient} breitgestellten funktioin geprüft ob der Benutername bereit genutzt wird.
+    Bevor der Registrierungsvorgang gestartet wird ir zuvor mit der vom \texttt{MXRestClient} bereitgestellten Funktion geprüft ob der Benutzername bereit genutzt wird.
     In dieser Implementation wird der in Abbildung~\ref{fig:accountCreationDiagram} beschriebene dreistufige Accounterstellungsvorgang mittels eines Registriersungstokes genutzt.
 
     \begin{figure}[h]
@@ -693,12 +704,12 @@ end
     \end{figure}
 
     Im ersten Schritt sendet der Client eine leere Anfrage zum Server in welcher er um das starten einer Registrierungssitzung bittet.
-    Der Server antwortet daraufhin mit einer SessionID und den vom Homeserver unterstützten Authentifizierungss-Flows.
+    Der Server antwortet daraufhin mit einer SessionID und den vom Homeserver unterstützten Authentifizierungs-Flows.
     In diesem Beispiel ist der einzige unterstützte Flow die verifizierung über einen Registriersungstoken.
     Im nächsten Schritt sendet der Client dann den zuvor bereitgestellten Registrierungstoken und die vom Server gegebene SessionID in Kombination mit der aktuellen Stufe des Authentifizierungsvorgangs.
     Im dritten und letzten Schritt wird nun der dummyflow aufgeführt.
     Dieser Flow kann nicht fehlschlagen und dient der zur finalen Erstellung des Account.
-    Hierbei werden der gewünschte Benutername und Passort übergeben.
+    Hierbei werden der gewünschte Benutzername und Passort übergeben.
     Ist dies geschehen wurde der Account erfolgreich erstellt.
     Anschließend wird der User ebenfalls auf die \texttt{RoomsView} weitergeleitet.
 
@@ -877,7 +888,7 @@ listeners:
     resources:
           - names: [client, federation]
             \end{lstlisting}
-        \item Für den zusätzlichen Listener über HTTPS muss ein SSL Zertifikat erstellt werden und in der Konfiguration hinterlegt werden.
+        \item Für den zusätzlichen Listener über HTTPS muss ein SSL Zertifikat erstellt werden und in der Konfiguration hinterlegt werden. Während der Entwicklung wurde hierfür ein selbst signiertes Zertifikat mittels Open SSL generiert.
             \begin{lstlisting}[language=yaml,label={lst:ssl-certificate}]
 tls_certificate_path: "/data/certs/cert.pem"
 tls_private_key_path: "data/certs/key.pem"
@@ -935,11 +946,17 @@ registration_requires_token: true
 
     \chapter{Fazit}\label{ch:fazit}
     Die Plattform erfüllt die grundlegenden Anforderungen welche man an eine Messanger-App hat.
-    Sie erlaubt es dem Benutzer einen Account anzulegen verhindert dabei aber gleichzeitig eine Überschwemmung der Plattform mit Accounts durch unkontrolliertes
-    Zwar wurde während der Implementierung darauf geachtet, dass jegliche Daten zwischen Arzt und Patient verschlüsselt und vor unbefugtem Zugriff geschützt sind, jedoch müsste die genaue Rechtslage zum Einsatz der Plattform genauer untersucht werden.
-    Das Userinterface der App erfüllt zwar die gesetzten Ansprüche jedoch lässt das Design noch deutlich Platz für Verbesserungen.
-    Alle im Kapitel~\ref{sec:anforderungen} als 'Must' definierten Funktionen sind implementiert.
-    Ebenfalls wurden alle Anforderungen aus der
+    Sie bietet die Möglichkeit einen Account anzulegen, zu verwalten und wieder zu löschen.
+    Sie erlaubt das erstellen, beitreten und löschen von Räumen sowohl in 1-zu-1 als auch in Gruppenräumen.
+    Das senden und empfangen von Nachrichten geschieht in echtzeit und mit End-to-End Verschlüsselung, sodass der betreiber der Platform keinerlei Zugriff auf die Daten der Nutzer hat.
+    Dabei unterstützt die Platform die gängigsten Nachrichtentypen und informiert den Nutzer über das eintreffen neuer Nachrichten.\\
+    Betrachtet man jedoch die Anforderungen welche von der DSGVO an eine Messaging-App im medizinischen Bereich gestellt werden muss man feststellen, dass eine vielzahl weiterer Funktionen implementiert werden müssen bevor sie als DSGVO konform eingestuft werden kann und somit zum Einsatz in der Praxis zugelassen wird.
+
+
+%    Zwar wurde während der Implementierung darauf geachtet, dass jegliche Daten zwischen Arzt und Patient verschlüsselt und vor unbefugtem Zugriff geschützt sind, jedoch müsste die genaue Rechtslage zum Einsatz der Plattform genauer untersucht werden.
+%    Das Userinterface der App erfüllt zwar die gesetzten Ansprüche jedoch lässt das Design noch deutlich Platz für Verbesserungen.
+%    Alle im Kapitel~\ref{sec:anforderungen} als 'Must' definierten Funktionen sind implementiert.
+%    Ebenfalls wurden alle Anforderungen aus der
 
     \chapter{Ausblick}\label{ch:ausblick}
     Der nächste Schritt in der Entwicklung der Plattform sollte es sein die Cross-Signing-Funktion der End-to-End Verschlüsslung zu unterstützen.
