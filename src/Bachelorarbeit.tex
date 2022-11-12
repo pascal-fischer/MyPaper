@@ -146,9 +146,10 @@
 %    So sollte beispielsweise darauf geachtet werden, dass
 
     \section{Aufbau der Arbeit}\label{sec:aufbau-der-arbeit}
-    Zuerst werden die gesetzlichen Ansprüche an eine Messaging-Plattform im medizinischen Bereich beleuchtet.
-    Anschließend wird das Matrix Protokoll vorgestellt und seine allgemeine Funktionsweise beschrieben.
-    Außerdem werden die zur Verschlüsselung verwendeten Algorithmen erklärt und die dafür benötigten Schlüssel aufgezeigt.
+    Zuerst werden die Theoretischen Grundlagen
+%    Zuerst werden die gesetzlichen Ansprüche an eine Messaging-Plattform im medizinischen Bereich beleuchtet.
+%    Anschließend wird das Matrix Protokoll vorgestellt und seine allgemeine Funktionsweise beschrieben.
+%    Außerdem werden die zur Verschlüsselung verwendeten Algorithmen erklärt und die dafür benötigten Schlüssel aufgezeigt.
     Es werden die zur Implementierung der Plattform genutzten Technologien vorgestellt und deren Verwendung beschrieben.
     Danach werden einige ähnlicher Projekte vorgestellt und analysiert.
     Basierend auf dieser Analyse werden eine eine Reihe von technischen Anforderungen definiert welche von der implementierten Plattform erfüllt werden sollen.
@@ -157,9 +158,12 @@
 
     \newpage
     \chapter{Theoretische Grundlagen}\label{ch:theoretische-grundlagen}
-    In diesem Kapitel werden zunächst die theoretischen Grundlagen, welche die Implementierung der Plattform beeinflusst haben, vorgestellt.
-    Anschließend wird das Matrix Protokoll vorgestellt und seine grundlegenden Prinzipien und Funktionsweise eingegangen.
-    Es werden die zur Verschlüsselung genutzten Algorithmen erklärt
+    In diesem Kapitel werden zunächst die theoretischen Grundlagen, welche die Implementierung der Plattform beeinflusst haben, vermittelt.
+    Zuerst werden die gesetzlichen Ansprüche an eine Messaging-Plattform im medizinischen Bereich beleuchtet.
+    Anschließend wird das Matrix Protokoll vorgestellt und seine allgemeine Funktionsweise beschrieben.
+    Außerdem werden die zur Verschlüsselung verwendeten Algorithmen erklärt und die dafür benötigten Schlüssel aufgezeigt.
+    Es wird das REST Paradigma vorgestellt, welches die Grundlage für die Kommunikation zwischen Client und Server bildet.
+    Des weiteren wird die MVVM Architektur erläutern, welche bei der Entwicklung der App verfolgt wurde.
 
     \section{Datenschutz im Gesundheitswesen}\label{sec:datenschutz-im-gesundheitswesen}
     Die Rechtlichen Rahmenbedingungen für das Speicher und Verarbeiten medizinischer Daten sind in der EU-Datenschutz-Grundverordnung\footnote{https://dsgvo-gesetz.de/} (DSGVO) festgelegt.
@@ -169,8 +173,8 @@
     \textit{Das am 29. Dezember 2015 in Kraft getretene "Gesetz für sichere digitale Kommunikation und Anwendungen im Gesundheitswesen (E-Health-Gesetz)" hat die ersten Weichen für den Aufbau der sicheren Telematikinfrastruktur (TI) und die Einführung medizinischer digitaler Anwendungen gestellt.
     Ziel dieses Gesetzes war es, die Chancen der Digitalisierung für die Gesundheitsversorgung zu nutzen und eine schnelle Einführung medizinischer Anwendungen für die Patientinnen und Patienten zu ermöglichen.}~\cite{ehealthgesetz}
 
-    Ein Teil der Telematikinfrastruktur ist der TI-Messenger der Gematik GmbH welcher im Abschnitt~\ref{subsec:ti-messenger} genauer betrachtet wird.
-    Am 07.11.2019 hat dann die Konferenz der unabhängigen Datenschutzaufsichtsbehörden des Bundes und der Länder ein Whitepaper veröffentlicht welche die "Technischen Datenschutzanforderungen an Messenger-Dienste im Krankenhausbereich" aus Sicht der DSGVO offenlegt.
+    Ein Teil der Telematikinfrastruktur ist der TI-Messenger der Gematik GmbH welcher im Abschnitt~\ref{subsec:ti-messenger} genauer betrachtet wird.\\
+    Am 07.11.2019 hat dann die Konferenz der unabhängigen Datenschutzaufsichtsbehörden des Bundes und der Länder ein Whitepaper veröffentlicht welche die "Technischen Datenschutzanforderungen an Messenger-Dienste im Krankenhausbereich"~\cite{datenschutzkonferenz} aus Sicht der DSGVO offenlegt.
     Einige dieser Anforderungen sind:
     \begin{enumerate}[label={(\arabic*)}]
         \item Die Applikation muss über die Möglichkeit verfügen, die Nutzung bzw. den Zugriff
@@ -233,7 +237,7 @@
 
 
     \subsection{Funktionsweise}\label{subsec:funktionsweise}
-%
+
 %\usetikz
 %\begin{figure}
 %    \centering
@@ -242,38 +246,36 @@
 %    \label{fig:matrixfunktionsweise}
 %\end{figure}
 
+    \newpage
     \subsection{Events}\label{sec:events}
     Jeglicher Datenaustausch im Matrix Protokoll wird als Event bezeichnet.
-    Dies können
-
-
-    Im Matrix Protokoll werden alle Ereignisse (Events) in einer einzigen großen Kette (Timeline) gespeichert. Diese Events können in zwei Kategorien unterteilt werden. Zum einen gibt es State Events, welche Ereginsse wie die Erzeugung eines Raumes oder das Beitreten eines Users zu einem Raum beschreiben.
-    Zum anderen gibt es Message Events welche realen Datenaustausch zwischen Usern beschreiben. Dies können beispielsweise Textnachrichten, Fotos oder Videos sein. Jedes Event enthält unter anderem folgende Attribute:
+    Dies können das Senden einer Nachricht oder updaten eines Profilbildes sein.
+    Jedes Event hat hierfür einen \texttt{type} definiert welcher die Art des Events beschreibt.
+    Für jeden Typ kann ein Event unterschiedliche Daten enthalten.
+    Es ist außerdem möglich, eigene Event typen zu erstellen~\cite{events}.\\
+    Im Kontext eines Raumes werden Events werden in 2 Kategorien~\cite{roomevents} unterteilt:
     \begin{description}[leftmargin=!,labelwidth=3.5cm]
-        \item [event\_id] ein eindeutiger Identifier für das jeweilige Event
-        \item [sender] die Matrix ID des Absenders des Events
-        \item [room\_id] ein eindeutiger Identifier über welchen ein Event einem bestimmten Raum zugeordnet werden kann
-        \item [type] der Typ des Events
-        \item [content] der tatsächliche Inhalt der Nachricht. Dieser variiert abhängig vom event Type
-        \item [origin\_server\_ts] Zeitstempel
+        \item [State events] geben Auskunft über zustandsänderungen in einem Raum. Dies könne beispielsweise das Ändern des Raumnamens oder das Beitreten eines Nuzters zu einem Raum sein.
+        \item [Message events] beschreiben die tatsächliche Kommunikation in einem Raums. Dies können das Senden einer Nachricht oder das Starten eines VoIP-Anrufes sein .
     \end{description}
 
+    Jedes Event enthält mindestens folgende Attribute~\cite{eventformat}:
+    \begin{description}[leftmargin=!,labelwidth=3.5cm]
+        \item [content] der tatsächliche Inhalt der Nachricht. Dieser variiert abhängig vom event Type.
+        \item [event\_id] ein eindeutiger Identifier für das jeweilige Event.
+        \item [origin\_server\_ts] Zeitstempel beim senden des Events.
+        \item [room\_id] ein eindeutiger Identifier über welchen ein Event einem bestimmten Raum zugeordnet werden kann.
+        \item [sender] die Matrix ID des Absenders des Events.
+        \item [type] der Typ des Events.
+    \end{description}
+
+
+    Events werden meist in Kontext eines Raumes versendet.
+
+    \newpage
     \subsection{Rooms}
 
 
-    \begin{lstlisting}[language=json,firstnumber=1]
-{"menu": {
-  "id": "file",
-  "value": "File",
-  "popup": {
-    "menuitem": [
-      {"value": "New", "onclick": "CreateNewDoc()"},
-      {"value": "Open", "onclick": "OpenDoc()"},
-      {"value": "Close", "onclick": "CloseDoc()"}
-    ]
-  }
-}}
-    \end{lstlisting}
 
 
     \subsection{Devices}
@@ -282,8 +284,8 @@
     Jedes Device bekommt seine eigene \texttt{device\_id} zugewiesen.
     Dabei ist zu beachten, dass falls sich ein User von einer Anwendung abmeldet und sich auch dem selben Gerät bei der selben Anwendung erneut anmeldet nicht die gleiche \texttt{device\_id} zugewiesen bekommt.
     Je nach Client wird eine somit unterschiedlich häufig die \texttt{device\_id} gewechselt.
-    In Webanwendungen wird bei jedem Anmelden ein neue \texttt{device\_id} angelegt wohingegen bei Client auf Mobilgeräten oder Computern die gleiche \texttt{device\_id}
-    Devices finden hauptsächlich Anwendung
+    In Webanwendungen wird bei jedem Anmelden ein neue \texttt{device\_id} angelegt wohingegen bei Client auf Mobilgeräten oder Computern die gleiche \texttt{device\_id} wiederverwendet werden kann.
+    Devices finden hauptsächlich Anwendung im Bereich der End-to-End Verschlüsselung.
 
     \newpage
     \subsection{End-to-End-Encryption}\label{subsec:verwendete-schlussel}
@@ -333,6 +335,7 @@
 
     \cite{dazer2012restful}
 
+    \section{MVVM-Architektur}\label{sec:mvvm-architektur}
 %    \newpage
 %    \section{Anwendungsarchitektur}\label{sec:anwendungsarchitektur}
 %    Wie im Bereich von Webapplications haben sich auch im Bereich von Mobile Apps über die Zeit bestimmte Anwendungsarchitekturen (Design Patterns) entwickelt.
@@ -532,6 +535,7 @@ end
     \newpage
     \section{Anforderungen}\label{sec:anforderungen}
     Nach der Analyse ähnlicher Projekte wurden unter Beachtung der in der DSGVO festgelegten Anforderungen, eine Liste funktionaler Anforderungen erstellt, die von der Plattform erfüllt werden müssen.
+    Basierend auf den Erkenntnissen der Analyse des Nio Clients und unter beachtung der in der Spezifikation des TI-Messengers festgelegten Anforderungen wurde eine Liste funktionaler Anforderungen erstellt, welche von der zu implementierenden Plattform unterstützt werden sollen.
     Diese wurden nach der MoSCoW-Methode, einer Methodik die häufig Anwendung im Bereich des Projektmanagement findet, priorisiert.\\
     \textbf{Must}:
     \begin{enumerate}[label={\roman*.}, leftmargin=2.5cm]
@@ -586,19 +590,22 @@ end
     \newpage
     \chapter{Implementierung}\label{ch:implementierung}
     Dieses Kapitel beschreibt die Vorgehensweise bei der Implementierung der Plattform und die Funktionsweise der einzelnen Elemente.
-    Die Plattform selbst besteht aus 2 Teilen.
-
-    die Kommunikation zischen
-
+    Die Plattform selbst besteht aus 2 Teilen, einer App die auf den Endgeräten der Nutzer installiert wird und einem Server welcher die Kommunikation der Apps untereinander ermöglicht.
 
 
     \section{App}\label{sec:app}
+    Die App wurde mittels XCode implementiert und über den Simulator getestet.
+    Sie wurde in Swift in Kombination mit SwiftUI geschrieben.
+    Um die Sicherheit u erhöhen wurde die App für die aktuelle Version iOS 16 entwickelt.
     Bei der Entwicklung der App wurde in 2 Etappen vorgegangen.
     Zuerst wurden basierend auf den in Abschnitt~\ref{sec:anforderungen} definierten Anforderungen mittels SwiftUI die benötigten Views erstellt.
     Hierbei musste darauf geachtet werden, dass die Elemente im Userinterface in ihrer Größe und Anordnung dynamisch blieben um sowohl auf kleineren Geräten wie dem iPhone 13 mini aber auch auf größeren Geräten wie dem Iphone 14 Pro Max bedienbar zu sein.
     Anschließend wurden die zugehörigen ViewModel angelegt und mit dem Elementen aus den Views verknüpft.
     Eine besondere Herausforderung hierbei war es dafür zu sorgen, dass sich die grafischen Elemente bei eintreffen neuer Events ordnungsgemäß aktualisieren.
-
+    Für die Funktionalität der App wurden mittels Matrix SDK erzeugt.
+    Da es für die SDK aktuell noch keine Dokumentation gibt wurde die von Matrix bereitgestellte Client-Server-API als Grundlage genommen und entsprechende Module und Funktionen in der SDK gesucht.
+    Der Code selbst folgt der MVVM Architektur da sich diese durch die Verwendung von SwiftUI anbietet.
+    Im Sinne der Internationalität wurde fur die Benutzeroberfläche die Sprache Englisch verwendet.
 
     \newpage
     \subsection{Login und Account Erstellung}\label{subsec:login-und-account-erstellung}
@@ -638,7 +645,7 @@ end
     Über das Auge am Rand des Textfeldes kann der User zwischen geschützter Ansicht und Klartext wechseln.
 
 
-    Hat der User seine Zugangsdaten eingegeben und über den Login Button bestätigt wird über den \texttt{MXRestClient}, welcher von der SDK (siehe Abschnitt \ref{sec:matrix-sdk}) bereit gestellt wird, eine Login-Anfrage mit Usernamen und Passwort an den Server gesendet.
+    Hat der User seine Zugangsdaten eingegeben und über den Login Button bestätigt wird über den \texttt{MXRestClient}, welcher von der SDK (siehe Abschnitt~\ref{sec:matrix-sdk}) bereit gestellt wird, eine Login-Anfrage mit Usernamen und Passwort an den Server gesendet.
     Bei gültigen zugangsdaten enthält die Antwort des Servers folgende Informationen:
     \begin{description}[leftmargin=!,labelwidth=3cm]
         \item [home\_server] die vollständige Adresse des Homeservers
@@ -806,7 +813,14 @@ end
 
     \newpage
     \subsection{Profile}\label{subsec:profile}
-    Die \texttt{ProfileView} dient dazu
+    Die \texttt{ProfileView} welche in Abbildung~\ref{fig:profileview} zu sehen ist erlaubt dem user seinen Account zu verwalten.
+    Durch klicken auf das Profilbild öffnet sich der \texttt{ImagePicker}, welcher auch schon in der \texttt{ChatView} genutzt wurde, wodurch der Nutzer ein neues Profilbild setzen kann.
+    Außerdem kann er seinen Anzeigenamen ändern.
+    Die Matrix ID bleibt hierbei jedoch gleich.
+    Darüber hinaus wird dem User die Möglichkeit geboten sein Passwort zu ändern.
+    Hierfür öffnet sich nach klicken des Buttons ein alert welcher den Nutzer um Eingabe seines alten und seines neuen Passworts bittet.
+    Falls das alte Passwort korrekt eingegeben wurde wird das neue Passwort gesetzt.\\
+    Im unteren Teil der Ansicht befinden sich 2 Buttons, ein logout und ein delete Button ..  .. . . .
 
     \begin{figure}[h]
         \includegraphics[scale=0.5]{profile}
@@ -858,11 +872,11 @@ end
     \newpage
     \section{Homeserver}\label{sec:homeserver}
     Der Homeserver bildet die unterliegende Infrastruktur der Plattform.
-    Hierzu wird die vom Matrix Team bereitgestellte Synapse Software.
-    Diese wird auf mittels eines Docker Containers auf dem Server betrieben.
-    Bevor der Container gestartet werden einige Konfigurationsdateien benötigt welche über folgenden Befehl generiert werden können:
+    Hierfür wird das vom Matrix Team bereitgestellte Synapse Docker Image verwendet.
+    Diese wird in einem Docker Container auf dem Server betrieben.
+    Bevor der Container gestartet werden kann, werden einige Konfigurationsdateien benötigt welche über folgenden Befehl generiert werden können:
     \begin{lstlisting}[language=bash,label={lst:synapse-generate}]
-        docker run -it --rm -v /path/on/host/machine/:/data -e SYNAPSE_SERVER_NAME=my.matrix.host -e SYNAPSE_REPORT_STATS=yes matrixdotorg/synapse:latest generate
+docker run -it --rm -v /path/on/host/machine/:/data -e SYNAPSE_SERVER_NAME=my.matrix.host -e SYNAPSE_REPORT_STATS=yes matrixdotorg/synapse:latest generate
     \end{lstlisting}
     Um später einfacher Änderungen an der Konfiguration des Homeservers vornehmen zu können wird das \texttt{/data} Directory im Host gemounted.
     Des weiteren muss der Name des Homeservers über \texttt{SYNAPSE\_SERVER\_NAME} definiert werden.
@@ -933,10 +947,10 @@ registration_requires_token: true
     Es ist darauf zu achten, dass alle benötigten Ports des Containers auf dem Host gemapped werden.
 
     \begin{lstlisting}[language=bash,label={lst:synapse-start}]
-        docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443:443 matrixdotorg/synapse:latest
+docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443:443 matrixdotorg/synapse:latest
     \end{lstlisting}
 
-    Nun ist der Homeserver einsatzbereit und Clients können eine Verbindung aufnehmen.
+    Nach dem Start des Containers ist der Homeserver einsatzbereit und Clients können eine Verbindung aufnehmen.
 
     \newpage
     \chapter{Evaluation}\label{ch:evaluation}
@@ -1049,6 +1063,10 @@ registration_requires_token: true
     Das Matrix Protokol unterstützt den Großteil der notwendigen Implementierungen um DSGVO konform zu werden.
     Die einzige nicht unterstützte Funktionalität die während der Implementation entdeckt wurde ist das Löschen von Nachrichten bzw. Inhalten auf dem Server.
     Hierzu wird vom Protokol zur Zeit noch keine Möglichkeit bereitgestellt und somit muss ein eigenes System zum löschen der Daten entwickelt werden.
+    Es ist jedoch möglich über ein \texttt{m.room.redaction} Event den Inhalt einer Nachricht unkenntlich zu machen.\\
+    Zwar sind alle Nachrichten und Daten die in einem Raum versendet wurden Verschlüsselt und vor unbefugtem Zugriff geschützt, allerdings ist es dem Betreiber der Plattform möglich die Mitgliedschaften von Nutzern zu Räumen einzusehen.
+    Somit könnte abgeleitet werden, welche Personen welche Ärzte besuchen.
+    Ob dies zulässig ist müsste separat untersucht werden.
 
 %    Zwar wurde während der Implementierung darauf geachtet, dass jegliche Daten zwischen Arzt und Patient verschlüsselt und vor unbefugtem Zugriff geschützt sind, jedoch müsste die genaue Rechtslage zum Einsatz der Plattform genauer untersucht werden.
 %    Das Userinterface der App erfüllt zwar die gesetzten Ansprüche jedoch lässt das Design noch deutlich Platz für Verbesserungen.
