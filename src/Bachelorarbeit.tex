@@ -221,7 +221,7 @@
     Mittlerweile gibt es zahlreiche Beiträge aus der Community, wodurch das Projekt weiter vorangetrieben wird.
     ~\cite{matrixfaq}
 
-    Das ursprüngliche Ziel des Projektes war es ein Protokoll zu entwickeln, welches es Usern ermöglichen soll, anderen Usern Nachrichten zu schreiben oder diese anzurufen, unabhängig davon welche Platform diese benutzen.
+    Das ursprüngliche Ziel des Projektes war es ein Protokoll zu entwickeln, welches es Nutzern ermöglichen soll, anderen Nutzern Nachrichten zu schreiben oder diese anzurufen, unabhängig davon welche Platform diese benutzen.
     Langfristig soll Matrix ein generisches System zur Messaging und Datensynchronisation über HTTP für das ganze Internet bilden.
     ~\cite{matrixfaq}
 
@@ -231,7 +231,7 @@
         \item [Server-Server-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/server-server-api/} zum Nachrichtenaustausch und Synchronisation zwischen mehreren Homservern
         \item [Application-Service-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/application-service-api/} zur Erweiterung der Funktionalität von Matrix und Integration anderer Systeme
         \item [Identity-Service-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/identity-service-api/} beschreibt das Mapping zwischen Drittanbietern
-        \item [Push-Gateway-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/push-gateway-api/} um versenden von Push Notifications an Clients falls neue Events beim Homeserver eintreffen
+        \item [Push-Gateway-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/push-gateway-api/} zum versenden von Push Notifications an Clients falls neue Events beim Homeserver eintreffen
     \end{description}
 
 
@@ -249,21 +249,21 @@
     \newpage
     \subsection{Events}\label{sec:events}
     Jeglicher Datenaustausch im Matrix Protokoll wird als Event bezeichnet.
-    Dies können das Senden einer Nachricht oder updaten eines Profilbildes sein.
+    Dies können das Senden einer Nachricht oder Aktualisieren eines Profilbildes sein.
     Jedes Event hat hierfür einen \texttt{type} definiert welcher die Art des Events beschreibt.
     Für jeden Typ kann ein Event unterschiedliche Daten enthalten.
-    Es ist außerdem möglich, eigene Event typen zu erstellen~\cite{events}.\\
-    Im Kontext eines Raumes werden Events werden in 2 Kategorien~\cite{roomevents} unterteilt:
+    Es ist außerdem möglich, eigene Eventtypen zu erstellen~\cite{events}.\\
+    Im Kontext eines Raumes werden Events in 2 Kategorien~\cite{roomevents} unterteilt:
     \begin{description}[leftmargin=!,labelwidth=3.5cm]
-        \item [State events] geben Auskunft über zustandsänderungen in einem Raum. Dies könne beispielsweise das Ändern des Raumnamens oder das Beitreten eines Nuzters zu einem Raum sein.
-        \item [Message events] beschreiben die tatsächliche Kommunikation in einem Raums. Dies können das Senden einer Nachricht oder das Starten eines VoIP-Anrufes sein .
+        \item [State events] geben Auskunft über Zustandsänderungen in einem Raum. Dies können beispielsweise das Ändern des Raumnamens oder das Beitreten eines Nuzters zu einem Raum sein.
+        \item [Message events] beschreiben die tatsächliche Kommunikation in einem Raums. Dies können das Senden einer Nachricht oder das Starten eines VoIP-Anrufes sein.
     \end{description}
 
     Jedes Event enthält mindestens folgende Attribute~\cite{eventformat}:
     \begin{description}[leftmargin=!,labelwidth=3.5cm]
-        \item [content] der tatsächliche Inhalt der Nachricht. Dieser variiert abhängig vom event Type.
+        \item [content] der tatsächliche Inhalt der Nachricht. Dieser variiert abhängig vom Eventyp.
         \item [event\_id] ein eindeutiger Identifier für das jeweilige Event.
-        \item [origin\_server\_ts] Zeitstempel beim senden des Events.
+        \item [origin\_server\_ts] Zeitstempel beim Senden des Events.
         \item [room\_id] ein eindeutiger Identifier über welchen ein Event einem bestimmten Raum zugeordnet werden kann.
         \item [sender] die Matrix ID des Absenders des Events.
         \item [type] der Typ des Events.
@@ -282,9 +282,9 @@
     Ein Device im Matrix Protokoll beschreibt weniger ein reales Gerät wie ein Computer oder Smartphone sondern viel mehr eine Instanz eines Matrixclients auf einem Gerät.
     So können beispielsweise mehrere Anwendungen auf einem Gerät installiert sein und jedes wäre sein eigenes Device.
     Jedes Device bekommt seine eigene \texttt{device\_id} zugewiesen.
-    Dabei ist zu beachten, dass falls sich ein User von einer Anwendung abmeldet und sich auch dem selben Gerät bei der selben Anwendung erneut anmeldet nicht die gleiche \texttt{device\_id} zugewiesen bekommt.
-    Je nach Client wird eine somit unterschiedlich häufig die \texttt{device\_id} gewechselt.
-    In Webanwendungen wird bei jedem Anmelden ein neue \texttt{device\_id} angelegt wohingegen bei Client auf Mobilgeräten oder Computern die gleiche \texttt{device\_id} wiederverwendet werden kann.
+    Dabei ist zu beachten, dass falls sich ein User von einer Anwendung abmeldet und sich auf dem selben Gerät bei der selben Anwendung erneut anmeldet nicht die gleiche \texttt{device\_id} zugewiesen bekommt.
+    Je nach Client wird somit unterschiedlich häufig die \texttt{device\_id} gewechselt.
+    In Webanwendungen wird bei jedem Anmelden ein neue \texttt{device\_id} angelegt, wohingegen bei Client auf Mobilgeräten oder Computern die gleiche \texttt{device\_id} wiederverwendet werden kann.
     Devices finden hauptsächlich Anwendung im Bereich der End-to-End Verschlüsselung.
 
     \newpage
@@ -308,15 +308,15 @@
     \end{displaymath}
     Mit diesen Keys können anschließend alle fortlaufenden Keys berechnet werden~\cite{olm}.
     Der berechnete Schlüssel der root chain wird als input der KDF für die sending bzw. receiving chain genutzt.
-    Der hierbei entstehende schlüssel ird zum Verschlüsseln der eigentlichen Nachricht genutzt.
+    Der hierbei entstehende Schlüssel wird zum Verschlüsseln der eigentlichen Nachricht genutzt.
     Somit erfüllt der Olm Algorithmus folgende Eigenschaften:
     \begin{description}[leftmargin=!,labelwidth=3cm]
-        \item [Resilience] wird benutzt um ein Gerät zu identifizieren. Jedes Device besitzt seinen eigenen Ed25519 Schlüssel.
-        \item [Forward security] wird genutzt um den gemeinsamen geheimen Schlüssel zu erstellen.
-        \item [Break-in recovery] ein Set von einmal verwendbarer Keys um Aufbau einer Olm Sitzung.
+        \item [Resilience]
+        \item [Forward security] Vergangene Nachrichten sind geschützt wenn zu einem Zeitpunkt ein KDF Key bekannt wird.
+        \item [Break-in recovery] Zukünftige Nachrichten sind geschützt wenn zu einem Zeitpunkt ein KDF Key bekannt wird.
     \end{description}
 
-    Der Megolm Algorithums wird zur Verschlüsslung von Gruppen-Chats verwendet.
+    Der Megolm Algorithmus wird zur Verschlüsslung von Gruppen-Chats verwendet.
     Es ist ein auf dem Advanced Encryption Standard (AES) basierender Ratchet-Algorithmus~\cite{megolm}.
 
     Zusammengefasst werden folgende Schlüssel für die End-to-End-Verschlüsselung im Matrix Protokoll benötigt:
@@ -944,7 +944,7 @@ registration_requires_token: true
     \end{enumerate}
 
     Nachdem alle Konfigurationen getätigt wurden kann der Homeserver gestartet werden.
-    Es ist darauf zu achten, dass alle benötigten Ports des Containers auf dem Host gemapped werden.
+    Es ist darauf zu achten, dass alle benötigten Ports des Containers über den Host freigegeben werden.
 
     \begin{lstlisting}[language=bash,label={lst:synapse-start}]
 docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443:443 matrixdotorg/synapse:latest
@@ -1056,15 +1056,15 @@ docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443
     \chapter{Fazit}\label{ch:fazit}
     Die Plattform erfüllt die grundlegenden Anforderungen welche man an eine Messanger-App hat.
     Sie bietet die Möglichkeit einen Account anzulegen, zu verwalten und wieder zu löschen.
-    Sie erlaubt das erstellen, beitreten und löschen von Räumen sowohl in 1-zu-1 als auch in Gruppenräumen.
-    Das senden und empfangen von Nachrichten geschieht in echtzeit und mit End-to-End Verschlüsselung, sodass der betreiber der Platform keinerlei Zugriff auf die Daten der Nutzer hat.
-    Dabei unterstützt die Platform die gängigsten Nachrichtentypen und informiert den Nutzer über das eintreffen neuer Nachrichten.\\
+    Sie erlaubt das Erstellen, Beitreten und Löschen von Räumen sowohl in Direkt- als auch in Gruppenräumen.
+    Das Senden und Empfangen von Nachrichten geschieht in Echtzeit und mit End-to-End Verschlüsselung, sodass der Betreiber der Platform keinerlei Zugriff auf die Daten der Nutzer hat.
+    Dabei unterstützt die Platform die gängigsten Nachrichtentypen und sorgt dafür, dass keine personenbezogenen Daten auf dem GerÄt gespeichert sind.\\
     Betrachtet man jedoch die Anforderungen welche von der DSGVO an eine Messaging-App im medizinischen Bereich gestellt werden muss man feststellen, dass eine vielzahl weiterer Funktionen implementiert werden müssen bevor sie als DSGVO konform eingestuft werden kann und somit zum Einsatz in der Praxis zugelassen wird.
     Das Matrix Protokol unterstützt den Großteil der notwendigen Implementierungen um DSGVO konform zu werden.
     Die einzige nicht unterstützte Funktionalität die während der Implementation entdeckt wurde ist das Löschen von Nachrichten bzw. Inhalten auf dem Server.
-    Hierzu wird vom Protokol zur Zeit noch keine Möglichkeit bereitgestellt und somit muss ein eigenes System zum löschen der Daten entwickelt werden.
+    Hierzu wird vom Protokol zur Zeit noch keine Möglichkeit bereitgestellt und somit muss ein eigenes System zum Löschen der Daten entwickelt werden.
     Es ist jedoch möglich über ein \texttt{m.room.redaction} Event den Inhalt einer Nachricht unkenntlich zu machen.\\
-    Zwar sind alle Nachrichten und Daten die in einem Raum versendet wurden Verschlüsselt und vor unbefugtem Zugriff geschützt, allerdings ist es dem Betreiber der Plattform möglich die Mitgliedschaften von Nutzern zu Räumen einzusehen.
+    Zwar sind alle Nachrichten und Daten die in einem Raum versendet wurden Verschlüsselt und vor unbefugtem Zugriff geschützt, allerdings ist es dem Betreiber der Plattform möglich, die Mitgliedschaften von Nutzern zu Räumen einzusehen.
     Somit könnte abgeleitet werden, welche Personen welche Ärzte besuchen.
     Ob dies zulässig ist müsste separat untersucht werden.
 
@@ -1074,8 +1074,8 @@ docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443
 %    Ebenfalls wurden alle Anforderungen aus der
 
     \chapter{Ausblick}\label{ch:ausblick}
-    Der nächste Schritt in der Entwicklung der Plattform sollte es sein die Cross-Signing-Funktion der End-to-End Verschlüsslung zu unterstützen.
-    Hierzu muss ein geeignetes Key-Management-System implementiert werden welches es ermöglicht ein Gerät von einem anderen zu verifizieren und die Private Keys die zur Verschlüsselung der Nachrichten verwendet wurden zwischen den Geräten zu synchronisieren.
+    Der nächste Schritt in der Entwicklung der Plattform sollte es sein, die Cross-Signing-Funktion der End-to-End Verschlüsslung zu unterstützen.
+    Hierzu muss ein geeignetes Key-Management-System implementiert werden, welches es ermöglicht ein Gerät von einem anderen zu verifizieren und die Private Keys die zur Verschlüsselung der Nachrichten verwendet wurden zwischen den Geräten zu synchronisieren.
     Darüber hinaus sollte eine Prozess implementiert werden der es ermöglicht auch ohne Zugriff auf eines der anderen Geräte die verwendeten Schlüssel wiederherzustellen.
     Somit könnte beispielsweise bei Verlust oder bei Beschädigung des Gerätes trotzdem noch auf bestehende Chat-Verläufe zugegriffen werden.
     Mittels des Recovery Services des Crypto Moduls kann ein Backup der Session Keys auf der Server angelegt werden, welches über einen Recovery Key oder eine Passphrase geschützt werden kann.
