@@ -105,7 +105,7 @@
 
     \newpage
     \section*{Zusammenfassung}
-    In dieser Arbeit befasse ich mich mit ....
+    In dieser Arbeit befasst sich mit ....
 
     \section*{Abstract}\label{sec:abstract}
     This paper describes how to ...
@@ -128,7 +128,8 @@
     \section{Motivation}\label{sec:motivation}
     Die Digitalisierung findet immer Einzug in unser alltägliches Leben, so auch in der Medizin.
     Besonders seit Beginn der Coronapandemie im Jahr 2019 werden Rufe nach Softwarelösungen für den Einsatz in der Telemedizin immer lauter.
-    Da viele gängige Messenger wie Whatsapp oder Telegramm nicht den Datenschutz Vorschriften der DSGVO entsprechen müssen hierfür Alternativen geschaffen werden.
+    Da viele gängige Messenger wie Whatsapp oder Telegramm nicht den Datenschutz Vorschriften der DSGVO entsprechen müssen hierfür Alternativen geschaffen werden.\\
+    \#Todo
 
 
     \newpage
@@ -146,7 +147,7 @@
 %    So sollte beispielsweise darauf geachtet werden, dass
 
     \section{Aufbau der Arbeit}\label{sec:aufbau-der-arbeit}
-    Zuerst werden die Theoretischen Grundlagen
+    Zuerst werden die Theoretischen Grundlagen die für die Entwicklung der Plattform von bedeutung sind erläutert.
 %    Zuerst werden die gesetzlichen Ansprüche an eine Messaging-Plattform im medizinischen Bereich beleuchtet.
 %    Anschließend wird das Matrix Protokoll vorgestellt und seine allgemeine Funktionsweise beschrieben.
 %    Außerdem werden die zur Verschlüsselung verwendeten Algorithmen erklärt und die dafür benötigten Schlüssel aufgezeigt.
@@ -154,7 +155,7 @@
     Danach werden einige ähnlicher Projekte vorgestellt und analysiert.
     Basierend auf dieser Analyse werden eine eine Reihe von technischen Anforderungen definiert welche von der implementierten Plattform erfüllt werden sollen.
     Anschließend wird die implementierte Plattform vorgestellt und deren Funktionsweise erklärt.
-    Abschließend wird Plattform unter betrachtung der definierten Anforderungen evaluiert.
+    Abschließend wird die Plattform unter betrachtung der definierten Anforderungen evaluiert.
 
     \newpage
     \chapter{Theoretische Grundlagen}\label{ch:theoretische-grundlagen}
@@ -174,7 +175,8 @@
     Ziel dieses Gesetzes war es, die Chancen der Digitalisierung für die Gesundheitsversorgung zu nutzen und eine schnelle Einführung medizinischer Anwendungen für die Patientinnen und Patienten zu ermöglichen.}~\cite{ehealthgesetz}
 
     Ein Teil der Telematikinfrastruktur ist der TI-Messenger der Gematik GmbH welcher im Abschnitt~\ref{subsec:ti-messenger} genauer betrachtet wird.\\
-    Am 07.11.2019 hat dann die Konferenz der unabhängigen Datenschutzaufsichtsbehörden des Bundes und der Länder ein Whitepaper veröffentlicht welche die "Technischen Datenschutzanforderungen an Messenger-Dienste im Krankenhausbereich"~\cite{datenschutzkonferenz} aus Sicht der DSGVO offenlegt.
+    Am 07.11.2019 hat dann die Konferenz der unabhängigen Datenschutzaufsichtsbehörden des Bundes und der Länder ein Whitepaper veröffentlicht welche die \("\)Technischen Datenschutzanforderungen an Messenger-Dienste im\linebreak
+    Krankenhausbereich\("\) aus Sicht der DSGVO ~\cite{datenschutzkonferenz} offenlegt.
     Einige dieser Anforderungen sind:
     \begin{enumerate}[label={(\arabic*)}]
         \item Die Applikation muss über die Möglichkeit verfügen, die Nutzung bzw. den Zugriff
@@ -237,6 +239,20 @@
 
 
     \subsection{Funktionsweise}\label{subsec:funktionsweise}
+    Matrix arbeitet wie ein dezentraler Konversationsspeicher.
+    Hierbei werden Nachrichten (Events) zwischen den Homservern aller Teilnehmer eines Raumes synchronisiert.
+    Somit hält jeder Homeserver eine Kopie des vollständigen Konversationsverlaufs.
+    Selbst wenn ein Server zwischenzeitlich ausfällt können die anderen Teilnehmer ihre Konversation fortführen.
+    Sollte der ausgefallene Server wieder aktiv werden kann er die verpassten Nachrichten nachtragen~\cite{matrix}.
+    Alle Nachrichten einer Konversation werden in einem Directed Acyclic Graph (DAG) gespeichert.
+    Dieser wird im Kontext von Matrix als Event-Graph bezeichnet.
+    Hierbei besitzt jedes Event einen oder mehrere Eltern (außer der Wurzelknoten).
+    Der Elternknoten eines sendeten Events ist das zuletzt versendete Event eines Raumes.
+    Somit lässt sich der Event-Graph chronologisch ordnen.
+    Hierzu wird jedem event ein Wert \texttt{depth} zugewiesen, welcher die Reihenfolge der Events beschreibt~\cite{eventgraph}.
+    Im folgenden Beispiel ist ein Ablauf einer Konversation erklärt:\\
+
+    \#Todo
 
 %\usetikz
 %\begin{figure}
@@ -253,10 +269,10 @@
     Jedes Event hat hierfür einen \texttt{type} definiert welcher die Art des Events beschreibt.
     Für jeden Typ kann ein Event unterschiedliche Daten enthalten.
     Es ist außerdem möglich, eigene Eventtypen zu erstellen~\cite{events}.\\
-    Im Kontext eines Raumes werden Events in 2 Kategorien~\cite{roomevents} unterteilt:
+    Events können in 2 Kategorien~\cite{roomevents} unterteilt werden:
     \begin{description}[leftmargin=!,labelwidth=3.5cm]
         \item [State events] geben Auskunft über Zustandsänderungen in einem Raum. Dies können beispielsweise das Ändern des Raumnamens oder das Beitreten eines Nuzters zu einem Raum sein.
-        \item [Message events] beschreiben die tatsächliche Kommunikation in einem Raums. Dies können das Senden einer Nachricht oder das Starten eines VoIP-Anrufes sein.
+        \item [Message events] beschreiben die tatsächliche Kommunikation in einem Raum. Dies können das Senden einer Nachricht oder das Starten eines VoIP-Anrufes sein.
     \end{description}
 
     Jedes Event enthält mindestens folgende Attribute~\cite{eventformat}:
@@ -269,12 +285,25 @@
         \item [type] der Typ des Events.
     \end{description}
 
-
     Events werden meist in Kontext eines Raumes versendet.
 
     \newpage
-    \subsection{Rooms}
-
+    \subsection{Rooms}\label{subsec:rooms}
+    Räume ermöglicht es Nutzern Events zu versenden und zu empfangen.
+    Ein Raum ist hierbei theoretisches Konstrukt und wird lediglich über seine ID identifiziert.
+    Diese hat das folgende Format:
+    \begin{lstlisting}[language=bash,label={lst:roomid}]
+        !opaque_id:domain
+    \end{lstlisting}
+    Beim versenden eines Events wird diese Raum ID angegeben.
+    Somit können später alle Events aus dem Event Graph einem Raum zugeordnet werden.
+    Der aktuelle Zustand eines Raumes ergibt sich aus allen an diesen Raum gesendeten Events (state Events)~\cite{rooms}.
+    Außerdem wird für jeden Member eines Raumes ein Eintrag auf dem Homeserver angelegt, wodurch bestimmt wird welche Events von welchen Nutzer gelesen werden dürfen.
+    Es gibt zusätzlich die Möglichkeit einen oder mehrere "Room Aliases" anzulegen welche dem Menschen das identifizieren eines Raumes vereinfachen.
+    Diese sind im Format~\cite{rooms}:
+    \begin{lstlisting}[language=bash,label={lst:roomalias}]
+        #room_alias:domain
+    \end{lstlisting}
 
 
 
@@ -327,15 +356,23 @@
         \item [Megolm encryption keys] wird benutzt um Nachrichten in Gruppen-Chats zu verschlüsseln.
         \item [Ed25519 Megolm signing key pair] Schlüssel zum Signieren von Nachrichten in Gruppen-Chats, dient der Authentifizierung des Absenders.
     \end{description}
-    ~\cite{matrix-end-to-end-encryption}
+    ~\cite{matrix-end-to-end-encryption}\\
+
+    \#Todo
 
 
 
     \section{REST-API}\label{sec:rest}
 
+    \#Todo
+
     \cite{dazer2012restful}
 
     \section{MVVM-Architektur}\label{sec:mvvm-architektur}
+    \#Todo
+
+    \cite{Anderson2012}
+    \cite{Hoefling2022}
 %    \newpage
 %    \section{Anwendungsarchitektur}\label{sec:anwendungsarchitektur}
 %    Wie im Bereich von Webapplications haben sich auch im Bereich von Mobile Apps über die Zeit bestimmte Anwendungsarchitekturen (Design Patterns) entwickelt.
@@ -429,13 +466,15 @@
 
 
     \section{Swift}\label{sec:swift}
-    Swift\footnote{https://developer.apple.com/swift/}
+    Swift\footnote{https://developer.apple.com/swift/}\\
+    \#Todo
 
     \cite{Goodwill2015}
 
     \section{SwiftUI}
-    SwiftUI\footnote{https://developer.apple.com/xcode/swiftui/} ist ein GUI-Toolkit zur
+    SwiftUI\footnote{https://developer.apple.com/xcode/swiftui/} ist ein GUI-Toolkit zur\\
 
+    \#Todo
     \cite{Cahill2021}
     \cite{Varma2019}
 
@@ -489,8 +528,8 @@ end
     \section{Synapse}\label{sec:synapse}
     Synapse\footnote{https://github.com/matrix-org/synapse/} ist eine von der Matrix.org Foundation bereitgestellte Open Source Implementation eines Homeservers.
     Sie folgt den im Matrix Protokoll festgelegten REST-APIs.
-    Die Entwicklung begann 2014 und kann seit 2019 im Produktivbetrieb genutzt werden.
-    Der Homeserver ist in Python geschrieben und kann somit auf jedem beliebigen Host betrieben werden, es wird jedoch empfohlen einen von Matrix.org bereitgestellten Dockercontainer zu verenden.
+    Die Entwicklung begann 2014 und kann seit 2019 im Produktivbetrieb genutzt werden~\cite{synapse}.
+    Der Homeserver ist in Python geschrieben und kann somit auf jedem python fähigen Host betrieben werden, es wird jedoch empfohlen einen von Matrix.org bereitgestellten Dockercontainer zu verenden.
 
     \section{Docker}\label{sec:docker}
     Docker ist eine Containervirtualisierungssoftware welche es ermöglicht Anwendung vom Rest des Systems zu isolieren.
@@ -506,7 +545,8 @@ end
 
 
     \chapter{Konzept}\label{ch:konzept}
-    In diesem Kapitel werden 2 verwandte Projekte analysiert und unter Betrachtung der Zielgruppe einige Anforderungen definiert die die App zu erfüllen hat.
+    In diesem Kapitel werden 2 verwandte Projekte vorgestellt, welche die Entwicklung der Plattform beeinflusst haben.
+    Nach der
 
     \section{Ähnlicher Projekte}\label{sec:analyse-ahnlicher-projekte}
 
@@ -515,8 +555,9 @@ end
     Es dient der Entwicklung eines Messaging-Standards für das deutsche Gesundheitswesen.
     Hierbei ist zu beachten, dass der TI-Messenger keine spezifische Anwendung beschreibt sondern vielmehr die Vernetzung einzelner Anbieter- und Sektorübergreifender Plattformen gewährleistet.
     Da jeder Bereich des Gesundheitswesens andere Ansprüche an einen Messenger hat muss eine freie Wahl der Plattform möglich sein, wobei jedoch eine Plattformübergreifende Kommunikation möglich sein muss.
-    Am 29.07.2022 hat die Gematik GmbH die Spezifikationen zur ersten Ausbaustufe des TI-Messengers veröffentlicht.
-    Diese soll zum Sommer 2023 in Betrieb gehen und sowohl Textnachrichten als auch Bild- und Tonübertragungen unterstützen~\cite{timessenger,timessenger2}.
+    Die Gematik GmbH hat bereits die Spezifikationen zur Version 1.0.0 und 1.1.0 des TI-Messengers~\cite{timessenger3} veröffentlicht.
+    Für diese Arbeit von besonderer Relevanz sind die Kapitel 4.1 \("\)Datenschutz und Sicherheit\("\) der jeweiligen Dokumente.
+    Die erste Version des TI-Messengers soll zum Sommer 2023 in Betrieb gehen und sowohl Textnachrichten als auch Bild- und Tonübertragungen unterstützen~\cite{timessenger,timessenger2}.
 
     \subsection{Nio}
     Nio\footnote{https://github.com/niochat/nio} ist ein vom User kiliankoe gestartetes Projekt.
@@ -534,9 +575,9 @@ end
 
     \newpage
     \section{Anforderungen}\label{sec:anforderungen}
-    Nach der Analyse ähnlicher Projekte wurden unter Beachtung der in der DSGVO festgelegten Anforderungen, eine Liste funktionaler Anforderungen erstellt, die von der Plattform erfüllt werden müssen.
-    Basierend auf den Erkenntnissen der Analyse des Nio Clients und unter beachtung der in der Spezifikation des TI-Messengers festgelegten Anforderungen wurde eine Liste funktionaler Anforderungen erstellt, welche von der zu implementierenden Plattform unterstützt werden sollen.
-    Diese wurden nach der MoSCoW-Methode, einer Methodik die häufig Anwendung im Bereich des Projektmanagement findet, priorisiert.\\
+    Basierend auf den Erkenntnissen der Analyse des Nio Clients und der in der Spezifikation des TI-Messengers festgelegten Anforderungen wurde eine Liste von Anforderungen erstellt, welche von der zu implementierenden Plattform unterstützt werden sollen.
+    Hierbei wurde sich auf die Grundfunktionalität einer Messaging-App und auf den Datenschutz gerechten Umgang mit Daten fokussiert.
+    Diese Anforderungen wurden nach der MoSCoW-Methode, einer Methodik die häufig Anwendung im Bereich des Projektmanagement findet, priorisiert.\\
     \textbf{Must}:
     \begin{enumerate}[label={\roman*.}, leftmargin=2.5cm]
         \item Der User muss über die App einen Account auf der Plattform anlegen können.
@@ -546,8 +587,10 @@ end
         \item Dem User muss neue Räume erstellen können.
         \item Der User muss zu neuen Räumen eingeladen werden können.
         \item Der User muss alle Nachrichten die in einem Raum gesendet wurden einsehen können.
+        \item Nachrichten Inhalte müssen verschlüsselt, separat vom allgemeinen Speicherbereich des Endgeräts abgelegt werden.
         \item Der User muss Nachrichten in einem Raum senden können.
         \item Nachrichten zwischen Usern müssen End-to-End Verschlüsselt sein.
+        \item Der Usern muss Nachrichten löschen können.
         \item Der User muss einen Raum verlassen können.
         \item Der User muss seinen Account deaktivieren können.
         \item Die App darf keinen Zugriff auf das Adressbuch des Endgerätes haben.
@@ -575,7 +618,6 @@ end
         \item Die App kann auch mit anderen Homeservern verbunden werden.
         \item Der User kann den Inhalt einer Textnachricht in die Zwischenablage kopieren.
         \item Der User kann eine Nachricht weiterleiten.
-        \item Der User kann eine Nachricht löschen.
         \item Der User kann Dateien welche in einem Raum verschickt wurden herunterladen.
         \item Die App kann im Landscape mode genutzt werden.
     \end{enumerate}
@@ -619,7 +661,7 @@ end
     Für den Einsatz im Produktivbetrieb könnte diese View entfernt werden und die Adresse des Homeservers fest in der App festgelegt werden.
 
     \begin{figure}[h]
-        \includegraphics[scale=0.5]{homeserver}
+        \includegraphics[scale=0.5]{homeserver_white}
         \centering
         \caption{SelectHomeserverView}\label{fig:selecthomeserverview}
     \end{figure}
@@ -635,7 +677,7 @@ end
     Ist diese Anfrage erfolgreich wird der Homeserver im Model hinterlegt und der User gelangt zur \texttt{LoginView} welche in Abbildung ~\ref{fig:loginview} zu sehen ist.
     Falls die Anfrage fehlschlägt wird dem User eine Fehlermeldung gezeigt.
     \begin{figure}[h]
-        \includegraphics[scale=0.5]{login}
+        \includegraphics[scale=0.5]{login_white}
         \centering
         \caption{LoginView}\label{fig:loginview}
     \end{figure}
@@ -663,7 +705,7 @@ end
     Diese View dient der Account erstellung und enthält 3 Textfelder für Benutzernamen, Passwort und Registrierungstoken.
     Für das Passwortfeld kann wie schon in der \texttt{LoginView} zwischen versteckter Eingabe und Klartet gewechselt werden.
     \begin{figure}[h]
-        \includegraphics[scale=0.5]{accountcreate}
+        \includegraphics[scale=0.5]{accountcreate_white}
         \centering
         \caption{CreateAccountView}\label{fig:createaccountview}
     \end{figure}
@@ -728,13 +770,14 @@ end
     Die in Abbildung~\ref{fig:roomsview} gezeigte View besteht aus einer \texttt{Toolbar} im Kopf der Ansicht über welche man zur \texttt{ProfileView} und \texttt{SettingsView} gelangt.
     Darunter findet sich die Raum übersicht welche alle beigetretenen Räume in einer scrollbaren Liste anzeigt.
     Jedes Element der Liste zeigt den das Profilbild des jeweiligen Raumes sowie Displayname oder Title des jeweiligen Raumes.
-    Bei direkten Räumen wird außerdem die MatrixID des Users angezeigt.
+    Bei direkten Räumen wird außerdem die MatrixID des Users angezeigt, da User ihren Anzeigenamen beliebig ändern können.
+    Auf das Zeigen einer Vorschau der letzten Nachricht wurde hierbei im Sinne des Datenschutzes bewusst verzichtet.
     Auf der rechten Seite befindet sich der Zeitpunkt der letzten Nachricht und ein Indikator dafür ob und wie viele ungelesene Nachrichten im einem Raum existieren
     Über das darüberliegende Textfeld kann kann die Liste gefiltert werden.
     Darüber hinaus wird die Liste nach dem  \texttt{originServerTimestamp} der letzten Nachricht des jeweiligen Raumes sortiert.
 
     \begin{figure}[h]
-        \includegraphics[scale=0.5]{rooms}
+        \includegraphics[scale=0.5]{rooms_white}
         \centering
         \caption{RoomsView}\label{fig:roomsview}
     \end{figure}
@@ -746,7 +789,7 @@ end
     Falls man die Einladung ablehnen möchte kann man dies durch wischen der Einladung in Richtung des linken Bildschirmrandes tun.
 
     \begin{figure}[h]
-        \includegraphics[scale=0.5]{invites}
+        \includegraphics[scale=0.5]{invites_white}
         \centering
         \caption{InvitesView}\label{fig:invitesview}
     \end{figure}
@@ -766,7 +809,7 @@ end
     Hierbei achtet die App darauf, dass ein Nutzer nicht doppelt hinzugefügt werden kann.
 
     \begin{figure}[h]
-        \includegraphics[scale=0.5]{newroom}
+        \includegraphics[scale=0.5]{newroom_white}
         \centering
         \caption{NewRoomView}\label{fig:newroomview}
     \end{figure}
@@ -787,7 +830,7 @@ end
     Der Videoplayer unterstützt sowohl das abspielen direkt in der \texttt{ChatView} als auch im Fullscreenmode, sowohl im Landscape- als auch im Portrait-format.
 
     \begin{figure}[h]
-        \includegraphics[scale=0.5]{chat}
+        \includegraphics[scale=0.5]{chat_white}
         \centering
         \caption{ChatView}\label{fig:chatview}
     \end{figure}
@@ -821,9 +864,10 @@ end
     Hierfür öffnet sich nach klicken des Buttons ein alert welcher den Nutzer um Eingabe seines alten und seines neuen Passworts bittet.
     Falls das alte Passwort korrekt eingegeben wurde wird das neue Passwort gesetzt.\\
     Im unteren Teil der Ansicht befinden sich 2 Buttons, ein logout und ein delete Button ..  .. . . .
+    \#Todo
 
     \begin{figure}[h]
-        \includegraphics[scale=0.5]{profile}
+        \includegraphics[scale=0.5]{profile_white}
         \centering
         \caption{ProfileView}\label{fig:profileview}
     \end{figure}
@@ -867,7 +911,7 @@ end
     Zusätzlich kann auf dem Homeserver unter \texttt{/data/media\_store} geprüfte werden, dass die Dateien verschlüsselt auf dem Server abgelegt werden.
 
     \subsection{Benachrichtigungen}\label{subsec:benachrichtigungen}
-
+    \#Todo
 
     \newpage
     \section{Homeserver}\label{sec:homeserver}
@@ -899,20 +943,22 @@ listeners:
     type: http
     tls: true
     resources:
-          - names: [client, federation]
+          - names: [client]
             \end{lstlisting}
         \item Für den zusätzlichen Listener über HTTPS muss ein SSL Zertifikat erstellt werden und in der Konfiguration hinterlegt werden. Während der Entwicklung wurde hierfür ein selbst signiertes Zertifikat mittels Open SSL generiert.
             \begin{lstlisting}[language=yaml,label={lst:ssl-certificate}]
 tls_certificate_path: "/data/certs/cert.pem"
 tls_private_key_path: "data/certs/key.pem"
             \end{lstlisting}
+        \item Da während der Entwicklung ein selbst signiertes Zertifikat verwendet wurde muss zusätzlich die Zertifikat Verifikation ausgeschaltet werden.
+            \begin{lstlisting}[language=yaml,label={lst:disable-cert}]
+federation_verify_certificates: false
+            \end{lstlisting}
         \item Da der Server nicht mit dem Matrix Netzwerk verbunden wird muss die Key Verifizierung über den Matrix Root Server deaktiviert werden.
             \begin{lstlisting}[language=yaml,label={lst:disable-key-verification}]
-federation_verify_certificates: false
 trusted_key_servers:
   - server_name: "matrix.org"
     accept_keys_insecurely: true
-    enable_registration_without_verification: true
             \end{lstlisting}
         \item Um das in Abschnitt~\ref{subsec:raumerzeugung} beschriebene durchsuchen des Nutzerverzeichnisses zu ermöglichen muss dies hier erlaubt werden.
             \begin{lstlisting}[language=yaml,label={lst:user-directory}]
@@ -941,6 +987,10 @@ password_config:
 enable_registration: true
 registration_requires_token: true
         \end{lstlisting}
+        \item Als weiter Absicherung, dass auch alle Räume verschlüsselt sind werden Raume standardmäßig verschlüsselt.
+    \begin{lstlisting}[language=yaml,label={lst:enable-encryption}]
+encryption_enabled_by_default_for_room_type: all
+    \end{lstlisting}
     \end{enumerate}
 
     Nachdem alle Konfigurationen getätigt wurden kann der Homeserver gestartet werden.
@@ -951,6 +1001,10 @@ docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443
     \end{lstlisting}
 
     Nach dem Start des Containers ist der Homeserver einsatzbereit und Clients können eine Verbindung aufnehmen.
+    Es wird außerdem eine Datenbank angelegt.
+    Für die Implementation wird die standardmäßig konfigurierte SQLite Datenbank verwendet.
+    Hier werden alle für den Betrieb des Homeservers benötigten Tabellen angelegt.
+    Außerdem wird ein \texttt{media\_store} Ordner angelegt, welcher alle versendeten Dateien der Nutzer enthält.
 
     \newpage
     \chapter{Evaluation}\label{ch:evaluation}
@@ -961,7 +1015,7 @@ docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443
     \section{Must-Anforderungen}\label{sec:must-anforderungen}
     \begin{table}[h]
         \centering
-        \begin{tabular}{p{0.47\textwidth}|p{0.47\textwidth}}
+        \begin{tabular}{p{0.57\textwidth}|p{0.37\textwidth}}
             Anforderung & Status\\
             \cline{1-2}
             Der User muss über die App einen Account auf der Plattform anlegen können.
@@ -979,9 +1033,13 @@ docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443
             \cline{1-2}
             Der User muss alle Nachrichten die in einem Raum gesendet wurden einsehen können. & \textbf{Erfüllt} \\
             \cline{1-2}
+            Nachrichten Inhalte müssen verschlüsselt, separat vom allgemeinen Speicherbereich des Endgeräts abgelegt werden. & \textbf{Erfüllt} (keine lokale Speicherung implementiert) \\
+            \cline{1-2}
             Der User muss Nachrichten in einem Raum senden können. & \textbf{Erfüllt} \\
             \cline{1-2}
             Nachrichten zwischen Usern müssen End-to-End Verschlüsselt sein. & \textbf{Erfüllt} \\
+            \cline{1-2}
+            Der Usern muss Nachrichten löschen können. & \textbf{Nicht erfüllt} \\
             \cline{1-2}
             Der User muss einen Raum verlassen können. & \textbf{Erfüllt} \\
             \cline{1-2}
@@ -997,7 +1055,7 @@ docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443
     \section{Should-Anforderungen}\label{sec:should-anforderungen}
     \begin{table}[h]
         \centering
-        \begin{tabular}{p{0.47\textwidth}|p{0.47\textwidth}}
+        \begin{tabular}{p{0.57\textwidth}|p{0.37\textwidth}}
             Anforderung & Status\\
             \cline{1-2}
             Beim erstellen des Accounts soll eine zusätzliche Authentifizierungsmethode verwendet werden um Wahloses erstellen zon Accounts zu verhindern.
@@ -1027,7 +1085,7 @@ docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443
     \section{Could-Anforderungen}\label{sec:could-anforderungen}
     \begin{table}[h]
         \centering
-        \begin{tabular}{p{0.47\textwidth}|p{0.47\textwidth}}
+        \begin{tabular}{p{0.57\textwidth}|p{0.37\textwidth}}
             Anforderung & Status\\
             \cline{1-2}
             Die Liste der beigetretenen Räume kann gefiltert werden. &  \textbf{Erfüllt} \\
@@ -1041,8 +1099,6 @@ docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443
             Der User kann den Inhalt einer Textnachricht in die Zwischenablage kopieren. & \textbf{Nicht erfüllt} \\
             \cline{1-2}
             Der User kann eine Nachricht weiterleiten. & \textbf{Nicht erfüllt}  \\
-            \cline{1-2}
-            Der User kann eine Nachricht löschen. & \textbf{Nicht erfüllt}  \\
             \cline{1-2}
             Der User kann Dateien welche in einem Raum verschickt wurden herunterladen. & \textbf{Nicht erfüllt}  \\
             \cline{1-2}
@@ -1058,7 +1114,7 @@ docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443
     Sie bietet die Möglichkeit einen Account anzulegen, zu verwalten und wieder zu löschen.
     Sie erlaubt das Erstellen, Beitreten und Löschen von Räumen sowohl in Direkt- als auch in Gruppenräumen.
     Das Senden und Empfangen von Nachrichten geschieht in Echtzeit und mit End-to-End Verschlüsselung, sodass der Betreiber der Platform keinerlei Zugriff auf die Daten der Nutzer hat.
-    Dabei unterstützt die Platform die gängigsten Nachrichtentypen und sorgt dafür, dass keine personenbezogenen Daten auf dem GerÄt gespeichert sind.\\
+    Dabei unterstützt die Platform die gängigsten Nachrichtentypen und sorgt dafür, dass keine personenbezogenen Daten auf dem Gerät gespeichert sind.\\
     Betrachtet man jedoch die Anforderungen welche von der DSGVO an eine Messaging-App im medizinischen Bereich gestellt werden muss man feststellen, dass eine vielzahl weiterer Funktionen implementiert werden müssen bevor sie als DSGVO konform eingestuft werden kann und somit zum Einsatz in der Praxis zugelassen wird.
     Das Matrix Protokol unterstützt den Großteil der notwendigen Implementierungen um DSGVO konform zu werden.
     Die einzige nicht unterstützte Funktionalität die während der Implementation entdeckt wurde ist das Löschen von Nachrichten bzw. Inhalten auf dem Server.
@@ -1081,6 +1137,9 @@ docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443
     Mittels des Recovery Services des Crypto Moduls kann ein Backup der Session Keys auf der Server angelegt werden, welches über einen Recovery Key oder eine Passphrase geschützt werden kann.
     Von diesem Backup können dann bei Bedarf alle gespeicherten Keys wiederhergestellt werden.
     Die Dokumentation hierfür ist noch in der Erstellung~\cite{advancede2e} was die Implementation zum aktuellen Zeitpunkt deutlich erschwert.\\
+    Es sollte ein System zum lokalen Speicher der Daten entwickelt werden, welches es möglich macht die Anwendung auch ohne Verbindung zum Internet einsehen zu können.
+    Hierbei muss darauf geachtet werden die Daten verschlüsselt und separat vom allgemeinen Speicherbereich des Endgeräts abzulegen.
+    Außerdem werden dadurch Ladezeiten reduziert und der Datentransfer zwischen Server und Anwendung zu minimiert.\\
     Des weiteren kann die Plattform um zusätzliche Nachrichtentypen erweitert werden.
     Es könnte beispielsweise das Aufnehmen und versenden von Audiodateien hinzugefügt werden.
     Außerdem kann der Datei-Message-Typ um weiter Dateitypen erweitert werden.
