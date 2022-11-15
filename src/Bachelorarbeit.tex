@@ -369,83 +369,31 @@
     \cite{dazer2012restful}
 
     \section{MVVM-Architektur}\label{sec:mvvm-architektur}
-    \#Todo
-
-    \cite{Anderson2012}
-    \cite{Hoefling2022}
-%    \newpage
-%    \section{Anwendungsarchitektur}\label{sec:anwendungsarchitektur}
-%    Wie im Bereich von Webapplications haben sich auch im Bereich von Mobile Apps über die Zeit bestimmte Anwendungsarchitekturen (Design Patterns) entwickelt.
-%    Diese dienen als Muster um wiederkehrende Entwurfsprobleme zu lösen, indem man auf bewährte Praktiken zurückgreift.
-%    Sie beschreiben die allgemeine Struktur der Anwendung und geben somit auch die Aufteilung des Quellcodes vor.
-%    Die richtige Wahl der Anwendungsarchitektur kann einen entscheidenden Einfluss darauf nehmen wie effizient die Entwicklung des Projektes verläuft.
-%    Darüber hinaus erleichtern sie die Arbeit im Team da sie ein einheitliches Vokabular bieten.
-%    Im Folgenden werden 3 der bekanntesten Architekturen für Mobile Apps näher erläutert.
-%
-%    \newpage
-%    \subsection{Model-View-Controller}\label{subsec:model-view-controller}
-%    Die Model-View-Controller Architektur teilt eine Anwendung in 3 Bereiche auf welche in Abbildung~\ref{fig:mvc} dargestellt sind.
-%
-%    \begin{figure}[h]
-%        \centering
-%        \input{source/diagrams/mvc.tikz}
-%        \caption{Interaktionen im Model-View-Controller}
-%        \label{fig:mvc}
-%    \end{figure}
-%
-%    Das \textbf{Model} repräsentiert die Struktur der Daten und hält Informationen über den aktuellen Zustand der Anwendung.
-%    Außerdem ist es verantwortlich für die Kommunikation mit externen Datenquellen wie beispielsweise Datenbanken.
-%    ~\cite{mvc}
-%    Es liefert die Daten an die View weiter, ohne diese zu verändern.
-%    Die Daten im Model sind somit unabhängig von ihrer Präsentation.
-%    Deshalb ist es möglich mehrere Views an dasselbe Model, und somit dieselben Daten zu binden.
-%    Hierbei sind jedoch die Präsentationen der Daten auf den einzelnen Views ebenfalls unabhängig voneinander.
-%    Sollten sich die Daten im Model ändern werden die Views über diese Änderung informiert~\cite{https://doi.org/10.48550/arxiv.1408.5786}.
-%
-%    Die \textbf{View} stellt die optische Oberfläche der Anwendung dar.
-%    Sie enthält alle grafischen Elemente wie Textfelder, Bilder oder anderer Elemente die zur Darstellung der Daten aus dem Model benötigt werden.
-%    Zudem nimmt sie die Eingaben des Users entgegen und leitet diese an den Controller weiter~\cite{https://doi.org/10.48550/arxiv.1408.5786}.
-%
-%
-%    Der \textbf{Controller} ist für die Steuerung der Anwendung zuständig.
-%    Seine Aufgabe ist es je nach Eingabe des Benutzers das Model manipulieren.
-%    Basierend auf der Eingabe des Benutzers ist er ebenfalls dafür zuständig die aktuelle View zu wechseln~\cite{https://doi.org/10.48550/arxiv.1408.5786}.
-%
-%
-%    Im Model-View-Controller Pattern sind Programmlogik, Datenstruktur und die Präsentation der Daten derart getrennt, dass es möglich ist diese Unabhängig voneinander zu verändern, ohne damit Einfluss auf einen der anderen Bereiche zu nehmen.
-%    Somit ist es möglich beispielsweise die Oberfläche eines Programmes zu überarbeiten, ohne sich dabei Gedanken über die darunter liegende Ausführungslogik zu machen~\cite{mvc}.
-%
-%    \subsection{Model-View-Presenter}\label{subsec:model-view-presenter}
-%    Die Model-View-Presenter Architektur ist eine weiterentwicklung der Model-View-Controller Architektur und dieser somit sehr ähnlich.
-%    Sie ist ebenfalls in 3 Bereiche geteilt, die View und das Model übernehmen die gleichen Funktionieren wie auch schon in der Model-View-Controller Architektur.
-%    Entscheidender Unterschied hierbei ist jedoch, dass View und Controller nicht direkt miteinander verbunden sind.
-%    Wie in Abbildung~\ref{fig:mvp} zu sehen werden Model und View über den Presenter verbunden.
-%    Dieser ersetzt den Controller und fungiert als Schnittstelle beider Komponenten.
-%    Die über die View eintreffenden Eingaben der Users werden vom Presenter verarbeitet und damit das jeweilige Model manipuliert.
-%    Das daraus resultierende aktualisierte Model wird dann vom Presenter zurück an die View geschickt um diese zu aktualisieren~\cite{mvp1}.
-%    \begin{figure}[h]
-%        \centering
-%        \input{source/diagrams/mvp.tikz}
-%        \caption{Interaktionen im Model-View-Presenter}
-%        \label{fig:mvp}
-%    \end{figure}
-%
-%    Durch diesen Aufbau haben View und Model klar definierte Schnittstellen, welche vom Presenter miteinander verbunden werden.
-%    Im Vergleich zur Model-View-Controller Architektur erhält man somit eine noch deutlichere Trennung der einzelnen Komponenten~\cite{mvp2}.
-%
-%    \subsection{Model-View-ViewModel}\label{subsec:model-view-viewmodel}
-%    Die Model-View-ViewModel Architektur ist ebenfalls eine weiterentwicklung der Model-View-Controller Architektur.
-%
-%
-%    \begin{figure}[h]
-%        \centering
-%        \input{source/diagrams/mvvm.tikz}
-%        \caption{Interaktionen im Model-View-Presenter}
-%        \label{fig:mvvm}
-%    \end{figure}
-%
-%    \cite{Anderson2012}
-%%    \cite{Hoefling2022}
+    Im allgemeinen dienen Anwendungsarchitekturen (Design Pattern) als Muster um wiederkehrende Entwurfsprobleme zu lösen, indem man auf bewährte Praktiken zurückgreift.
+    Sie beschreiben die allgemeine Struktur der Anwendung und geben somit auch die Aufteilung des Quellcodes vor.
+    Die richtige Wahl der Anwendungsarchitektur kann einen entscheidenden Einfluss darauf nehmen wie effizient die Entwicklung des Projektes verläuft.\\
+    Das Ziel der \textbf{M}odel-\textbf{V}iew-\textbf{V}iew\textbf{M}odel Architektur ist es, Ausführungslogik und Benutzeroberfläche von einander zu trennen.
+    Hierzu wird die Anwendung in 3 Bereiche unterteilt, welche in Abbildung~\ref{fig:mvvm}~\cite{Sun2017/01} zu sehen sind:\\
+    \begin{figure}[h]
+        \centering
+        \input{source/diagrams/mvvm.tikz}
+        \caption{Interaktionen im Model-View-ViewModel}
+        \label{fig:mvvm}
+    \end{figure}\\
+    Dabei übernimmt jeder Teil eine bestimmte Funktion~\cite{Mishra2017}:
+    \begin{description}[leftmargin=!,labelwidth=3cm]
+        \item [View] Bildet die grafische Oberfläche der Anwendung. Sie nimmt Usereingaben entgegen und kommuniziert mit dem dem ViewModel.
+        \item [Model] Repräsentiert und speichert die Daten der Anwendung. Es kommuniziert mit dem ViewModel.
+        \item [ViewModel] Enthält die Ausführungslogik der Anwendung. Es kommuniziert Sowohl mit der View als auch dem Model. Außerdem ist es zuständig für die Kommunikation mit externen Systemen.
+    \end{description}
+    Die Verwendung der MVVM-Architektur bringt eine Reihe von Vorteilen~\cite{Anderson2012,Mishra2017} mitsich:
+    \begin{enumerate}[label={(\arabic*)}]
+        \item Es erlaubt eine unabhängige Entwicklung von Userinterface und Ausführungslogik.
+        \item Views können während des Entwurfs mit Testdaten befüllt werden, um somit eine Vorschau der Ansicht zu erstellen.
+        \item Es erlaubt die Nutzung mehrerer Views auf dem selben ViewModel.
+        \item Es verteilt Code auf mehrere kleinerer Klassen an Stelle eines großen View-Controllers.
+        \item Erlaubt den ein Satz von Unit Tests auch zu einem späteren Zeitpunkt ohne größere Veränderungen im Code.
+    \end{enumerate}
 
     \chapter{Verwendete Technologien}\label{ch:verwendete-technologien}
     In diesem Kapitel werden die für die Implementierung der Plattform verwendeten Technologien vorgestellt.
