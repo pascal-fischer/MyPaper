@@ -127,24 +127,29 @@
 
     \section{Motivation}\label{sec:motivation}
     Die Digitalisierung findet immer Einzug in unser alltägliches Leben, so auch in der Medizin.
+    Der Einsatz neuer digitaler Innovationen soll eine bestmögliche Versorgung der Patienten gewährleisten.
+    Eine große Herausforderung ist der demografische Wandel und der Mangel an Fachärztinnen und Fachärzten in ländlichen Regionen.
+    Um dem entgegenzuwirken, wurde das Verbot von Fernbehandlungen nach der Musterberufsordnung der Ärzte (MBO-Ä) im Jahr 2018~\cite{beschlussprotokol} aufgehoben.
+    Dies ermöglicht eine bequeme und schnelle Behandlung von zuhause.
+    So muss beispielsweise für eine Krankschreibung oder ein Folgerezept nicht extra eine Arztpraxis aufgesucht werden.
+    Hierdurch können lange Anfahrtswege und Wartezeiten vermieden werden.
     Besonders seit Beginn der Coronapandemie im Jahr 2019 werden Rufe nach Softwarelösungen für den Einsatz in der Telemedizin immer lauter.
-    Da viele gängige Messenger wie WhatsApp oder Telegramm nicht den Datenschutz Vorschriften der DSGVO entsprechen, müssen hierfür Alternativen geschaffen werden.\\
-    \#Todo
-
+    Viele Bürger fürchten jedoch um die Sicherheit ihrer Daten, weshalb das Thema Datenschutz eine besondere Rolle beim Einsatz von Telemedizin spielt.
+    Auch von Seiten des Gesetzgebers gelten strenge Vorgaben im Umgang mit personenbezogenen Daten, ganz besonders wenn es sich hierbei um medizinische Daten handelt.
+    Viele gängige Messenger wie WhatsApp oder Telegramm unterstützen zwar eine End-to-End-Verschlüsselung der gesendeten Nachrichten, jedoch entsprechen sie nicht den Datenschutz Vorschriften der DSGVO und sind somit für den Einsatz in der Telemedizin nicht geeignet.
+    Aus diesem Grund müssen Alternativen geschaffen werden, die für den Einsatz in der Telemedizin zugelassen sind.
 
     \newpage
     \section{Zielsetzung}\label{sec:zielsetzung}
     Ziel dieser Arbeit ist es eine Plattform zu entwickeln, welchen es Ärzten und Patienten ermöglicht in Kontakt zu treten und Nachrichten auszutauschen.
-    Hierfür soll eine Chat-App auf Basis des Matrix.org-Protokolls implementiert werden.
+    Hierfür soll eine Chat-basierte Plattform auf Basis des Matrix.org-Protokolls implementiert werden.
+    Die Plattform soll hierfür
     Die App ist in der Programmiersprache Swift zu entwickeln und soll auf allen gängigen iOS Geräten unterstützt werden.
     Darüber hinaus muss die benötigte Infrastruktur bereitgestellt werden, um Nachrichten und Daten zu speichern und zu übermitteln.
     Diese soll jedoch isoliert laufen und nicht an das existierende Matrix-Netzwerk angeschlossen werden.
     Da medizinische Daten dem Datenschutz in besonderer Maße unterliegen, ist es besonders wichtig,
     dass jegliche Art von Kommunikation zwischen Ärzten und Patienten stets verschlüsselt ist.
     Es muss gewährleistet sein, dass zu jedem Zeitpunkt alle personenbezogenen Daten vor dem Zugriff unerlaubter Dritter geschützt sind.
-%    Da es im Bereich der Medizin  hinaus ist zu beachten, dass das Userinterface
-%    So sollte beispielsweise darauf geachtet werden, dass Da es im Bereich der Medizin hinaus ist zu beachten, dass das Userinterface
-%    So sollte beispielsweise darauf geachtet werden, dass
 
     \section{Aufbau der Arbeit}\label{sec:aufbau-der-arbeit}
     Zuerst werden die theoretischen Grundlagen, die für die Entwicklung der Plattform von Bedeutung sind, erläutert.
@@ -320,7 +325,7 @@
     Er wird dafür genutzt verschlüsselte Nachrichten zwischen 2 Parteien auszutauschen, wobei mit jeder Nachricht ein neuer Key zur Verschlüsselung abgeleitet wird.
     Dies geschieht durch Verkettung einer Key Derivation Function (KDF).
     Hierbei werden 3 Ketten geführt, die root chain, sending chain und receiving chain.
-    Die sending chain einer Partei gleicht der receiving chain der anderen Partei und andersrum~\cite{perrin2016double}.
+    Die sending chain einer Partei gleicht der receiving chain der anderen Partei und umgekehrt~\cite{perrin2016double}.
     Für die Erstellung des Wurzelknotens werden 4 Keys benötigt.
     Man benötigt die Identity Keys beider Teilnehmer ($I_A$ und $I_B$) und jeweils einen Curve25519 one-time key ($E_A$ und $E_B$).
     Mithilfe des Diffie-Hellman-Verfahrens wird ein gemeinsamer geheimer Schlüssel S erzeugt.
