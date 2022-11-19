@@ -241,15 +241,18 @@
 
 
     \subsection{Funktionsweise}\label{subsec:funktionsweise}
-    Matrix arbeitet wie ein dezentraler Konversationsspeicher.
-    Hierbei werden Nachrichten (Events) zwischen den Homservern aller Teilnehmer eines Raumes synchronisiert.
+    Matrix beschreibt sich selbst als dezentralen Konversationsspeicher\cite{matrix}.
+    Hierbei werden alle Nachrichten (Events) die von einem User an einen Raum verschickt werden auf seinem Homeserver gespeichert.
+    Ein Homeserver beschreibt einen Knoten im Matrix Netzwerk.
+    Jeder Client ist mit einem einzigen Homeserver verbunden.
+    Damit eine Konversation stattfinden kann, sorgt der Homeserver dafür, dass die vom User gesendete Nachricht an die Homeserver der anderen Teilnehmer eines Raumes synchronisiert wird.
     Somit hält jeder Homeserver eine Kopie des vollständigen Konversationsverlaufs.
     Selbst wenn ein Server zwischenzeitlich ausfällt, können die anderen Teilnehmer ihre Konversation fortführen.
     Sollte der ausgefallene Server wieder aktiv werden, kann er die verpassten Nachrichten nachtragen~\cite{matrix}.
     Alle Nachrichten einer Konversation werden in einem Directed Acyclic Graph (DAG) gespeichert.
     Dieser wird im Kontext von Matrix als Event-Graph bezeichnet.
     Hierbei besitzt jedes Event einen oder mehrere Eltern (außer der Wurzelknoten).
-    Der Elternknoten eines versendeten Events ist das zuletzt versendete Event eines Raumes.
+    Der Elternknoten eines neu versendeten Events ist das zuletzt versendete Event eines Raumes.
     Somit lässt sich der Event-Graph chronologisch ordnen.
     Hierzu wird jedem Event ein Wert \texttt{depth} zugewiesen, welcher die Reihenfolge der Events beschreibt~\cite{eventgraph}.
     Im folgenden Beispiel ist ein Ablauf einer Konversation erklärt:\\
@@ -298,7 +301,7 @@
         !opaque_id:domain
     \end{lstlisting}
     Beim Versenden eines Events wird diese Raum-ID angegeben.
-    Somit können später alle Events aus dem Event Graph einem Raum zugeordnet werden.
+    Somit können später alle Events einem Raum zugeordnet werden.
     Der aktuelle Zustand eines Raumes ergibt sich aus allen an diesen Raum gesendeten Events (state Events)~\cite{rooms}.
     Außerdem wird für jeden Member eines Raumes ein Eintrag auf dem Homeserver angelegt, wodurch bestimmt wird welche Events von welchen Nutzer gelesen werden dürfen.
     Es gibt zusätzlich die Möglichkeit einen oder mehrere "Room Aliases" anzulegen, welche dem Menschen das Identifizieren eines Raumes vereinfachen.
@@ -365,13 +368,12 @@
 
 
     \section{REST-API}\label{sec:rest}
-    REST steht für REpresentational State Transfer und ist ein Architektur-Stil im Bereich verteilter Systeme.
+    REST steht für REpresentational State Transfer und ist ein Architekturstil im Bereich verteilter Systeme.
     Es dient dem Datenaustausch zwischen einzelnen Systemen.
-    Hierzu stellt beispielsweise ein Webservice verschiedene Ressourcen (Daten) zur Verfügung.
-    Diese können über einen Uniform Resource Identifier (URI) adressiert werden.
+    Hierzu stellt beispielsweise ein Webservice verschiedene Ressourcen (Daten) zur Verfügung, die über einen Uniform Resource Identifier (URI) adressiert werden.
     Jede Ressource verfügt darüber hinaus über eine Repräsentation dieser Daten.
     Dies können beispielsweise HTML Dokumente oder auch XML oder JSON Objekte sein.
-    Auf diesen Ressourcen können dann eine Reihe zustandsloser Operationen ausgeführt werden.
+    Auf Ressourcen können anschließend eine Reihe zustandsloser Operationen ausgeführt werden.
     Als zustandslos gilt eine Operation, wenn sie in sich abgeschlossen ist, das heißt keins der beiden Systeme muss Zustandsinformationen zwischen zwei Operationen speichern~\cite{Dazer2012RESTfulA}.
     Im Hypertext Transfer Protocol (HTTP) werden hierfür aktuell 8 Operationen bereitgestellt.
     Die am häufigsten verwendeten Operationen sind:
