@@ -1,194 +1,47 @@
 
 
-% Pattern Info
-
-\tikzset{
-    pattern size/.store in=\mcSize,
-    pattern size = 5pt,
-    pattern thickness/.store in=\mcThickness,
-    pattern thickness = 0.3pt,
-    pattern radius/.store in=\mcRadius,
-    pattern radius = 1pt}
-\makeatletter
-\pgfutil@ifundefined{pgf@pattern@name@_2eflf89xd}{
-    \pgfdeclarepatternformonly[\mcThickness,\mcSize]{_2eflf89xd}
-        {\pgfqpoint{0pt}{0pt}}
-        {\pgfpoint{\mcSize}{\mcSize}}
-        {\pgfpoint{\mcSize}{\mcSize}}
-        {
-        \pgfsetcolor{\tikz@pattern@color}
-        \pgfsetlinewidth{\mcThickness}
-        \pgfpathmoveto{\pgfqpoint{0pt}{\mcSize}}
-        \pgfpathlineto{\pgfpoint{\mcSize+\mcThickness}{-\mcThickness}}
-        \pgfpathmoveto{\pgfqpoint{0pt}{0pt}}
-        \pgfpathlineto{\pgfpoint{\mcSize+\mcThickness}{\mcSize+\mcThickness}}
-        \pgfusepath{stroke}
-    }}
-\makeatother
-
-% Pattern Info
-
-\tikzset{
-    pattern size/.store in=\mcSize,
-    pattern size = 5pt,
-    pattern thickness/.store in=\mcThickness,
-    pattern thickness = 0.3pt,
-    pattern radius/.store in=\mcRadius,
-    pattern radius = 1pt}
-\makeatletter
-\pgfutil@ifundefined{pgf@pattern@name@_a6o28e1ro}{
-    \pgfdeclarepatternformonly[\mcThickness,\mcSize]{_a6o28e1ro}
-        {\pgfqpoint{0pt}{0pt}}
-        {\pgfpoint{\mcSize+\mcThickness}{\mcSize+\mcThickness}}
-        {\pgfpoint{\mcSize}{\mcSize}}
-        {
-        \pgfsetcolor{\tikz@pattern@color}
-        \pgfsetlinewidth{\mcThickness}
-        \pgfpathmoveto{\pgfqpoint{0pt}{0pt}}
-        \pgfpathlineto{\pgfpoint{\mcSize+\mcThickness}{\mcSize+\mcThickness}}
-        \pgfusepath{stroke}
-    }}
-\makeatother
-
-% Pattern Info
-
-\tikzset{
-    pattern size/.store in=\mcSize,
-    pattern size = 5pt,
-    pattern thickness/.store in=\mcThickness,
-    pattern thickness = 0.3pt,
-    pattern radius/.store in=\mcRadius,
-    pattern radius = 1pt}
-\makeatletter
-\pgfutil@ifundefined{pgf@pattern@name@_zxxkiapd2}{
-    \makeatletter
-    \pgfdeclarepatternformonly[\mcRadius,\mcThickness,\mcSize]{_zxxkiapd2}
-        {\pgfpoint{-0.5*\mcSize}{-0.5*\mcSize}}
-        {\pgfpoint{0.5*\mcSize}{0.5*\mcSize}}
-        {\pgfpoint{\mcSize}{\mcSize}}
-        {
-        \pgfsetcolor{\tikz@pattern@color}
-        \pgfsetlinewidth{\mcThickness}
-        \pgfpathcircle\pgfpointorigin{\mcRadius}
-        \pgfusepath{stroke}
-    }}
-\makeatother
-
-% Pattern Info
-
-\tikzset{
-    pattern size/.store in=\mcSize,
-    pattern size = 5pt,
-    pattern thickness/.store in=\mcThickness,
-    pattern thickness = 0.3pt,
-    pattern radius/.store in=\mcRadius,
-    pattern radius = 1pt}
-\makeatletter
-\pgfutil@ifundefined{pgf@pattern@name@_7ksk1ug9w}{
-    \pgfdeclarepatternformonly[\mcThickness,\mcSize]{_7ksk1ug9w}
-        {\pgfqpoint{0pt}{0pt}}
-        {\pgfpoint{\mcSize}{\mcSize}}
-        {\pgfpoint{\mcSize}{\mcSize}}
-        {
-        \pgfsetcolor{\tikz@pattern@color}
-        \pgfsetlinewidth{\mcThickness}
-        \pgfpathmoveto{\pgfqpoint{0pt}{\mcSize}}
-        \pgfpathlineto{\pgfpoint{\mcSize+\mcThickness}{-\mcThickness}}
-        \pgfpathmoveto{\pgfqpoint{0pt}{0pt}}
-        \pgfpathlineto{\pgfpoint{\mcSize+\mcThickness}{\mcSize+\mcThickness}}
-        \pgfusepath{stroke}
-    }}
-\makeatother
-
-% Pattern Info
-
-\tikzset{
-    pattern size/.store in=\mcSize,
-    pattern size = 5pt,
-    pattern thickness/.store in=\mcThickness,
-    pattern thickness = 0.3pt,
-    pattern radius/.store in=\mcRadius,
-    pattern radius = 1pt}
-\makeatletter
-\pgfutil@ifundefined{pgf@pattern@name@_qh7wu9oqq}{
-    \pgfdeclarepatternformonly[\mcThickness,\mcSize]{_qh7wu9oqq}
-        {\pgfqpoint{0pt}{0pt}}
-        {\pgfpoint{\mcSize+\mcThickness}{\mcSize+\mcThickness}}
-        {\pgfpoint{\mcSize}{\mcSize}}
-        {
-        \pgfsetcolor{\tikz@pattern@color}
-        \pgfsetlinewidth{\mcThickness}
-        \pgfpathmoveto{\pgfqpoint{0pt}{0pt}}
-        \pgfpathlineto{\pgfpoint{\mcSize+\mcThickness}{\mcSize+\mcThickness}}
-        \pgfusepath{stroke}
-    }}
-\makeatother
-
-% Pattern Info
-
-\tikzset{
-    pattern size/.store in=\mcSize,
-    pattern size = 5pt,
-    pattern thickness/.store in=\mcThickness,
-    pattern thickness = 0.3pt,
-    pattern radius/.store in=\mcRadius,
-    pattern radius = 1pt}
-\makeatletter
-\pgfutil@ifundefined{pgf@pattern@name@_2e10vbjsb}{
-    \makeatletter
-    \pgfdeclarepatternformonly[\mcRadius,\mcThickness,\mcSize]{_2e10vbjsb}
-        {\pgfpoint{-0.5*\mcSize}{-0.5*\mcSize}}
-        {\pgfpoint{0.5*\mcSize}{0.5*\mcSize}}
-        {\pgfpoint{\mcSize}{\mcSize}}
-        {
-        \pgfsetcolor{\tikz@pattern@color}
-        \pgfsetlinewidth{\mcThickness}
-        \pgfpathcircle\pgfpointorigin{\mcRadius}
-        \pgfusepath{stroke}
-    }}
-\makeatother
 \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt
 
 \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
-%uncomment if require: \path (0,580); %set diagram left start at 0, and has height of 580
+%uncomment if require: \path (0,354); %set diagram left start at 0, and has height of 354
 
-%Shape: Ellipse [id:dp9373687458561233]
-    \draw  [pattern=_2eflf89xd,pattern size=6pt,pattern thickness=0.75pt,pattern radius=0pt, pattern color={rgb, 255:red, 0; green, 0; blue, 0}] (246.86,261.57) .. controls (246.86,241.87) and (262.73,225.89) .. (282.31,225.89) .. controls (301.89,225.89) and (317.76,241.87) .. (317.76,261.57) .. controls (317.76,281.28) and (301.89,297.25) .. (282.31,297.25) .. controls (262.73,297.25) and (246.86,281.28) .. (246.86,261.57) -- cycle ;
-%Shape: Ellipse [id:dp21917683521442988]
-    \draw  [pattern=_a6o28e1ro,pattern size=6pt,pattern thickness=0.75pt,pattern radius=0pt, pattern color={rgb, 255:red, 0; green, 0; blue, 0}] (362.46,194.09) .. controls (362.46,174.39) and (378.33,158.41) .. (397.91,158.41) .. controls (417.49,158.41) and (433.36,174.39) .. (433.36,194.09) .. controls (433.36,213.8) and (417.49,229.77) .. (397.91,229.77) .. controls (378.33,229.77) and (362.46,213.8) .. (362.46,194.09) -- cycle ;
-%Shape: Ellipse [id:dp35337222919510536]
-    \draw  [pattern=_zxxkiapd2,pattern size=6pt,pattern thickness=0.75pt,pattern radius=0.75pt, pattern color={rgb, 255:red, 0; green, 0; blue, 0}] (371.71,335.25) .. controls (371.71,315.55) and (387.58,299.58) .. (407.16,299.58) .. controls (426.74,299.58) and (442.61,315.55) .. (442.61,335.25) .. controls (442.61,354.96) and (426.74,370.93) .. (407.16,370.93) .. controls (387.58,370.93) and (371.71,354.96) .. (371.71,335.25) -- cycle ;
-%Shape: Ellipse [id:dp012489074208077877]
-    \draw  [pattern=_7ksk1ug9w,pattern size=6pt,pattern thickness=0.75pt,pattern radius=0pt, pattern color={rgb, 255:red, 0; green, 0; blue, 0}] (159,260.41) .. controls (159,251.2) and (166.42,243.73) .. (175.57,243.73) .. controls (184.72,243.73) and (192.14,251.2) .. (192.14,260.41) .. controls (192.14,269.62) and (184.72,277.08) .. (175.57,277.08) .. controls (166.42,277.08) and (159,269.62) .. (159,260.41) -- cycle ;
-%Shape: Ellipse [id:dp629970923438828]
-    \draw  [pattern=_qh7wu9oqq,pattern size=6pt,pattern thickness=0.75pt,pattern radius=0pt, pattern color={rgb, 255:red, 0; green, 0; blue, 0}] (448.01,124.68) .. controls (448.01,115.47) and (455.43,108) .. (464.58,108) .. controls (473.73,108) and (481.15,115.47) .. (481.15,124.68) .. controls (481.15,133.89) and (473.73,141.35) .. (464.58,141.35) .. controls (455.43,141.35) and (448.01,133.89) .. (448.01,124.68) -- cycle ;
-%Shape: Ellipse [id:dp16375813237618053]
-    \draw  [pattern=_2e10vbjsb,pattern size=6pt,pattern thickness=0.75pt,pattern radius=0.75pt, pattern color={rgb, 255:red, 0; green, 0; blue, 0}] (451.86,409.32) .. controls (451.86,400.11) and (459.28,392.65) .. (468.43,392.65) .. controls (477.58,392.65) and (485,400.11) .. (485,409.32) .. controls (485,418.53) and (477.58,426) .. (468.43,426) .. controls (459.28,426) and (451.86,418.53) .. (451.86,409.32) -- cycle ;
-%Straight Lines [id:da21697884743721452]
-    \draw    (192.14,260.41) -- (246.86,261.57) ;
-%Straight Lines [id:da43988807724258416]
-    \draw    (313.91,243.73) -- (365.54,212.71) ;
-%Straight Lines [id:da3575969507846568]
-    \draw    (374.02,318.19) -- (312.37,280.96) ;
-%Straight Lines [id:da3537393507838251]
-    \draw    (401.77,230.55) -- (407.16,299.58) ;
-%Straight Lines [id:da558329025283854]
-    \draw    (451.86,136.7) -- (423.35,166.95) ;
-%Straight Lines [id:da3588367968445647]
-    \draw    (428.74,363.18) -- (458.03,396.53) ;
+%Shape: Ellipse [id:dp6732718604021586]
+    \draw   (224.9,172.24) .. controls (224.9,156.44) and (237.43,143.62) .. (252.9,143.62) .. controls (268.36,143.62) and (280.9,156.44) .. (280.9,172.24) .. controls (280.9,188.05) and (268.36,200.87) .. (252.9,200.87) .. controls (237.43,200.87) and (224.9,188.05) .. (224.9,172.24) -- cycle ;
+%Shape: Ellipse [id:dp6600015649308657]
+    \draw   (310.02,118.43) .. controls (310.02,102.63) and (322.55,89.81) .. (338.02,89.81) .. controls (353.48,89.81) and (366.02,102.63) .. (366.02,118.43) .. controls (366.02,134.24) and (353.48,147.06) .. (338.02,147.06) .. controls (322.55,147.06) and (310.02,134.24) .. (310.02,118.43) -- cycle ;
+%Shape: Ellipse [id:dp0235202510954311]
+    \draw   (317.86,230.63) .. controls (317.86,214.83) and (330.39,202.01) .. (345.86,202.01) .. controls (361.32,202.01) and (373.86,214.83) .. (373.86,230.63) .. controls (373.86,246.44) and (361.32,259.26) .. (345.86,259.26) .. controls (330.39,259.26) and (317.86,246.44) .. (317.86,230.63) -- cycle ;
+%Shape: Ellipse [id:dp8700539717460922]
+    \draw   (164.41,172.24) .. controls (164.41,165.92) and (169.43,160.79) .. (175.61,160.79) .. controls (181.8,160.79) and (186.81,165.92) .. (186.81,172.24) .. controls (186.81,178.57) and (181.8,183.69) .. (175.61,183.69) .. controls (169.43,183.69) and (164.41,178.57) .. (164.41,172.24) -- cycle ;
+%Shape: Ellipse [id:dp229864718442214]
+    \draw   (379.08,290.55) .. controls (379.08,284.23) and (384.1,279.1) .. (390.28,279.1) .. controls (396.47,279.1) and (401.48,284.23) .. (401.48,290.55) .. controls (401.48,296.87) and (396.47,302) .. (390.28,302) .. controls (384.1,302) and (379.08,296.87) .. (379.08,290.55) -- cycle ;
+%Shape: Ellipse [id:dp4411283457338191]
+    \draw   (358.18,48.59) .. controls (358.18,42.27) and (363.19,37.14) .. (369.38,37.14) .. controls (375.56,37.14) and (380.58,42.27) .. (380.58,48.59) .. controls (380.58,54.92) and (375.56,60.04) .. (369.38,60.04) .. controls (363.19,60.04) and (358.18,54.92) .. (358.18,48.59) -- cycle ;
+%Straight Lines [id:da12159709096475502]
+    \draw    (186.81,172.24) -- (224.9,172.24) ;
+%Straight Lines [id:da4609570476504494]
+    \draw    (362.16,254.42) -- (383.07,281.9) ;
+%Straight Lines [id:da5446972672187811]
+    \draw    (363.65,57.5) -- (349.47,91.85) ;
+%Straight Lines [id:da4194149428296303]
+    \draw    (312.26,132.17) -- (277.54,155.07) ;
+%Straight Lines [id:da5711262259112024]
+    \draw    (277.04,188.78) -- (321.84,216.26) ;
+%Straight Lines [id:da6720705311046931]
+    \draw    (338.02,147.06) -- (342,200.99) ;
 
 % Text Node
-    \draw (33,250) node [anchor=north west][inner sep=0.75pt]   [align=left] {@alice:alice.com};
+    \draw (54.18,164.03) node [anchor=north west][inner sep=0.75pt]  [font=\footnotesize] [align=left] {{\footnotesize @alice:alice.com}};
 % Text Node
-    \draw (490,114) node [anchor=north west][inner sep=0.75pt]   [align=left] {@bob:bob.com};
+    \draw (391.94,39.23) node [anchor=north west][inner sep=0.75pt]  [font=\footnotesize] [align=left] {{\footnotesize @bob:bob.com}};
 % Text Node
-    \draw (495,401) node [anchor=north west][inner sep=0.75pt]   [align=left] {@charlie:charlie.com};
+    \draw (411.36,283.1) node [anchor=north west][inner sep=0.75pt]  [font=\footnotesize] [align=left] {{\footnotesize @charlie:charlie.com}};
 % Text Node
-    \draw (424,282) node [anchor=north west][inner sep=0.75pt]   [align=left] {matrix.charlie.com};
+    \draw (180.5,119.38) node [anchor=north west][inner sep=0.75pt]  [font=\footnotesize] [align=left] {{\footnotesize matrix.alice.com}};
 % Text Node
-    \draw (326,131) node [anchor=north west][inner sep=0.75pt]   [align=left] {matrix.bob.com};
+    \draw (366.96,185.78) node [anchor=north west][inner sep=0.75pt]  [font=\footnotesize] [align=left] {{\footnotesize matrix.charlie.com}};
 % Text Node
-    \draw (226,198) node [anchor=north west][inner sep=0.75pt]   [align=left] {matrix.alice.com};
+    \draw (245.28,69) node [anchor=north west][inner sep=0.75pt]  [font=\footnotesize] [align=left] {{\footnotesize matrix.bob.com}};
 
 
 \end{tikzpicture}

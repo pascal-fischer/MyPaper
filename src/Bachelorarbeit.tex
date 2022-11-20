@@ -252,20 +252,35 @@
     Alle Nachrichten einer Konversation werden in einem Directed Acyclic Graph (DAG) gespeichert.
     Dieser wird im Kontext von Matrix als Event-Graph bezeichnet.
     Hierbei besitzt jedes Event einen oder mehrere Eltern (außer der Wurzelknoten).
-    Der Elternknoten eines neu versendeten Events ist das zuletzt versendete Event eines Raumes.
     Somit lässt sich der Event-Graph chronologisch ordnen.
-    Hierzu wird jedem Event ein Wert \texttt{depth} zugewiesen, welcher die Reihenfolge der Events beschreibt~\cite{eventgraph}.
-    Im folgenden Beispiel ist ein Ablauf einer Konversation erklärt:\\
+    Hierzu wird jedem Event ein Wert \texttt{depth} zugewiesen, welcher die Reihenfolge der Events beschreibt~\cite{eventgraph}.\\
+    In Abbildung~\ref{fig:matrixfunktionsweise} ist eine Beispielsituation für einen Raum zwischen Alice, Bob und Charlie gezeigt.
+    Jeder der Teilnehmer ist mit seinem eigenen Homeserver verbunden.
+    \begin{figure}[h]
+        \centering
+        \input{source/diagrams/matrix.tikz}
+        \caption{Beispielsituation}
+        \label{fig:matrixfunktionsweise}
+    \end{figure}
+    \newpage
+    Ein möglicher Event-Graph für eine Konversation zwischen Alice, Bob und Charlie~\cite{matrix} ist in Abbildung~\ref{fig:events} dargestellt.
+    \begin{enumerate}[label={(\arabic*)}]
+    \item Zu Beginn der Konversation sendet Alice eine Nachricht (Event 1) an ihren Homeserver.
+    Dieses Event wird daraufhin an die Homeserver von Bob und Charlie weitergeleitet wodurch diese die Nachricht erhalten.
+    Dem Event selbst wird im Event-Graph eine \texttt{depth} von 1 zugewiesen, da es das erste Event ist.
+    \item Daraufhin antworten Bob und Charlie gleichzeitig auf die Nachricht von Alice (Event 2 und 3) und senden diese an ihren Homeserver.
+    Da zu diesem Zeitpunkt werder Bobs noch Charlies Homeserver von der Nachricht des jeweils anderen wissen weisen beide Homeserver der eingetroffenen Nachricht eine \texttt{depth} von 2 zu.
+    Nachdem die Nachrichten an die anderen Homeserver propagiert wurden erscheint der Graph geteilt und eine genaue Reihenfolge der beiden Events ist unklar.
+    \item Wenn nun Alice eine weitere Nachricht (Event 4) sendet kennt Alices Homeserver bereits die Nachrichten von Bob und Charlie und weist dem Event deshalb eine \texttt{depth} von 3 zu.
+        Somit hat das Event zwei Elternknoten und der Graph ist wieder zusammengeführt.
+    \end{enumerate}
 
-    \#Todo
-
-%\usetikz
-%\begin{figure}
-%    \centering
-%    \input{source/diagrams/matrix.tikz}
-%    \caption{Beispielsituation}
-%    \label{fig:matrixfunktionsweise}
-%\end{figure}
+\begin{figure}[h]
+    \centering
+    \input{source/diagrams/events.tikz}
+    \caption{Event-Graph Beispiel}
+    \label{fig:events}
+\end{figure}
 
     \newpage
     \subsection{Events}\label{sec:events}

@@ -1,0 +1,39 @@
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,354); %set diagram left start at 0, and has height of 354
+
+%Shape: Ellipse [id:dp5902722181508269]
+    \draw   (335.49,35.5) .. controls (335.49,27.25) and (341.98,20.57) .. (349.99,20.57) .. controls (358.01,20.57) and (364.5,27.25) .. (364.5,35.5) .. controls (364.5,43.74) and (358.01,50.42) .. (349.99,50.42) .. controls (341.98,50.42) and (335.49,43.74) .. (335.49,35.5) -- cycle ;
+%Straight Lines [id:da6895571070255277]
+    \draw    (339.5,46.92) -- (316.23,76.84) ;
+    \draw [shift={(315,78.42)}, rotate = 307.87] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da7985995140984912]
+    \draw    (361.5,46.42) -- (384.29,76.33) ;
+    \draw [shift={(385.5,77.92)}, rotate = 232.7] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da042667119682203936]
+    \draw    (314.5,101.92) -- (337.3,132.32) ;
+    \draw [shift={(338.5,133.92)}, rotate = 233.13] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da22772294013913075]
+    \draw    (384.5,102.42) -- (361.74,131.34) ;
+    \draw [shift={(360.5,132.92)}, rotate = 308.2] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Shape: Ellipse [id:dp6184810616943337]
+    \draw   (290.49,90) .. controls (290.49,81.75) and (296.98,75.07) .. (304.99,75.07) .. controls (313.01,75.07) and (319.5,81.75) .. (319.5,90) .. controls (319.5,98.24) and (313.01,104.92) .. (304.99,104.92) .. controls (296.98,104.92) and (290.49,98.24) .. (290.49,90) -- cycle ;
+%Shape: Ellipse [id:dp43630596388027465]
+    \draw   (380.49,90.5) .. controls (380.49,82.25) and (386.98,75.57) .. (394.99,75.57) .. controls (403.01,75.57) and (409.5,82.25) .. (409.5,90.5) .. controls (409.5,98.74) and (403.01,105.42) .. (394.99,105.42) .. controls (386.98,105.42) and (380.49,98.74) .. (380.49,90.5) -- cycle ;
+%Shape: Ellipse [id:dp8150794274595761]
+    \draw   (335.49,145) .. controls (335.49,136.75) and (341.98,130.07) .. (349.99,130.07) .. controls (358.01,130.07) and (364.5,136.75) .. (364.5,145) .. controls (364.5,153.24) and (358.01,159.92) .. (349.99,159.92) .. controls (341.98,159.92) and (335.49,153.24) .. (335.49,145) -- cycle ;
+
+% Text Node
+    \draw (371.31,26.27) node [anchor=north west][inner sep=0.75pt]   [align=left] {1};
+% Text Node
+    \draw (415.9,82.7) node [anchor=north west][inner sep=0.75pt]  [font=\normalsize] [align=left] {3};
+% Text Node
+    \draw (324.94,82.2) node [anchor=north west][inner sep=0.75pt]   [align=left] {2};
+% Text Node
+    \draw (371.33,138.12) node [anchor=north west][inner sep=0.75pt]  [font=\normalsize] [align=left] {4};
+
+
+\end{tikzpicture}
