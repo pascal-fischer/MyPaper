@@ -183,23 +183,23 @@
     \begin{enumerate}[label={(\arabic*)}]
         \item Die Applikation muss über die Möglichkeit verfügen, die Nutzung bzw. den Zugriff
     auf die darüber gespeicherten Daten an eine eigene vorherige Authentifizierung (z.B.
-    PIN, Fingerabdruck etc.) zu knüpfen
+    PIN, Fingerabdruck etc.) zu knüpfen.
         \item Die Applikation muss über die Möglichkeit verfügen, Kontaktdaten von
     Kommunikationsteilnehmern in einem eigenen, vom allgemeinen Adressbuch des
     Smartphones getrennten Speicher abzulegen.
         \item Sie muss weiterhin über die Möglichkeit verfügen,
     Nachrichten sowie Dateianhänge wie Bilder, Videos, Dokumente etc. ausschließlich
     in einem eigenen, von den allgemeinen Speicherbereichen des Smartphones
-    getrennten Speicher in verschlüsselter Form abzulegen
+    getrennten Speicher in verschlüsselter Form abzulegen.
         \item Eine Kommunikation über die Messenger-Applikation sollte nur auf
     der Grundlage einer verlässlichen Identifizierung und Authentifizierung der
-    Kommunikationspartner möglich sein
+    Kommunikationspartner möglich sein.
         \item Werden elektronische Signaturen oder andere elektronischer Zertifikate genutzt,
     muss ein Zertifikatsmanagement vorhanden sein. Dies beinhaltet die Sicherstellung,
     dass elektronische Schlüssel oder Zertifikate eindeutig einer juristischen oder
     natürlichen Person zugeordnet werden, aber auch die Überprüfung der Gültigkeit der
     elektronischen Schlüssel bzw. Zertifikate. Insbesondere müssen kompromittierte
-    Schlüsseln bzw. Zertifikate bzw. unbrauchbar gemacht werden können
+    Schlüsseln bzw. Zertifikate bzw. unbrauchbar gemacht werden können.
         \item Die Applikation muss über die Möglichkeit verfügen, die über sie verwalteten Daten
     gezielt oder allgemein zu löschen.
         \item Soweit die Speicherung unter Einhaltung von Art. 28 DS-GVO durch einen Dienstleister übernommen wird, welcher nicht die Anforderungen des Art. 9 Abs. 3 DS-GVO erfüllt,
@@ -210,7 +210,7 @@
         \item Die Vertraulichkeit und Integrität der über den Messenger-Dienst geführten
     ärztlichen Kommunikation muss unter Berücksichtigung des Stands der Technik
     über eine Ende-zu-Ende-Verschlüsselung zwischen den
-    Kommunikationsteilnehmern gewährleistet werden
+    Kommunikationsteilnehmern gewährleistet werden.
     \end{enumerate}
 
 
@@ -237,8 +237,6 @@
         \item [Identity-Service-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/identity-service-api/} beschreibt das Mapping zwischen Drittanbietern
         \item [Push-Gateway-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/push-gateway-api/} zum Versenden von Push Notifications an Clients bei eintreffen neuer Events auf dem Homeserver
     \end{description}
-
-
 
     \subsection{Funktionsweise}\label{subsec:funktionsweise}
     Matrix beschreibt sich selbst als dezentralen Konversationsspeicher\cite{matrix}.
@@ -326,7 +324,6 @@
     \end{lstlisting}
 
 
-
     \subsection{Devices}
     Ein Device im Matrix Protokoll beschreibt weniger ein reales Gerät wie ein Computer oder Smartphone, sondern viel mehr eine Instanz eines Matrixclients auf einem Gerät.
     So können beispielsweise mehrere Anwendungen auf einem Gerät installiert sein und jedes wäre sein eigenes Device.
@@ -334,7 +331,7 @@
     Dabei ist zu beachten, dass falls sich ein User von einer Anwendung abmeldet und sich auf demselben Gerät bei derselben Anwendung erneut anmeldet, nicht die gleiche \texttt{device\_id} zugewiesen bekommt.
     Je nach Client wird somit unterschiedlich häufig die \texttt{device\_id} gewechselt.
     In Webanwendungen wird bei jedem Anmelden ein neue \texttt{device\_id} angelegt, wohingegen bei Client auf Mobilgeräten oder Computern die gleiche \texttt{device\_id} wiederverwendet werden kann.
-    Devices finden hauptsächlich Anwendung im Bereich der End-to-End-Verschlüsselung.
+    Devices finden hauptsächlich Anwendung im Bereich der End-to-End-Verschlüsselung, wo jedes Device seine eigenen Schlüssel besitzt.
 
     #Todo cite devices
 
@@ -487,11 +484,11 @@
     \section{Cocoapods}\label{sec:cocoapods}
     CocoaPods\footnote{https://github.com/CocoaPods/CocoaPods} ist ein Dependency Manager für Objective-C und Swift Projekte.
     Es ermöglicht dem Entwickler, Quellcode von verschiedenen Orten in ein Projekt einzubinden.
-    Hierzu können über 92.000 Libraries verwendet werden.
+    Hierzu können über 92.000 Libraries verwendet werden~\cite{cocoapods2}.
     Besonders im Bereich von Mac OSX und iOS Development findet das Tool häufig Verwendung.
-    CocoaPods unterstützt sowohl private als auch öffentliche Repositorys über git, svn, brz, http und hg.
+    CocoaPods unterstützt sowohl private als auch öffentliche Repositorys über git, svn, brz, http und hg~\cite{cocoapods1}.
     Hierbei ist zu beachten, dass das nicht jedes Repository automatisch über CocoaPods eingebunden werden kann.
-    Es muss zuerst ein Pod aus der jeweiligen Library erstellt werden.
+    Es muss zuerst ein Pod aus der jeweiligen Library erstellt werden~\cite{cocoapods3}.
     Das seit 2014 entwickelte Projekt ist Open Source und wurde seit dem von über 300 Entwicklern stetig verbessert.
     Es ist ein Kommandozeilen-Tool, welches in Ruby implementiert wird.
     Somit kann es über den RubyGems Paketmanager heruntergeladen werden.
@@ -501,8 +498,7 @@
     \end{lstlisting}
     Mittels CocoaPods lassen sich dann alle benötigten Libraries im sogenannten Podfile definieren und importieren.
     Das Podfile ist eine einfache Textdatei, in welcher die Zielplattform und eine Liste aller benötigter Libraries und ihrer jeweiligen Versionen angegeben wird.
-    In Listing~\ref{lst:podfile} ist die Struktur eins solchen Podfiles zu sehen.
-    ~\cite{cocoapods1, cocoapods2, cocoapods3}
+    In Listing~\ref{lst:podfile} ist die Struktur eins solchen Podfiles~\cite{cocoapods2} zu sehen.
     \begin{lstlisting}[language={},firstnumber=1,label={lst:podfile},caption={Beispielstuktur eines Podfiles},captionpos=t]
 platform :ios, '8.0'
 use_frameworks!
@@ -517,7 +513,7 @@ end
 
     \section{Matrix iOS SDK}\label{sec:matrix-sdk}
     Die Matrix iOS SDK \footnote{https://github.com/matrix-org/matrix-ios-sdk} ist eine Open Source Library welche zur für die Entwicklung Matrix basierter Anwendungen für iOS-Geräte gedacht ist.
-    Sie fungiert als Schnittstelle zwischen Client Applikation und Matrix Server.
+    Sie ermöglich eine einfache Kommunikation zwischen Client und Matrix Server.
     Hierzu werden die in der Client-Server-API definierten Operationen bereitgestellt.
     Um die Matrix SDK in ein Projekt einzubinden, muss hierfür ein Eintrag im in Abschnitt~\ref{sec:cocoapods} erläuterten Podfile angelegt und installiert werden.
     ~\cite{matrixiossdk}
