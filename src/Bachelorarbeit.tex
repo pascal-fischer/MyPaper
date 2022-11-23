@@ -235,7 +235,7 @@
         \item [Server-Server-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/server-server-api/} zum Nachrichtenaustausch und Synchronisation zwischen mehreren Homservern
         \item [Application-Service-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/application-service-api/} zur Erweiterung der Funktionalität von Matrix und Integration anderer Systeme
         \item [Identity-Service-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/identity-service-api/} beschreibt das Mapping zwischen Drittanbietern
-        \item [Push-Gateway-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/push-gateway-api/} zum Versenden von Push Notifications an Clients, falls neue Events beim Homeserver eintreffen
+        \item [Push-Gateway-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/push-gateway-api/} zum Versenden von Push Notifications an Clients bei eintreffen neuer Events auf dem Homeserver
     \end{description}
 
 
@@ -297,7 +297,7 @@
 
     Jedes Event enthält mindestens folgende Attribute~\cite{eventformat}:
     \begin{description}[leftmargin=!,labelwidth=3.5cm]
-        \item [content] der tatsächliche Inhalt der Nachricht. Dieser variiert abhängig vom Eventyp.
+        \item [content] der Inhalt der Nachricht. Dieser variiert abhängig vom Eventyp.
         \item [event\_id] ein eindeutiger Identifier für das jeweilige Event.
         \item [origin\_server\_ts] Zeitstempel beim Senden des Events.
         \item [room\_id] ein eindeutiger Identifier über welchen ein Event einem bestimmten Raum zugeordnet werden kann.
@@ -336,29 +336,45 @@
     In Webanwendungen wird bei jedem Anmelden ein neue \texttt{device\_id} angelegt, wohingegen bei Client auf Mobilgeräten oder Computern die gleiche \texttt{device\_id} wiederverwendet werden kann.
     Devices finden hauptsächlich Anwendung im Bereich der End-to-End-Verschlüsselung.
 
+    #Todo cite devices
+
     \newpage
     \subsection{End-to-End-Encryption}\label{subsec:verwendete-schlussel}
     Zur Verschlüsselung von Nachrichten werden der Olm und der Megolm Algorithmus verwendet.\\
-    Der Olm Algorithmus ist ein Double-Ratchet-Algorithmus.
+    Der Olm Algorithmus basiert auf dem Double-Ratchet-Algorithmus.
     Er wird dafür genutzt verschlüsselte Nachrichten zwischen 2 Parteien auszutauschen, wobei mit jeder Nachricht ein neuer Key zur Verschlüsselung abgeleitet wird.
-    Dies geschieht durch Verkettung einer Key Derivation Function (KDF).
-    Hierbei werden 3 Ketten geführt, die root chain, sending chain und receiving chain.
-    Die sending chain einer Partei gleicht der receiving chain der anderen Partei und umgekehrt~\cite{perrin2016double}.
-    Für die Erstellung des Wurzelknotens werden 4 Keys benötigt.
+    Dies geschieht durch Verkettung einer auf HMAC basierenden Key Derivation Function (HKDF).
+    Im klassischen Double-Ratchet-Algorithmus werden hierfür drei Ketten geführt, die Sending-Chain, Receiving-Chain und Root-Chain.
+    Die Sending-Chain eines Teilnehmenrs gleicht der Receiving-Chain des anderen Teilnehmers und umgekehrt~\cite{perrin2016double}.
+    Im Olm Algorithmus wird darauf verzichtet, sowohl eine Sending- als auch eine Receiving-Chain zu führen und durch eine einzelne Kette erzetzt.
+    Ein Teilnehmer nutzt die geraden Schüssel der Kette und der ander Teilnehmer die ungeraden Schlüssel.
+    Für die Erstellung des Wurzelknotens der Ketten werden 4 Keys benötigt.
     Man benötigt die Identity Keys beider Teilnehmer ($I_A$ und $I_B$) und jeweils einen Curve25519 one-time key ($E_A$ und $E_B$).
     Mithilfe des Diffie-Hellman-Verfahrens wird ein gemeinsamer geheimer Schlüssel S erzeugt.
     Zur Berechnung dieses Schlüssels wird die Elliptic Curve Diffie-Hellman (ECDH) angewendet.
     \begin{displaymath}
         S = ECDH(I_A,E_B)\parallel ECDH(E_A,I_B) \parallel ECDH(E_A,E_B)
     \end{displaymath}
-    Aus diesem geheimen Schlüssel lassen sich dann mittels HKDF-SHA-256 der Chain-Key $C_{0,0}$ und der Root Key $R_0$ ableiten.
+    Aus diesem geheimen Schlüssel lassen sich dann mittels HKDF-SHA-256 der Chain-Key $C_{0,0}$ und der Root-Key $R_0$ ableiten.
     \begin{displaymath}
-        R_0 \parallel C_{0,0} = HKDF(0,S,"OLM\_ROOT",64)
+        R_0 \parallel C_{0,0} = HKDF(0,S,\verb+"OLM_ROOT"+,64)
     \end{displaymath}
     Mit diesen Keys können anschließend alle fortlaufenden Keys berechnet werden~\cite{olm}.
-    Der berechnete Schlüssel der root chain wird als input der KDF für die sending bzw. receiving chain genutzt.
-    Der hierbei entstehende Schlüssel wird zum Verschlüsseln der eigentlichen Nachricht genutzt.
-    Somit erfüllt der Olm Algorithmus folgende Eigenschaften:
+    Beim Senden einer Nachricht wird geprüft ob ein passender Chain-Key existiert, der Index der Kette also gerade oder ungerade ist.
+    Sollte ein passender Chain-Key existieren, wird über diesen der folgende Chain-Key bestimmt.
+    \begin{displaymath}
+        C_{i,j} = HMAC(C_{i,j-1},S,\verb+"\x02"+)
+    \end{displaymath}
+    Sollte der Chain-Key nicht passen werden ein neuer Root-Key und Chain-Key bestimmt durch hinzunahme eines generierten Rachet-Keys $T_i$.
+    \begin{displaymath}
+        R_i \parallel C_{i,0} = HKDF(R_{i-1},ECDH(T_{i-1},T_i),\verb+"OLM_RATCHET"+,64)
+    \end{displaymath}
+    Mit dem aktuellen Chain-Key wird der Message-Key $M_{i,j}$ berechnet, welcher zum Verschlüsseln der Nachricht verwendet wird.
+    \begin{displaymath}
+       M_{i,j} = HMAC(C_{i,j},\verb+"\x01"+)
+    \end{displaymath}
+
+    Somit erfüllt der Olm Algorithmus folgende Eigenschaften~\cite{perrin2016double}:
     \begin{description}[leftmargin=!,labelwidth=3cm]
         \item [Resilience]
         \item [Forward security] Vergangene Nachrichten sind geschützt wenn zu einem Zeitpunkt ein KDF Key bekannt wird.
@@ -367,8 +383,20 @@
 
     Der Megolm Algorithmus wird zur Verschlüsslung von Gruppen-Chats verwendet.
     Es ist ein auf dem Advanced Encryption Standard (AES) basierender Ratchet-Algorithmus~\cite{megolm}.
+    Hierbei verschlüsselt jeder User seine Nachrichten in seiner eigenen Megolm Session.
+    Eine Megolm Session besitzt drei Teilen, einem Zähler $i$, einem Ed25519-Schlüsselpaar, welches zur Autentifizierung
+    des Senders genutzt wird und dem Rachtet, der zur Verschlüsselung der Nachrichten verwendet wird.
+    Der Rachet selbst besteht aus vier Teilen, die bei der Verkettung über verschiedene Hash-Funktionen fortgeführt werden.
+    Damit ein anderer User die Nachrichten entschlüsseln kann muss er die Informationen der Session über eine sichere Peer-to-Peer-Verbindung an diesen übermitteln.
+    Um vergangene Nachrichten zu entschlüsseln sollte der alteste, bekannte Ratchet Wert übergeben werden~\cite{megolm}.
+    In Bezug auf Sicherheit existieren beim Megolm Algorithmus einige Einschränkungen~\cite{megolm}:
+    \begin{enumerate}
+        \item Da es möglich ist Nachrichten mehrmals zu enschlüsseln, kann ein Angreifer eine alte Nachricht erneut senden, welche vom Empfänger als neu angesehen wird.
+        \item Backwards Secrecy ist nicht gegeben, da sobald ein Ratchet Key bekannt ist alle folgenden Keys abgeleitet werden können.
+        \item Forward Secrecy ist nur teilwesie gegeben, da User den ältsten, bekannten Rachet Wert speichern, um alle Nachrichten einer Session zu entschlüsseln. Sollte ein Angreifer an diesen Schlüssel gelangen, kann er ebenfalls alle Nachrichten entschlüsseln.
+    \end{enumerate}
 
-    Zusammengefasst werden folgende Schlüssel für die End-to-End-Verschlüsselung im Matrix Protokoll benötigt:
+    Zusammengefasst werden folgende Schlüssel für die End-to-End-Verschlüsselung im Matrix Protokoll benötigt~\cite{matrix-end-to-end-encryption}:
     \begin{description}[leftmargin=!,labelwidth=3cm]
         \item [Ed25519 fingerprint key pair] wird genutzt um ein Gerät zu identifizieren. Jedes Device besitzt seinen eigenen Ed25519 Schlüssel.
         \item [Curve25519 identity key pair] wird genutzt um den gemeinsamen geheimen Schlüssel zu erstellen.
@@ -376,10 +404,6 @@
         \item [Megolm encryption keys] wird genutzt um Nachrichten in Gruppen-Chats zu verschlüsseln.
         \item [Ed25519 Megolm signing key pair] Schlüssel zum Signieren von Nachrichten in Gruppen-Chats, dient der Authentifizierung des Absenders.
     \end{description}
-    ~\cite{matrix-end-to-end-encryption}\\
-
-    \#Todo
-
 
 
     \section{REST-API}\label{sec:rest}
@@ -390,7 +414,7 @@
     Dies können beispielsweise HTML Dokumente oder auch XML oder JSON Objekte sein.
     Auf Ressourcen können anschließend eine Reihe zustandsloser Operationen ausgeführt werden.
     Als zustandslos gilt eine Operation, wenn sie in sich abgeschlossen ist, das heißt keins der beiden Systeme muss Zustandsinformationen zwischen zwei Operationen speichern~\cite{Dazer2012RESTfulA}.
-    Im Hypertext Transfer Protocol (HTTP) werden hierfür aktuell 8 Operationen bereitgestellt.
+    Im Hypertext Transfer Protocol (HTTP) werden hierfür aktuell acht Operationen bereitgestellt.
     Die am häufigsten verwendeten Operationen sind:
     \begin{description}[leftmargin=!,labelwidth=2cm]
         \item [GET] wird genutzt, um eine Repräsentation einer Ressource anzufragen.
@@ -477,7 +501,7 @@
     \end{lstlisting}
     Mittels CocoaPods lassen sich dann alle benötigten Libraries im sogenannten Podfile definieren und importieren.
     Das Podfile ist eine einfache Textdatei, in welcher die Zielplattform und eine Liste aller benötigter Libraries und ihrer jeweiligen Versionen angegeben wird.
-    In Listing\ref{lst:podfile} ist die Struktur eins solchen Podfiles zu sehen.
+    In Listing~\ref{lst:podfile} ist die Struktur eins solchen Podfiles zu sehen.
     ~\cite{cocoapods1, cocoapods2, cocoapods3}
     \begin{lstlisting}[language={},firstnumber=1,label={lst:podfile},caption={Beispielstuktur eines Podfiles},captionpos=t]
 platform :ios, '8.0'
@@ -493,7 +517,7 @@ end
 
     \section{Matrix iOS SDK}\label{sec:matrix-sdk}
     Die Matrix iOS SDK \footnote{https://github.com/matrix-org/matrix-ios-sdk} ist eine Open Source Library welche zur für die Entwicklung Matrix basierter Anwendungen für iOS-Geräte gedacht ist.
-    Sie fungiert als Schnittstelle zwischen Client, Applikation und Matrix Server.
+    Sie fungiert als Schnittstelle zwischen Client Applikation und Matrix Server.
     Hierzu werden die in der Client-Server-API definierten Operationen bereitgestellt.
     Um die Matrix SDK in ein Projekt einzubinden, muss hierfür ein Eintrag im in Abschnitt~\ref{sec:cocoapods} erläuterten Podfile angelegt und installiert werden.
     ~\cite{matrixiossdk}
