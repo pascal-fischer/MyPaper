@@ -333,7 +333,7 @@
     In Webanwendungen wird bei jedem Anmelden ein neue \texttt{device\_id} angelegt, wohingegen bei Client auf Mobilgeräten oder Computern die gleiche \texttt{device\_id} wiederverwendet werden kann.
     Devices finden hauptsächlich Anwendung im Bereich der End-to-End-Verschlüsselung, wo jedes Device seine eigenen Schlüssel besitzt.
 
-    #Todo cite devices
+    \#Todo cite devices
 
     \newpage
     \subsection{End-to-End-Encryption}\label{subsec:verwendete-schlussel}
@@ -381,11 +381,11 @@
     Der Megolm Algorithmus wird zur Verschlüsslung von Gruppen-Chats verwendet.
     Es ist ein auf dem Advanced Encryption Standard (AES) basierender Ratchet-Algorithmus~\cite{megolm}.
     Hierbei verschlüsselt jeder User seine Nachrichten in seiner eigenen Megolm Session.
-    Eine Megolm Session besitzt drei Teilen, einem Zähler $i$, einem Ed25519-Schlüsselpaar, welches zur Autentifizierung
+    Eine Megolm Session besteht aus drei Teilen, einem Zähler, einem Ed25519-Schlüsselpaar, welches zur Authentifizierung
     des Senders genutzt wird und dem Rachtet, der zur Verschlüsselung der Nachrichten verwendet wird.
     Der Rachet selbst besteht aus vier Teilen, die bei der Verkettung über verschiedene Hash-Funktionen fortgeführt werden.
-    Damit ein anderer User die Nachrichten entschlüsseln kann muss er die Informationen der Session über eine sichere Peer-to-Peer-Verbindung an diesen übermitteln.
-    Um vergangene Nachrichten zu entschlüsseln sollte der alteste, bekannte Ratchet Wert übergeben werden~\cite{megolm}.
+    Damit ein anderer User die Nachrichten entschlüsseln kann, muss er die Informationen der Session über eine sichere Peer-to-Peer-Verbindung an diesen übermitteln.
+    Um vergangene Nachrichten zu entschlüsseln sollte der älteste, bekannte Ratchet Wert übergeben werden~\cite{megolm}.
     In Bezug auf Sicherheit existieren beim Megolm Algorithmus einige Einschränkungen~\cite{megolm}:
     \begin{enumerate}
         \item Da es möglich ist Nachrichten mehrmals zu enschlüsseln, kann ein Angreifer eine alte Nachricht erneut senden, welche vom Empfänger als neu angesehen wird.
