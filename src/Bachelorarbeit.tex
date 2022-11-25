@@ -130,13 +130,13 @@
     Der Einsatz neuer digitaler Innovationen soll eine bestmögliche Versorgung der Patienten gewährleisten.
     Eine große Herausforderung ist der demografische Wandel und der Mangel an Fachärztinnen und Fachärzten in ländlichen Regionen.
     Um dem entgegenzuwirken, wurde das Verbot von Fernbehandlungen nach der Musterberufsordnung der Ärzte (MBO-Ä) im Jahr 2018~\cite{beschlussprotokol} aufgehoben.
-    Dies ermöglicht eine bequeme und schnelle Behandlung von zuhause.
+    Dies ermöglicht eine bequeme und schnelle Behandlung von zu Hause.
     So muss beispielsweise für eine Krankschreibung oder ein Folgerezept nicht extra eine Arztpraxis aufgesucht werden.
     Hierdurch können lange Anfahrtswege und Wartezeiten vermieden werden.
     Besonders seit Beginn der Coronapandemie im Jahr 2019 werden Rufe nach Softwarelösungen für den Einsatz in der Telemedizin immer lauter.
     Viele Bürger fürchten jedoch um die Sicherheit ihrer Daten, weshalb das Thema Datenschutz eine besondere Rolle beim Einsatz von Telemedizin spielt.
-    Auch von Seiten des Gesetzgebers gelten strenge Vorgaben im Umgang mit personenbezogenen Daten, ganz besonders wenn es sich hierbei um medizinische Daten handelt.
-    Viele gängige Messenger wie WhatsApp oder Telegramm unterstützen zwar eine End-to-End-Verschlüsselung der gesendeten Nachrichten, jedoch entsprechen sie nicht den Datenschutz Vorschriften die in der Datenschutz-Grundverordnung der europäischen Union (DSGVO) festgelegt sind.
+    Auch vonseiten des Gesetzgebers gelten strenge Vorgaben im Umgang mit personenbezogenen Daten, besonders wenn es sich hierbei um medizinische Daten handelt.
+    Viele gängige Messenger wie WhatsApp oder Telegramm unterstützen zwar eine End-to-End-Verschlüsselung der gesendeten Nachrichten, jedoch entsprechen sie nicht den Datenschutz Vorschriften, die in der Datenschutz-Grundverordnung der Europäischen Union (DSGVO) festgelegt sind.
     Aus diesem Grund müssen Alternativen geschaffen werden, die für den Einsatz in der Telemedizin zugelassen sind.
 
     \newpage
@@ -145,11 +145,11 @@
     Hierfür soll eine Chat-basierte Plattform auf Basis des Matrix.org-Protokolls entwickelt werden.
     Es muss eine App für die Nutzung der Plattform implementiert werden sowie die benötigte Infrastruktur bereitgestellt werden, um Nachrichten und Daten zu speichern und zu übermitteln.
     Die App ist in der Programmiersprache Swift zu implementieren und soll auf allen gängigen iOS Geräten unterstützt werden.
-    Die Infrastrucktur soll isoliert laufen und nicht an das existierende Matrix-Netzwerk angeschlossen werden.
+    Die Infrastruktur soll isoliert laufen und nicht an das existierende Matrix-Netzwerk angeschlossen werden.
     Da medizinische Daten dem Datenschutz in besonderer Maße unterliegen, ist es besonders wichtig,
     dass jegliche Art von Kommunikation zwischen Ärzten und Patienten stets verschlüsselt ist.
     Es muss gewährleistet sein, dass zu jedem Zeitpunkt alle personenbezogenen Daten vor dem Zugriff unerlaubter Dritter geschützt sind.
-    Auerdem muss darauf geachtet werden, dass die Plattform keine der Vorschriften aus der DSGVO verletzt.
+    Außerdem muss darauf geachtet werden, dass die Plattform keine der Vorschriften aus der DSGVO verletzt.
 
     \section{Aufbau der Arbeit}\label{sec:aufbau-der-arbeit}
     Zu Beginn werden die theoretischen Grundlagen, die für die Entwicklung der Plattform von Bedeutung sind, erläutert.
@@ -221,14 +221,10 @@
     Das Matrix-Protokoll ist ein offener Standard für dezentrale Echtzeitkommunikation im Internet.
     Es ist ein Open-Source-Projekt, welches unter Aufsicht der Matrix.org Foundation, einer Non-Profit-Organisation aus England, entwickelt wird.
     Das Team besteht aus 12 Personen, viele von ihnen mit weitreichenden Erfahrungen im Bereich VoIP- und Messaging-Apps für Mobilgeräte.
-    Die Entwicklung begann im Jahr 2014 und ist seit Juni 2019 für den Einsatz im Produktionsbetrieb geeignet.
+    Die Entwicklung begann im Jahr 2014 und ist seit Juni 2019 für den Einsatz im Produktionsbetrieb geeignet~\cite{matrixfaq}.
     Mittlerweile gibt es zahlreiche Beiträge aus der Community, wodurch das Projekt weiter vorangetrieben wird.
-    ~\cite{matrixfaq}
-
     Das ursprüngliche Ziel des Projektes war es ein Protokoll zu entwickeln, welches es Usern ermöglichen soll, anderen Usern Nachrichten zu schreiben oder diese anzurufen, unabhängig davon welche Plattform diese benutzen.
-    Langfristig soll Matrix ein generisches System zum Messaging und Datensynchronisation über HTTP für das ganze Internet bilden.
-    ~\cite{matrixfaq}
-
+    Langfristig soll Matrix ein generisches System zum Messaging und Datensynchronisation über HTTP für das ganze Internet bilden~\cite{matrixfaq}.
     Hierzu definiert Matrix eine Reihe von REST-APIs:
     \begin{description}[leftmargin=!,labelwidth=5.5cm]
         \item [Client-Server-API\footnotemark] \footnotetext{https://spec.matrix.org/v1.4/client-server-api/} zur Kommunikation zwischen Matrix kompatiblen Clients und einem Homeserver
@@ -241,7 +237,7 @@
     \subsection{Funktionsweise}\label{subsec:funktionsweise}
     Matrix beschreibt sich selbst als dezentralen Konversationsspeicher\cite{matrix}.
     Hierbei werden alle Nachrichten (Events) die von einem User an einen Raum verschickt werden auf seinem Homeserver gespeichert.
-    Ein Homeserver beschreibt einen Knoten im Matrix Netzwerk.
+    Ein Homeserver beschreibt einen Knoten im Matrix-Netzwerk.
     Jeder Client ist mit einem einzigen Homeserver verbunden.
     Damit eine Konversation stattfinden kann, sorgt der Homeserver dafür, dass die vom User gesendete Nachricht an die Homeserver der anderen Teilnehmer eines Raumes synchronisiert wird.
     Somit hält jeder Homeserver eine Kopie des vollständigen Konversationsverlaufs.
@@ -264,13 +260,13 @@
     Ein möglicher Event-Graph für eine Konversation zwischen Alice, Bob und Charlie~\cite{matrix} ist in Abbildung~\ref{fig:events} dargestellt.
     \begin{enumerate}[label={(\arabic*)}]
     \item Zu Beginn der Konversation sendet Alice eine Nachricht (Event 1) an ihren Homeserver.
-    Dieses Event wird daraufhin an die Homeserver von Bob und Charlie weitergeleitet wodurch diese die Nachricht erhalten.
+    Dieses Event wird daraufhin an die Homeserver von Bob und Charlie weitergeleitet, wodurch diese die Nachricht erhalten.
     Dem Event selbst wird im Event-Graph eine \texttt{depth} von 1 zugewiesen, da es das erste Event ist.
     \item Daraufhin antworten Bob und Charlie gleichzeitig auf die Nachricht von Alice (Event 2 und 3) und senden diese an ihren Homeserver.
-    Da zu diesem Zeitpunkt werder Bobs noch Charlies Homeserver von der Nachricht des jeweils anderen wissen weisen beide Homeserver der eingetroffenen Nachricht eine \texttt{depth} von 2 zu.
-    Nachdem die Nachrichten an die anderen Homeserver propagiert wurden erscheint der Graph geteilt und eine genaue Reihenfolge der beiden Events ist unklar.
-    \item Wenn nun Alice eine weitere Nachricht (Event 4) sendet kennt Alices Homeserver bereits die Nachrichten von Bob und Charlie und weist dem Event deshalb eine \texttt{depth} von 3 zu.
-        Somit hat das Event zwei Elternknoten und der Graph ist wieder zusammengeführt.
+    Da zu diesem Zeitpunkt werder Bobs noch Charlies Homeserver von der Nachricht des jeweils anderen wissen, weisen beide Homeserver der eingetroffenen Nachricht eine \texttt{depth} von 2 zu.
+    Nachdem die Nachrichten an die anderen Homeserver propagiert wurden, erscheint der Graph geteilt und eine genaue Reihenfolge der beiden Events ist unklar.
+    \item Wenn nun Alice eine weitere Nachricht (Event 4) sendet, kennt Alices Homeserver bereits die Nachrichten von Bob und Charlie und weist dem Event deshalb eine \texttt{depth} von 3 zu.
+    Somit hat das Event zwei Elternknoten und der Graph ist wieder zusammengeführt.
     \end{enumerate}
 
 \begin{figure}[h]
@@ -296,9 +292,9 @@
     Jedes Event enthält mindestens folgende Attribute~\cite{eventformat}:
     \begin{description}[leftmargin=!,labelwidth=3.5cm]
         \item [content] der Inhalt der Nachricht. Dieser variiert abhängig vom Eventyp.
-        \item [event\_id] ein eindeutiger Identifier für das jeweilige Event.
+        \item [event\_id] ein eindeutiger Identifikator für das jeweilige Event.
         \item [origin\_server\_ts] Zeitstempel beim Senden des Events.
-        \item [room\_id] ein eindeutiger Identifier über welchen ein Event einem bestimmten Raum zugeordnet werden kann.
+        \item [room\_id] ein eindeutiger Identifikator, über welchen ein Event einem bestimmten Raum zugeordnet werden kann.
         \item [sender] die Matrix ID des Absenders des Events.
         \item [type] der Typ des Events.
     \end{description}
@@ -307,7 +303,7 @@
 
     \newpage
     \subsection{Rooms}\label{subsec:rooms}
-    Räume ermöglicht es Nutzern, Events zu versenden und zu empfangen.
+    Räume ermöglicht es Usern, Events zu versenden und zu empfangen.
     Ein Raum ist hierbei theoretisches Konstrukt und wird lediglich über seine ID identifiziert.
     Diese hat das folgende Format:
     \begin{lstlisting}[language=bash,label={lst:roomid}]
@@ -326,25 +322,23 @@
 
     \subsection{Devices}
     Ein Device im Matrix Protokoll beschreibt weniger ein reales Gerät wie ein Computer oder Smartphone, sondern viel mehr eine Instanz eines Matrixclients auf einem Gerät.
-    So können beispielsweise mehrere Anwendungen auf einem Gerät installiert sein und jedes wäre sein eigenes Device.
+    So können beispielsweise mehrere Anwendungen auf einem Gerät installiert sein und jedes wäre ein eigenes Device~\cite{devices}.
     Jedes Device bekommt seine eigene \texttt{device\_id} zugewiesen.
     Dabei ist zu beachten, dass falls sich ein User von einer Anwendung abmeldet und sich auf demselben Gerät bei derselben Anwendung erneut anmeldet, nicht die gleiche \texttt{device\_id} zugewiesen bekommt.
     Je nach Client wird somit unterschiedlich häufig die \texttt{device\_id} gewechselt.
     In Webanwendungen wird bei jedem Anmelden ein neue \texttt{device\_id} angelegt, wohingegen bei Clients auf Mobilgeräten oder Computern, wo ein Account langfristig genutzt wird, die gleiche \texttt{device\_id} wiederverwendet werden kann.
     Devices finden hauptsächlich Anwendung im Bereich der End-to-End-Verschlüsselung, wo jedes Device seine eigenen Schlüssel besitzt.
 
-    \#Todo cite devices
-
     \newpage
     \subsection{End-to-End-Encryption}\label{subsec:verwendete-schlussel}
     Zur Verschlüsselung von Nachrichten werden der Olm und der Megolm Algorithmus verwendet.\\
     Der Olm Algorithmus basiert auf dem Double-Ratchet-Algorithmus.
-    Er wird dafür genutzt Nachrichten in Konversationen zwischen 2 Parteien zu verschlüsseln, wobei für jede Nachricht ein neuer Key zur Verschlüsselung abgeleitet wird.
+    Er wird dafür genutzt, Nachrichten in Konversationen zwischen 2 Parteien zu verschlüsseln, wobei für jede Nachricht ein neuer Key zur Verschlüsselung abgeleitet wird.
     Dies geschieht durch Verkettung einer auf HMAC basierenden Key Derivation Function (HKDF).
     Im klassischen Double-Ratchet-Algorithmus werden hierfür drei Ketten geführt, die Sending-Chain, Receiving-Chain und Root-Chain.
     Die Sending-Chain eines Teilnehmenrs gleicht der Receiving-Chain des anderen Teilnehmers und umgekehrt~\cite{perrin2016double}.
-    Im Olm Algorithmus wird darauf verzichtet, sowohl eine Sending- als auch eine Receiving-Chain zu führen und durch eine einzelne Kette erzetzt.
-    Ein Teilnehmer nutzt die geraden Schüssel der Kette und der ander Teilnehmer die ungeraden Schlüssel.
+    Im Olm Algorithmus wird darauf verzichtet, sowohl eine Sending- als auch eine Receiving-Chain zu führen und durch eine einzelne Kette ersetzt.
+    Ein Teilnehmer nutzt die geraden Schlüssel der Kette und der andere Teilnehmer die ungeraden Schlüssel.
     Für die Erstellung des Wurzelknotens der Ketten werden 4 Keys benötigt.
     Man benötigt die Identity Keys beider Teilnehmer ($I_A$ und $I_B$) und jeweils einen Curve25519 one-time key ($E_A$ und $E_B$).
     Mithilfe des Diffie-Hellman-Verfahrens wird ein gemeinsamer geheimer Schlüssel S erzeugt.
@@ -357,12 +351,12 @@
         R_0 \parallel C_{0,0} = HKDF(0,S,\verb+"OLM_ROOT"+,64)
     \end{displaymath}
     Mit diesen Keys können anschließend alle fortlaufenden Keys berechnet werden~\cite{olm}.
-    Beim Senden einer Nachricht wird geprüft ob ein passender Chain-Key existiert, der Index der Kette also gerade oder ungerade ist.
+    Beim Senden einer Nachricht wird geprüft, ob ein passender Chain-Key existiert, der Index der Kette also gerade oder ungerade ist.
     Sollte ein passender Chain-Key existieren, wird über diesen der folgende Chain-Key bestimmt.
     \begin{displaymath}
         C_{i,j} = HMAC(C_{i,j-1},S,\verb+"\x02"+)
     \end{displaymath}
-    Sollte der Chain-Key nicht passen werden ein neuer Root-Key und Chain-Key bestimmt durch hinzunahme eines generierten Rachet-Keys $T_i$.
+    Sollte der Chain-Key nicht passen werden ein neuer Root-Key und Chain-Key, durch Hinzunahme eines generierten Ratchet-Keys $T_i$, bestimmt.
     \begin{displaymath}
         R_i \parallel C_{i,0} = HKDF(R_{i-1},ECDH(T_{i-1},T_i),\verb+"OLM_RATCHET"+,64)
     \end{displaymath}
@@ -374,8 +368,8 @@
     Somit erfüllt der Olm Algorithmus folgende Eigenschaften~\cite{perrin2016double}:
     \begin{description}[leftmargin=!,labelwidth=3.8cm]
         \item [Resilience] Der ausgegebene Key erscheint zufällig ohne Wissen über den KDF Key.
-        \item [Forward security] Vergangene Nachrichten sind geschützt wenn zu einem Zeitpunkt ein KDF Key bekannt wird.
-        \item [Break-in recovery] Zukünftige Nachrichten sind geschützt wenn zu einem Zeitpunkt ein KDF Key bekannt wird.
+        \item [Forward security] Vergangene Nachrichten sind geschützt, wenn zu einem Zeitpunkt ein KDF Key bekannt wird.
+        \item [Break-in recovery] Zukünftige Nachrichten sind geschützt, wenn zu einem Zeitpunkt ein KDF Key bekannt wird.
     \end{description}
     \vspace{0.5cm}
     Der Megolm Algorithmus wird zur Verschlüsslung von Gruppen-Chats verwendet.
@@ -383,23 +377,23 @@
     Hierbei verschlüsselt jeder User seine Nachrichten in seiner eigenen Megolm Session.
     Eine Megolm Session besteht aus drei Teilen, einem Zähler, einem Ed25519-Schlüsselpaar, welches zur Authentifizierung
     des Senders genutzt wird und dem Rachtet, der zur Verschlüsselung der Nachrichten verwendet wird.
-    Der Rachet selbst besteht aus vier Teilen, die bei der Verkettung über verschiedene Hash-Funktionen fortgeführt werden.
+    Der Ratchet selbst besteht aus vier Teilen, die bei der Verkettung über verschiedene Hash-Funktionen fortgeführt werden.
     Damit ein anderer User die Nachrichten entschlüsseln kann, muss er die Informationen der Session über eine sichere Peer-to-Peer-Verbindung an diesen übermitteln.
-    Um vergangene Nachrichten zu entschlüsseln sollte der älteste, bekannte Ratchet Wert übergeben werden~\cite{megolm}.
+    Um vergangene Nachrichten zu entschlüsseln, sollte der älteste, bekannte Ratchet Wert übergeben werden~\cite{megolm}.
     In Bezug auf Sicherheit existieren beim Megolm Algorithmus einige Einschränkungen~\cite{megolm}:
     \begin{enumerate}
         \item Da es möglich ist Nachrichten mehrmals zu enschlüsseln, kann ein Angreifer eine alte Nachricht erneut senden, welche vom Empfänger als neu angesehen wird.
-        \item Backwards Secrecy ist nicht gegeben, da sobald ein Ratchet Key bekannt ist alle folgenden Keys abgeleitet werden können.
-        \item Forward Secrecy ist nur teilwesie gegeben, da User den ältsten, bekannten Rachet Wert speichern, um alle Nachrichten einer Session zu entschlüsseln. Sollte ein Angreifer an diesen Schlüssel gelangen, kann er ebenfalls alle Nachrichten entschlüsseln.
+        \item Backwards Secrecy ist nicht gegeben, da sobald ein Ratchet Key bekannt ist, alle folgenden Keys abgeleitet werden können.
+        \item Forward Secrecy ist nur teilweise gegeben, da User den ältesten, bekannten Ratchet Wert speichern, um alle Nachrichten einer Session zu entschlüsseln. Sollte ein Angreifer an diesen Schlüssel gelangen, kann er ebenfalls alle Nachrichten entschlüsseln.
     \end{enumerate}
     \vspace{0.5cm}
 
     Zusammengefasst werden folgende Schlüssel für die End-to-End-Verschlüsselung im Matrix Protokoll benötigt~\cite{matrix-end-to-end-encryption}:
     \begin{description}[leftmargin=!,labelwidth=3cm]
-        \item [Ed25519 fingerprint key pair] wird genutzt um ein Gerät zu identifizieren. Jedes Device besitzt seinen eigenen Ed25519 Schlüssel.
-        \item [Curve25519 identity key pair] wird genutzt um den gemeinsamen geheimen Schlüssel zu erstellen.
+        \item [Ed25519 fingerprint key pair] wird genutzt, um ein Gerät zu identifizieren. Jedes Device besitzt seinen eigenen Ed25519 Schlüssel.
+        \item [Curve25519 identity key pair] wird genutzt, um den gemeinsamen geheimen Schlüssel zu erstellen.
         \item [Curve25519 one-time keys] ein Set von einmal verwendbarer Keys um Aufbau einer Olm Sitzung.
-        \item [Megolm encryption keys] wird genutzt um Nachrichten in Gruppen-Chats zu verschlüsseln.
+        \item [Megolm encryption keys] wird genutzt, um Nachrichten in Gruppen-Chats zu verschlüsseln.
         \item [Ed25519 Megolm signing key pair] Schlüssel zum Signieren von Nachrichten in Gruppen-Chats, dient der Authentifizierung des Absenders.
     \end{description}
 
@@ -436,7 +430,7 @@
     \end{figure}\\
     Dabei übernimmt jeder Teil eine bestimmte Funktion~\cite{Mishra2017}:
     \begin{description}[leftmargin=!,labelwidth=3cm]
-        \item [View] bildet die grafische Oberfläche der Anwendung. Sie nimmt Usereingaben entgegen und kommuniziert mit dem ViewModel.
+        \item [View] bildet die grafische Oberfläche der Anwendung. Sie nimmt Benutzereingaben entgegen und kommuniziert mit dem ViewModel.
         \item [Model] repräsentiert und speichert die Daten der Anwendung. Es kommuniziert mit dem ViewModel.
         \item [ViewModel] enthält die Ausführungslogik der Anwendung. Es kommuniziert sowohl mit der View als auch dem Model. Außerdem ist es zuständig für die Kommunikation mit externen Systemen.
     \end{description}
@@ -445,7 +439,7 @@
         \item Es erlaubt eine unabhängige Entwicklung von Benutzeroberfläche und Ausführungslogik.
         \item Views können während des Entwurfs mit Testdaten befüllt werden, um somit eine Vorschau der Ansicht zu erstellen.
         \item Es erlaubt die Nutzung mehrerer Views auf demselben ViewModel.
-        \item Es verteilt Code auf mehrere kleinerer Klassen an Stelle eines großen View-Controllers.
+        \item Es verteilt Code auf mehrere kleinere Klassen an Stelle eines großen View-Controllers.
         \item Erlaubt den ein Satz von Unit Tests auch zu einem späteren Zeitpunkt ohne größere Veränderungen im Code.
     \end{enumerate}
 
@@ -513,11 +507,10 @@ end
 
 
     \section{Matrix iOS SDK}\label{sec:matrix-sdk}
-    Die Matrix iOS SDK \footnote{https://github.com/matrix-org/matrix-ios-sdk} ist eine Open Source Library welche zur für die Entwicklung Matrix basierter Anwendungen für iOS-Geräte gedacht ist.
-    Sie ermöglich eine einfache Kommunikation zwischen Client und Matrix Server.
+    Die Matrix iOS SDK \footnote{https://github.com/matrix-org/matrix-ios-sdk} ist eine Open Source Library, welche zur für die Entwicklung Matrix basierter Anwendungen für iOS-Geräte gedacht ist.
+    Sie ermöglicht eine einfache Kommunikation zwischen Client und Matrix Server.
     Hierzu werden die in der Client-Server-API definierten Operationen bereitgestellt.
-    Um die Matrix SDK in ein Projekt einzubinden, muss hierfür ein Eintrag im in Abschnitt~\ref{sec:cocoapods} erläuterten Podfile angelegt und installiert werden.
-    ~\cite{matrixiossdk}
+    Um die Matrix SDK in ein Projekt einzubinden, muss hierfür ein Eintrag im in Abschnitt~\ref{sec:cocoapods} erläuterten Podfile angelegt und installiert werden~\cite{matrixiossdk}.
     \begin{lstlisting}[language={},label={lst:matrtix-sdk}]
         pod 'SwiftMatrixSDK'
     \end{lstlisting}
@@ -536,11 +529,10 @@ end
     Docker ist eine Containervirtualisierungssoftware, welche es ermöglicht Anwendung vom Rest des Systems zu isolieren.
     Auch wenn sie nach außen wie eine virtuelle Maschine wirkt, bietet sie entscheidende Vorteile.
     Herkömmliche virtuelle Maschinen bilden eine vollständige Kopie eines Betriebssystems, welches mittels einer Virtualisierungssoftware wie beispielsweise Oracle VirtualBox oder KVM auf einem Hypervisor betrieben werden muss.
-%    Betrachtet man den vollständigen Stack einmal von unten, hat man zuallererst die Hardware des Hypervisors, auf diesem läuft ein Betriebssystem, worauf wiederum die Virtualisierungssoftware läuft, mit welcher eine isolierte Kopie eines anderen Betriebssystems erzeugt wird, in welcher die eigentliche Anwendung dann läuft.
     Dies sorgt für erhebliche Einbußen in der Performance.
     Docker Container sind in der Lage in wenigen Sekunden zu starten.
     Sie laufen direkt auf dem Betriebssystem des Hypervisors sind aber dennoch isoliert vom Rest des Systems.
-    Dies geschieht mithilfe zweier Linux Kernel Technologien, namespaces und cgroups~\cite{docker}.
+    Dies geschieht mithilfe zweier Linux Kernel Technologien, Namespaces und Cgroups~\cite{docker}.
     Docker arbeitet mit Containern und Images, wobei ein Image eine Reihe von Befehlen darstellt, um eine gewünschte Umgebung zu erschaffen.
     Ein Container ist eine laufende Instanz eines Images.
 
