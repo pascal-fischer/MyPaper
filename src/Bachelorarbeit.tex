@@ -136,23 +136,23 @@
     Besonders seit Beginn der Coronapandemie im Jahr 2019 werden Rufe nach Softwarelösungen für den Einsatz in der Telemedizin immer lauter.
     Viele Bürger fürchten jedoch um die Sicherheit ihrer Daten, weshalb das Thema Datenschutz eine besondere Rolle beim Einsatz von Telemedizin spielt.
     Auch von Seiten des Gesetzgebers gelten strenge Vorgaben im Umgang mit personenbezogenen Daten, ganz besonders wenn es sich hierbei um medizinische Daten handelt.
-    Viele gängige Messenger wie WhatsApp oder Telegramm unterstützen zwar eine End-to-End-Verschlüsselung der gesendeten Nachrichten, jedoch entsprechen sie nicht den Datenschutz Vorschriften der DSGVO und sind somit für den Einsatz in der Telemedizin nicht geeignet.
+    Viele gängige Messenger wie WhatsApp oder Telegramm unterstützen zwar eine End-to-End-Verschlüsselung der gesendeten Nachrichten, jedoch entsprechen sie nicht den Datenschutz Vorschriften die in der Datenschutz-Grundverordnung der europäischen Union (DSGVO) festgelegt sind.
     Aus diesem Grund müssen Alternativen geschaffen werden, die für den Einsatz in der Telemedizin zugelassen sind.
 
     \newpage
     \section{Zielsetzung}\label{sec:zielsetzung}
     Ziel dieser Arbeit ist es eine Plattform zu entwickeln, welchen es Ärzten und Patienten ermöglicht in Kontakt zu treten und Nachrichten auszutauschen.
-    Hierfür soll eine Chat-basierte Plattform auf Basis des Matrix.org-Protokolls implementiert werden.
-    Die Plattform soll hierfür
-    Die App ist in der Programmiersprache Swift zu entwickeln und soll auf allen gängigen iOS Geräten unterstützt werden.
-    Darüber hinaus muss die benötigte Infrastruktur bereitgestellt werden, um Nachrichten und Daten zu speichern und zu übermitteln.
-    Diese soll jedoch isoliert laufen und nicht an das existierende Matrix-Netzwerk angeschlossen werden.
+    Hierfür soll eine Chat-basierte Plattform auf Basis des Matrix.org-Protokolls entwickelt werden.
+    Es muss eine App für die Nutzung der Plattform implementiert werden sowie die benötigte Infrastruktur bereitgestellt werden, um Nachrichten und Daten zu speichern und zu übermitteln.
+    Die App ist in der Programmiersprache Swift zu implementieren und soll auf allen gängigen iOS Geräten unterstützt werden.
+    Die Infrastrucktur soll isoliert laufen und nicht an das existierende Matrix-Netzwerk angeschlossen werden.
     Da medizinische Daten dem Datenschutz in besonderer Maße unterliegen, ist es besonders wichtig,
     dass jegliche Art von Kommunikation zwischen Ärzten und Patienten stets verschlüsselt ist.
     Es muss gewährleistet sein, dass zu jedem Zeitpunkt alle personenbezogenen Daten vor dem Zugriff unerlaubter Dritter geschützt sind.
+    Auerdem muss darauf geachtet werden, dass die Plattform keine der Vorschriften aus der DSGVO verletzt.
 
     \section{Aufbau der Arbeit}\label{sec:aufbau-der-arbeit}
-    Zuerst werden die theoretischen Grundlagen, die für die Entwicklung der Plattform von Bedeutung sind, erläutert.
+    Zu Beginn werden die theoretischen Grundlagen, die für die Entwicklung der Plattform von Bedeutung sind, erläutert.
     Es werden die zur Implementierung der Plattform genutzten Technologien vorgestellt und deren Verwendung beschrieben.
     Danach werden einige ähnliche Projekte vorgestellt und analysiert.
     Basierend auf dieser Analyse werden eine Reihe von technischen Anforderungen definiert, welche von der implementierten Plattform erfüllt werden sollen.
@@ -166,7 +166,7 @@
     Anschließend wird das Matrix-Protokoll vorgestellt und seine allgemeine Funktionsweise beschrieben.
     Außerdem werden die zur Verschlüsselung verwendeten Algorithmen erklärt und die dafür benötigten Schlüssel aufgezeigt.
     Es wird das REST Paradigma vorgestellt, welches die Grundlage für die Kommunikation zwischen Client und Server bildet.
-    Des Weiteren wird die MVVM Architektur erläutern, welche bei der Entwicklung der App verfolgt wurde.
+    Des Weiteren wird die MVVM Architektur erläutern, welche bei der Implementierung der App verfolgt wurde.
 
     \section{Datenschutz im Gesundheitswesen}\label{sec:datenschutz-im-gesundheitswesen}
     Die rechtlichen Rahmenbedingungen für das Speichern und Verarbeiten medizinischer Daten sind in der EU-Datenschutz-Grundverordnung\footnote{https://dsgvo-gesetz.de/} (DSGVO) festgelegt.
@@ -177,7 +177,7 @@
     Ziel dieses Gesetzes war es, die Chancen der Digitalisierung für die Gesundheitsversorgung zu nutzen und eine schnelle Einführung medizinischer Anwendungen für die Patientinnen und Patienten zu ermöglichen.}~\cite{ehealthgesetz}
 
     Ein Teil der Telematikinfrastruktur ist der TI-Messenger der Gematik GmbH, welcher im Abschnitt~\ref{subsec:ti-messenger} genauer betrachtet wird.\\
-    Am 07.11.2019 hat dann die Konferenz der unabhängigen Datenschutzaufsichtsbehörden des Bundes und der Länder ein Whitepaper veröffentlicht, welche die \("\)Technischen Datenschutzanforderungen an Messenger-Dienste im\linebreak
+    Am 07.11.2019 hat die Konferenz der unabhängigen Datenschutzaufsichtsbehörden des Bundes und der Länder ein Whitepaper veröffentlicht, welche die \("\)Technischen Datenschutzanforderungen an Messenger-Dienste im\linebreak
     Krankenhausbereich\("\) aus Sicht der DSGVO ~\cite{datenschutzkonferenz} offenlegt.
     Einige dieser Anforderungen sind:
     \begin{enumerate}[label={(\arabic*)}]
@@ -225,7 +225,7 @@
     Mittlerweile gibt es zahlreiche Beiträge aus der Community, wodurch das Projekt weiter vorangetrieben wird.
     ~\cite{matrixfaq}
 
-    Das ursprüngliche Ziel des Projektes war es ein Protokoll zu entwickeln, welches es Nutzern ermöglichen soll, anderen Nutzern Nachrichten zu schreiben oder diese anzurufen, unabhängig davon welche Plattform diese benutzen.
+    Das ursprüngliche Ziel des Projektes war es ein Protokoll zu entwickeln, welches es Usern ermöglichen soll, anderen Usern Nachrichten zu schreiben oder diese anzurufen, unabhängig davon welche Plattform diese benutzen.
     Langfristig soll Matrix ein generisches System zum Messaging und Datensynchronisation über HTTP für das ganze Internet bilden.
     ~\cite{matrixfaq}
 
@@ -251,7 +251,7 @@
     Dieser wird im Kontext von Matrix als Event-Graph bezeichnet.
     Hierbei besitzt jedes Event einen oder mehrere Eltern (außer der Wurzelknoten).
     Somit lässt sich der Event-Graph chronologisch ordnen.
-    Hierzu wird jedem Event ein Wert \texttt{depth} zugewiesen, welcher die Reihenfolge der Events beschreibt~\cite{eventgraph}.\\
+    Hierzu wird jedem Event ein ganzzahlig, positiver Wert \texttt{depth} zugewiesen, welcher die Reihenfolge der Events beschreibt~\cite{eventgraph}.\\
     In Abbildung~\ref{fig:matrixfunktionsweise} ist eine Beispielsituation für einen Raum zwischen Alice, Bob und Charlie gezeigt.
     Jeder der Teilnehmer ist mit seinem eigenen Homeserver verbunden.
     \begin{figure}[h]
@@ -289,7 +289,7 @@
     Es ist außerdem möglich, eigene Eventtypen zu erstellen~\cite{events}.\\
     Events können in 2 Kategorien~\cite{roomevents} unterteilt werden:
     \begin{description}[leftmargin=!,labelwidth=3.5cm]
-        \item [State events] geben Auskunft über Zustandsänderungen in einem Raum. Dies können beispielsweise das Ändern des Raumnamens oder das Beitreten eines Nutzers zu einem Raum sein.
+        \item [State events] geben Auskunft über Zustandsänderungen in einem Raum. Dies können beispielsweise das Ändern des Raumnamens oder das Beitreten eines Users zu einem Raum sein.
         \item [Message events] beschreiben die tatsächliche Kommunikation in einem Raum. Dies können das Senden einer Nachricht oder das Starten eines VoIP-Anrufes sein.
     \end{description}
 
@@ -317,7 +317,7 @@
     Somit können später alle Events einem Raum zugeordnet werden.
     Der aktuelle Zustand eines Raumes ergibt sich aus allen an diesen Raum gesendeten Events (state Events)~\cite{rooms}.
     Außerdem wird für jeden Member eines Raumes ein Eintrag auf dem Homeserver angelegt, wodurch bestimmt wird welche Events von welchen Nutzer gelesen werden dürfen.
-    Es gibt zusätzlich die Möglichkeit einen oder mehrere "Room Aliases" anzulegen, welche dem Menschen das Identifizieren eines Raumes vereinfachen.
+    Es gibt zusätzlich die Möglichkeit einen \("\)Room Alias\("\) anzulegen, welche dem Menschen das Identifizieren eines Raumes vereinfachen.
     Diese sind im Format~\cite{rooms}:
     \begin{lstlisting}[language=bash,label={lst:roomalias}]
         #room_alias:domain
@@ -330,7 +330,7 @@
     Jedes Device bekommt seine eigene \texttt{device\_id} zugewiesen.
     Dabei ist zu beachten, dass falls sich ein User von einer Anwendung abmeldet und sich auf demselben Gerät bei derselben Anwendung erneut anmeldet, nicht die gleiche \texttt{device\_id} zugewiesen bekommt.
     Je nach Client wird somit unterschiedlich häufig die \texttt{device\_id} gewechselt.
-    In Webanwendungen wird bei jedem Anmelden ein neue \texttt{device\_id} angelegt, wohingegen bei Client auf Mobilgeräten oder Computern die gleiche \texttt{device\_id} wiederverwendet werden kann.
+    In Webanwendungen wird bei jedem Anmelden ein neue \texttt{device\_id} angelegt, wohingegen bei Clients auf Mobilgeräten oder Computern, wo ein Account langfristig genutzt wird, die gleiche \texttt{device\_id} wiederverwendet werden kann.
     Devices finden hauptsächlich Anwendung im Bereich der End-to-End-Verschlüsselung, wo jedes Device seine eigenen Schlüssel besitzt.
 
     \#Todo cite devices
@@ -339,7 +339,7 @@
     \subsection{End-to-End-Encryption}\label{subsec:verwendete-schlussel}
     Zur Verschlüsselung von Nachrichten werden der Olm und der Megolm Algorithmus verwendet.\\
     Der Olm Algorithmus basiert auf dem Double-Ratchet-Algorithmus.
-    Er wird dafür genutzt verschlüsselte Nachrichten zwischen 2 Parteien auszutauschen, wobei mit jeder Nachricht ein neuer Key zur Verschlüsselung abgeleitet wird.
+    Er wird dafür genutzt Nachrichten in Konversationen zwischen 2 Parteien zu verschlüsseln, wobei für jede Nachricht ein neuer Key zur Verschlüsselung abgeleitet wird.
     Dies geschieht durch Verkettung einer auf HMAC basierenden Key Derivation Function (HKDF).
     Im klassischen Double-Ratchet-Algorithmus werden hierfür drei Ketten geführt, die Sending-Chain, Receiving-Chain und Root-Chain.
     Die Sending-Chain eines Teilnehmenrs gleicht der Receiving-Chain des anderen Teilnehmers und umgekehrt~\cite{perrin2016double}.
@@ -372,12 +372,12 @@
     \end{displaymath}
 
     Somit erfüllt der Olm Algorithmus folgende Eigenschaften~\cite{perrin2016double}:
-    \begin{description}[leftmargin=!,labelwidth=3cm]
-        \item [Resilience]
+    \begin{description}[leftmargin=!,labelwidth=3.8cm]
+        \item [Resilience] Der ausgegebene Key erscheint zufällig ohne Wissen über den KDF Key.
         \item [Forward security] Vergangene Nachrichten sind geschützt wenn zu einem Zeitpunkt ein KDF Key bekannt wird.
         \item [Break-in recovery] Zukünftige Nachrichten sind geschützt wenn zu einem Zeitpunkt ein KDF Key bekannt wird.
     \end{description}
-
+    \vspace{0.5cm}
     Der Megolm Algorithmus wird zur Verschlüsslung von Gruppen-Chats verwendet.
     Es ist ein auf dem Advanced Encryption Standard (AES) basierender Ratchet-Algorithmus~\cite{megolm}.
     Hierbei verschlüsselt jeder User seine Nachrichten in seiner eigenen Megolm Session.
@@ -392,6 +392,7 @@
         \item Backwards Secrecy ist nicht gegeben, da sobald ein Ratchet Key bekannt ist alle folgenden Keys abgeleitet werden können.
         \item Forward Secrecy ist nur teilwesie gegeben, da User den ältsten, bekannten Rachet Wert speichern, um alle Nachrichten einer Session zu entschlüsseln. Sollte ein Angreifer an diesen Schlüssel gelangen, kann er ebenfalls alle Nachrichten entschlüsseln.
     \end{enumerate}
+    \vspace{0.5cm}
 
     Zusammengefasst werden folgende Schlüssel für die End-to-End-Verschlüsselung im Matrix Protokoll benötigt~\cite{matrix-end-to-end-encryption}:
     \begin{description}[leftmargin=!,labelwidth=3cm]
@@ -441,7 +442,7 @@
     \end{description}
     Die Verwendung der MVVM-Architektur bringt eine Reihe von Vorteilen~\cite{Anderson2012,Mishra2017} mit sich:
     \begin{enumerate}[label={(\arabic*)}]
-        \item Es erlaubt eine unabhängige Entwicklung von Userinterface und Ausführungslogik.
+        \item Es erlaubt eine unabhängige Entwicklung von Benutzeroberfläche und Ausführungslogik.
         \item Views können während des Entwurfs mit Testdaten befüllt werden, um somit eine Vorschau der Ansicht zu erstellen.
         \item Es erlaubt die Nutzung mehrerer Views auf demselben ViewModel.
         \item Es verteilt Code auf mehrere kleinerer Klassen an Stelle eines großen View-Controllers.
@@ -529,24 +530,25 @@ end
     Synapse\footnote{https://github.com/matrix-org/synapse/} ist eine von der Matrix.org Foundation bereitgestellte Open Source Implementation eines Homeservers.
     Sie folgt den im Matrix Protokoll festgelegten REST-APIs.
     Die Entwicklung begann 2014 und kann seit 2019 im Produktivbetrieb genutzt werden~\cite{synapse}.
-    Der Homeserver ist in Python geschrieben und kann somit auf jedem Python fähigen Host betrieben werden, es wird jedoch empfohlen einen von Matrix.org bereitgestellten Dockercontainer zu verenden.
+    Der Homeserver ist in Python geschrieben und kann somit auf jedem Python fähigen Host betrieben werden, es wird jedoch empfohlen einen von Matrix.org bereitgestellten Dockercontainer zu verenden~\cite{synapse2}.
 
     \section{Docker}\label{sec:docker}
     Docker ist eine Containervirtualisierungssoftware, welche es ermöglicht Anwendung vom Rest des Systems zu isolieren.
     Auch wenn sie nach außen wie eine virtuelle Maschine wirkt, bietet sie entscheidende Vorteile.
     Herkömmliche virtuelle Maschinen bilden eine vollständige Kopie eines Betriebssystems, welches mittels einer Virtualisierungssoftware wie beispielsweise Oracle VirtualBox oder KVM auf einem Hypervisor betrieben werden muss.
-    Betrachtet man den vollständigen Stack einmal von unten, hat man zuallererst die Hardware des Hypervisors, auf diesem läuft ein Betriebssystem, worauf wiederum die Virtualisierungssoftware läuft, mit welcher eine isolierte Kopie eines anderen Betriebssystems erzeugt wird, in welcher die eigentliche Anwendung dann läuft.
+%    Betrachtet man den vollständigen Stack einmal von unten, hat man zuallererst die Hardware des Hypervisors, auf diesem läuft ein Betriebssystem, worauf wiederum die Virtualisierungssoftware läuft, mit welcher eine isolierte Kopie eines anderen Betriebssystems erzeugt wird, in welcher die eigentliche Anwendung dann läuft.
     Dies sorgt für erhebliche Einbußen in der Performance.
     Docker Container sind in der Lage in wenigen Sekunden zu starten.
     Sie laufen direkt auf dem Betriebssystem des Hypervisors sind aber dennoch isoliert vom Rest des Systems.
     Dies geschieht mithilfe zweier Linux Kernel Technologien, namespaces und cgroups~\cite{docker}.
-    Docker arbeitet mit Container und Images, wobei ein Image eine Reihe von Befehlen darstellt, um eine gewünschte Umgebung zu erschaffen.
+    Docker arbeitet mit Containern und Images, wobei ein Image eine Reihe von Befehlen darstellt, um eine gewünschte Umgebung zu erschaffen.
     Ein Container ist eine laufende Instanz eines Images.
 
 
     \chapter{Konzept}\label{ch:konzept}
-    In diesem Kapitel werden 2 verwandte Projekte vorgestellt, welche die Entwicklung der Plattform beeinflusst haben.
-    Nach der
+    In diesem Kapitel werden 2 verwandte Projekte vorgestellt, welche vor der Entwicklung der Plattform analysiert wurden.
+    Sie bilden die Grundlage für das Konzept der Plattform.
+    Aus den gesammelten Erkentnissen wurde eine Liste funktionaler Anforderungen erstellt, welche von der zu implementierenden Plattform erfüllt werden sollen.
 
     \section{Ähnlicher Projekte}\label{sec:analyse-ahnlicher-projekte}
 
@@ -557,7 +559,7 @@ end
     Da jeder Bereich des Gesundheitswesens andere Ansprüche an einen Messenger hat, muss eine freie Wahl der Plattform möglich sein, wobei jedoch eine plattformübergreifende Kommunikation möglich sein muss.
     Die erste Version des TI-Messengers soll zum Sommer 2023 in Betrieb gehen und sowohl Textnachrichten als auch Bild- und Tonübertragungen unterstützen~\cite{timessenger,timessenger2}.
     Die Gematik GmbH hat bereits die Spezifikationen zur Version 1.0.0 und 1.1.0 des TI-Messengers~\cite{timessenger3} veröffentlicht.
-    Für diese Arbeit von besonderer Relevanz sind die Kapitel 4.1 \("\)Datenschutz und Sicherheit\("\) der jeweiligen Dokumente.
+    Für diese Arbeit von besonderer Relevanz sind die Kapitel 4.1 \("\)Datenschutz und Sicherheit\("\) und Kapitel 5 \("\)Funktionsmerkmale\("\) der jeweiligen Dokumente.
 
     \subsection{Nio}
     Nio\footnote{https://github.com/niochat/nio} ist ein vom User kiliankoe gestartetes Projekt.
@@ -567,23 +569,27 @@ end
     Er befindet sich aktuell in noch in einer Beta-Phase.
     Das Anmelden, Erstellen von Räumen und Versenden von Nachrichten ist bereits möglich.
     Es können sowohl Textnachrichten als auch Fotos versendet werden.
+    Andere Nachrichtentypen wie Videos, Audio-Nachrichten oder das Versenden von Dateien ist nicht möglich.
     Darüber hinaus kann auf Nachrichten mittels Emojis reagiert werden.
     Es werden direkte Chats und Räume mit mehreren Personen unterstützt.
     Das Erstellen von Accounts über den Nio Client ist zum Zeitpunkt der Analyse noch nicht möglich.
     Ebenfalls wird auch keine End-to-End-Verschlüsselung unterstützt.
-    Darüber hinaus unterstützt der Nio Client eine Vielzahl von Sprachen.
+    Der Nio Client unterstützt jedoch eine Vielzahl von Sprachen aus welchen ein User wählen kann.
+    Die Benutzeroberfläche ist übersichtlich struckturiert und in einem schlichten Design gehalten.
+    In der Raumübersicht werden alle Räume, sortiert nach letzter Aktivität, angezeigt.
+    Es wird dem User eine Benachrichtigung über ungelesene Nachrichten gezeigt, so wie eine Vorschau der zuletzt versendeten Nachricht in einem Raum.
 
     \newpage
     \section{Anforderungen}\label{sec:anforderungen}
-    Basierend auf den Erkenntnissen der Analyse des Nio Clients und der in der Spezifikation des TI-Messengers festgelegten Anforderungen wurde eine Liste von Anforderungen erstellt, welche von der zu implementierenden Plattform unterstützt werden sollen.
+    Basierend auf den Erkenntnissen der Analyse des Nio Clients und der in der Spezifikation des TI-Messengers festgelegten Anforderungen wurde eine Liste funktionaler Anforderungen erstellt, welche von der zu implementierenden Plattform unterstützt werden sollen.
     Hierbei wurde sich auf die Grundfunktionalität einer Messaging-App und auf den Datenschutz gerechten Umgang mit Daten fokussiert.
-    Diese Anforderungen wurden nach der MoSCoW-Methode, einer Methodik, die häufig Anwendung im Bereich des Projektmanagements findet, priorisiert.\\
+    Diese Anforderungen wurden nach der MoSCoW-Methode priorisiert.\\
     \textbf{Must}:
     \begin{enumerate}[label={\roman*.}, leftmargin=2.5cm]
         \item Der User muss über die App einen Account auf der Plattform anlegen können.
         \item Der User muss sich mit seinem Account in der App einloggen können.
         \item Der User muss sein Passwort ändern können.
-        \item Dem User muss alle von beigetretenen Räume sehen können.
+        \item Dem User muss alle von ihm beigetretenen Räume sehen können.
         \item Dem User muss neue Räume erstellen können.
         \item Der User muss zu neuen Räumen eingeladen werden können.
         \item Der User muss alle Nachrichten, die in einem Raum gesendet wurden, einsehen können.
@@ -625,7 +631,8 @@ end
     \textbf{Won't}:
     \begin{enumerate}[label={\roman*.}, leftmargin=2.5cm]
         \item Die App wird Räume und Chat-Verläufe nicht lokal speichern und offline wiedergeben können.
-        \item Die App wird keine Nachrichten entschlüsseln können, die mit einem anderen Gerät versendet wurden.
+        \item Die App wird keine Möglichkeit bieten, bei Verlust oder Beschädigung eines Gerätes Nachrichten aufm einem neune Gerät zu entschlüsseln.
+        \item Die App wird kein Key-Management System zur Verwaltung von Schlüsslen und Sessions mehrerer Geräte besitzen.
         \item Die App wird keine weiteren Sprachen unterstützen.
     \end{enumerate}
 
@@ -639,14 +646,14 @@ end
     Die App wurde mittels Xcode implementiert und über den Simulator getestet.
     Sie wurde in Swift in Kombination mit SwiftUI geschrieben.
     Um die Sicherheit zu erhöhen, wurde die App für die aktuelle Version iOS 16 entwickelt.
+    Der Code selbst folgt der MVVM Architektur, da sich diese durch die Verwendung von SwiftUI anbietet.
     Bei der Entwicklung der App wurde in 2 Etappen vorgegangen.
     Zuerst wurden basierend auf den in Abschnitt~\ref{sec:anforderungen} definierten Anforderungen mittels SwiftUI die benötigten Views erstellt.
-    Hierbei musste darauf geachtet werden, dass die Elemente im Userinterface in ihrer Größe und Anordnung dynamisch blieben, um sowohl auf kleineren Geräten wie dem iPhone 13 mini als auch auf größeren Geräten wie dem iPhone 14 Pro Max bedienbar zu sein.
+    Hierbei musste darauf geachtet werden, dass die Elemente der Benutzeroberfläche in ihrer Größe und Anordnung dynamisch blieben, um sowohl auf kleinen und großen Geräten bedienbar zu sein.
     Anschließend wurden die zugehörigen ViewModel angelegt und mit den Elementen aus den Views verknüpft.
     Eine besondere Herausforderung hierbei war es dafür zu sorgen, dass sich die grafischen Elemente bei Eintreffen neuer Events ordnungsgemäß aktualisieren.
     Für die Funktionalität der App wurden mittels Matrix SDK erzeugt.
     Da es für die SDK aktuell noch keine Dokumentation gibt, wurde die von Matrix bereitgestellte Client-Server-API als Grundlage genommen und entsprechende Module und Funktionen in der SDK gesucht.
-    Der Code selbst folgt der MVVM Architektur, da sich diese durch die Verwendung von SwiftUI anbietet.
     Im Sinne der Internationalität wurde für die Benutzeroberfläche die Sprache Englisch verwendet.
 
     \newpage
@@ -654,11 +661,11 @@ end
 
     Wenn die App das erste Mal gestartet wird, gelangt man zuerst in die in Abbildung~\ref{fig:selecthomeserverview} zu sehende \texttt{SelectHomeserverView}.
     Diese View dient dazu, sich mit dem Homeserver verbinden zu können.
-    Sie spielt eine besondere Rolle während der Entwicklung, da häufiger zwischen Entwicklungs- und Produktivumgebung gewechselt wurde.
+    Sie spielt eine besondere Rolle während der Entwicklung, da häufiger zwischen verschiedenen Homeservern gewechselt wurde.
     Der User hat die Möglichkeit den Homeserver, mit welchem er sich verbinden möchte, über die DNS-Adresse oder IP-Adresse zu erreichen.
     Des Weiteren kann der den Port des Homeservers angeben.
-    Der Standard-Port, über den sich ein Client, mit dem für Matrix Server verbindet, ist 448 (und 8448 für die Kommunikation zwischen Servern untereinander).
-    Für den Einsatz im Produktivbetrieb könnte diese View entfernt werden und die Adresse des Homeservers fest in der App festgelegt werden.
+    Der Standard-Port, über den sich ein Client, mit dem Matrix Server verbindet, ist 448 (und 8448 für die Kommunikation zwischen Servern untereinander).
+    Für den Einsatz im Produktivbetrieb könnte diese View entfernt werden und die Adresse des Homeservers fest in der App konfiguriert werden.
 
     \begin{figure}[h]
         \includegraphics[scale=0.5]{homeserver_white}
@@ -674,7 +681,7 @@ end
     Hat der User einen Homeserver eingetragen und klick auf \("\)Connect\("\) prüft die App zuerst, ob der Homeserver erreichbar ist.
     Hierzu wird eine Abfrage der Versionsnummer an den angegebenen Homeserver gesendet.
     Dies geschieht durch Senden einer GET Anfrage an \texttt{/\_matrix/client/versions} (siehe Abschnitt~\ref{sec:rest}).
-    Ist diese Anfrage erfolgreich wird der Homeserver im Model hinterlegt und der User gelangt zur \texttt{LoginView} welche in Abbildung ~\ref{fig:loginview} zu sehen ist.
+    Ist diese Anfrage erfolgreich wird der Homeserver im Model hinterlegt und der User gelangt zur \texttt{LoginView} welche in Abbildung~\ref{fig:loginview} zu sehen ist.
     Falls die Anfrage fehlschlägt, wird dem User eine Fehlermeldung gezeigt.
     \begin{figure}[h]
         \includegraphics[scale=0.5]{login_white}
@@ -682,25 +689,24 @@ end
         \caption{LoginView}\label{fig:loginview}
     \end{figure}
     In dieser View kann der User sich entweder mit seinem bereits existierenden Account anmelden oder einen neuen Account erstellen.
-    Für den Fall, dass der User bereits einen Account besitzt, muss er seinen Benutzernamen und sein Passwort in die dafür vorgesehenen Felder eintragen und über den Login Button bestätigen.
+    Für den Fall, dass der User bereits einen Account besitzt, muss er seinen Benutzernamen und sein Passwort in die dafür vorgesehenen Felder eintragen und über den \("\)Login\("\)-Button bestätigen.
     Das Passwortfeld ist hierbei ein \texttt{SecureField} welches die Eingabe versteckt und lediglich mit Punkten darstellt.
     Über das Auge am Rand des Textfeldes kann der User zwischen geschützter Ansicht und Klartext wechseln.
 
-    Hat der User seine Zugangsdaten eingegeben und über den Login Button bestätigt, wird über den \texttt{MXRestClient}, welcher von der SDK (siehe Abschnitt~\ref{sec:matrix-sdk}) bereitgestellt wird, eine Login-Anfrage mit Usernamen und Passwort an den Server gesendet.
+    Hat der User seine Zugangsdaten eingegeben und über den \("\)Login\("\)-Button bestätigt, wird eine Login-Anfrage an den Server gesendet.
     Bei gültigen Zugangsdaten enthält die Antwort des Servers folgende Informationen:
     \begin{description}[leftmargin=!,labelwidth=3cm]
         \item [home\_server] die vollständige Adresse des Homeservers
-        \item [access\_token] ein Access Token zur weiteren Verwendung mit dem \texttt{MXRestClient}
+        \item [access\_token] ein Token der Zugriff auf den Account des Users erlaubt
         \item [user\_id] die vollständige Matrix ID des Users
         \item [device\_id] die vom Server zugewiesene ID für das Gerät
     \end{description}
-    Die Information über \texttt{home\_server}, \texttt{user\_id} und \texttt{device\_id} werden in den \texttt{UserDefaults} der App gespeichert.
-    Da der \texttt{access\_token} den Zugriff auf Benutzerkonto des Users ermöglicht, wird dieser mittels eines \texttt{KeychainHelper}\footnote{https://gist.github.com/LeeKahSeng/2452e90a57a5324de367907a36d88a49} in der iCloud Keychain gespeichert.
+    Die Information über \texttt{home\_server}, \texttt{user\_id} und \texttt{device\_id} werden in den \texttt{UserDefaults} der App gespeichert , damit diese bei erneutem öffnen der App verfügbar sind..
+    Da der \texttt{access\_token} den Zugriff auf Benutzerkonto des Users ermöglicht und deshalb besonders geschützt werden muss, wird dieser mittels eines \texttt{KeychainHelper}\footnote{https://gist.github.com/LeeKahSeng/2452e90a57a5324de367907a36d88a49} in der iCloud Keychain gespeichert.
     Falls die Zugangsdaten nicht korrekt sind, wird dem User erneut eine Fehlermeldung gezeigt.
-    Anschließend wird mit diesen Informationen eine Matrix Session gestartet, welche vollen Zugriff auf die auf dem Homeserver gespeicherten Daten gibt.
+    Anschließend wird mit diesen Informationen eine Matrix Session gestartet, welche vollen Zugriff auf die auf dem Homeserver gespeicherten Daten erlaubt.
     War das Starten der Session erfolgreich, gelangt der User in die \texttt{RoomsView}.\\
-
-    Für den Fall, dass der User noch keinen Account besitzt, kann über den Button "Create Account" der \texttt{LoginView} zur \texttt{CreateAccountView} gelangen, welche in Abbildung~\ref{fig:createaccountview} dargestellt ist.
+    Für den Fall, dass der User noch keinen Account besitzt, kann dieser über den Button \("\)Create Account\("\) der \texttt{LoginView} zur \texttt{CreateAccountView} gelangen, welche in Abbildung~\ref{fig:createaccountview} dargestellt ist.
     Diese View dient der Accounterstellung und enthält 3 Textfelder für Benutzernamen, Passwort und Registrierungstoken.
     Für das Passwortfeld kann wie schon in der \texttt{LoginView} zwischen versteckter Eingabe und Klartext gewechselt werden.
     \begin{figure}[h]
@@ -710,7 +716,9 @@ end
     \end{figure}
     Der Registrierungstoken kann über die Admin-API\footnote{https://matrix-org.github.io/synapse/latest/usage/administration/admin\_api/} des Servers erstellt werden.
     Hierzu muss eine GET-Anfrage an \texttt{/\_synapse/admin/v1/registration\_tokens/new} gesendet werden.~\cite{synapseregistartiontoken}
-    Alternativ kann auch direkt in der Datenbank des Servers ein Token angelegt werden (im \texttt{registration\_tokens} table).
+    Alternativ kann auch direkt in der Datenbank (in der \texttt{registration\_tokens} Tabelle) des Servers ein Token angelegt werden.
+
+    \newpage
     Es werden folgende Felder bereitgestellt:
     \begin{description}[leftmargin=!,labelwidth=3cm]
         \item [token] Der Token der bei der Erstellung des Accounts angegeben werden muss.
@@ -718,12 +726,12 @@ end
         \item [pending] Anzahl laufender Registrierungen.
         Sie gibt an wie viele Benutzer die Authentifizierungsstufe mit dem Token bereits abgeschlossen haben ohne den vollständigen Registrierungsvorgang erfüllt zu haben.
         \item [completed] Anzahl erfolgreich erstellter Accounts mit diesem Token.
-        \item [expiry\_time] Ablaufdatum des Tokens. Er gibt an wie lange der Token gültig ist.
+        \item [expiry\_time] Er gibt an wie lange der Token gültig ist.
     \end{description}
 
     Der eigentliche Registrierungsvorgang kann mehrere Authentifizierungsstufen enthalten.
     Bevor der Registrierungsvorgang gestartet wird, wird zuvor mit der vom \texttt{MXRestClient} bereitgestellten Funktion geprüft, ob der Benutzername bereit genutzt wird.
-    In dieser Implementation wird der in Abbildung~\ref{fig:accountCreationDiagram} beschriebene dreistufige Accounterstellungsvorgang mittels eines Registriersungstokes genutzt.
+    In dieser Implementation wird der in Abbildung~\ref{fig:accountCreationDiagram} beschriebene Registrierungsvorgang mittels eines Registriersungstokes genutzt.
 
     \begin{figure}[h]
         \centering
@@ -750,62 +758,58 @@ end
         \label{fig:accountCreationDiagram}
     \end{figure}
 
-    Im ersten Schritt sendet der Client eine leere Anfrage zum Server, in welcher er um das Starten einer Registrierungssitzung bittet.
+    Der Registrierungsvorgang besteht aus drei Stufen:
+    \begin{enumerate}[label={(\arabic*)}]
+        \item Im ersten Schritt sendet der Client eine leere Anfrage zum Server, in welcher er um das Starten einer Registrierungssitzung bittet.
     Der Server antwortet daraufhin mit einer Session ID und den vom Homeserver unterstützten Authentifizierungsvorgängen.
     In diesem Beispiel ist der einzige unterstützte Vorgang die Verifizierung über einen Registriersungstoken.
-    Im nächsten Schritt sendet der Client dann den zuvor bereitgestellten Registrierungstoken und die vom Server gegebene Session ID in Kombination mit der aktuellen Stufe des Authentifizierungsvorgangs.
-    Im dritten und letzten Schritt wird nun der dummyflow aufgeführt.
-    Dieser Schritt kann nicht fehlschlagen und dient der zur finalen Erstellung des Accounts.
+        \item Im nächsten Schritt sendet der Client den zuvor bereitgestellten Registrierungstoken und die vom Server gegebene Session ID in Kombination mit der aktuellen Stufe des Authentifizierungsvorgangs.
+        \item Im dritten und letzten Schritt wird nun der \("\)Dummyflow\("\) aufgeführt.
+    Dieser Schritt kann nicht fehlschlagen und dient der finalen Erstellung des Accounts.
     Hierbei werden der gewünschte Benutzername und Passwort übergeben.
+    \end{enumerate}
+
     Ist dies geschehen, wurde der Account erfolgreich erstellt.
     Anschließend wird der User ebenfalls auf die \texttt{RoomsView} weitergeleitet.
 
     \newpage
     \subsection{Raumübersicht}\label{subsec:raumubersicht}
 
-    Die \texttt{RoomsView} bildet das Herzstück der App.
-    Sie ist die Ansicht, die dem User bei jedem Start der App gezeigt wird, sofern er sich bereits in der App angemeldet hat.
+    Die \texttt{RoomsView} ist die Ansicht, die dem User bei jedem Start der App gezeigt wird, sofern er sich bereits in der App angemeldet hat.
     Von dieser Ansicht aus können alle weiteren Views erreicht werden.
     Die in Abbildung~\ref{fig:roomsview} gezeigte View besteht aus einer \texttt{Toolbar} im Kopf der Ansicht, über welche man zur \texttt{ProfileView} und \texttt{SettingsView} gelangt.
     Darunter findet sich die Raumübersicht, welche alle beigetretenen Räume in einer scrollbaren Liste anzeigt.
-    Jedes Element der Liste zeigt den das Profilbild des jeweiligen Raumes sowie Displayname oder Title des jeweiligen Raumes.
-    Bei direkten Räumen wird außerdem die Matrix ID des Users angezeigt, da User ihren Anzeigenamen beliebig ändern können.
-    Auf das Zeigen einer Vorschau der letzten Nachricht wurde hierbei im Sinne des Datenschutzes bewusst verzichtet.
-    Auf der rechten Seite befindet sich der Zeitpunkt der letzten Nachricht und ein Indikator dafür, ob und wie viele ungelesene Nachrichten in einem Raum existieren.
-    Über das darüberliegende Textfeld kann die Liste gefiltert werden.
-    Darüber hinaus wird die Liste nach dem  \texttt{originServerTimestamp} der letzten Nachricht des jeweiligen Raumes sortiert.
 
     \begin{figure}[h]
         \includegraphics[scale=0.5]{rooms_white}
         \centering
         \caption{RoomsView}\label{fig:roomsview}
     \end{figure}
-    Über den Button mit dem Plus gelangt man zur \texttt{NewRoomView} in welcher ein neuer Raum erstellen werden kann.
+    Jedes Element der Liste zeigt das Bild des jeweiligen Raumes sowie Anzeigenamen oder Title des jeweiligen Raumes.
+    Bei direkten Räumen wird außerdem die Matrix ID des Users angezeigt, da User ihren Anzeigenamen beliebig ändern können.
+    Auf das Zeigen einer Vorschau der letzten Nachricht wurde hierbei im Sinne des Datenschutzes bewusst verzichtet.
+    Außerdem wird der Zeitpunkt der letzten Nachricht und ein Indikator für die Anzahl ungelesener Nachrichten in einem Raum gezeigt.
+    Über das darüberliegende Textfeld kann die Liste gefiltert werden.
+    Darüber hinaus wird die Liste nach dem  \texttt{originServerTimestamp} der letzten Nachricht des jeweiligen Raumes sortiert.
+    Über den \("\)Plus\("\)-Button gelangt der User zur \texttt{NewRoomView}, über welche ein neuer Raum erstellen werden kann.
     Im Fuß der View befindet sich eine \texttt{TabView} über welche zwischen \texttt{RoomsView} und \texttt{InvitesView} gewechselt werden kann.
-    Die \texttt{InvitesView} welche in Abbildung~\ref{fig:invitesview} zu sehen ist, dient dazu alle offenen Einladungen zu anderen Räumen aufzulisten.
-    Diesen kann durch einfaches klicken auf den jeweiligen Raum beigetreten werden.
-    Man gelangt dann zur \texttt{ChatView} und kann direkt mit dem jeweiligen Raum kommunizieren.
-    Falls man die Einladung ablehnen möchte, kann man dies durch Wischen der Einladung in Richtung des linken Bildschirmrandes tun.
-
     \begin{figure}[h]
         \includegraphics[scale=0.5]{invites_white}
         \centering
         \caption{InvitesView}\label{fig:invitesview}
     \end{figure}
+    Die \texttt{InvitesView} welche in Abbildung~\ref{fig:invitesview} zu sehen ist, dient dazu alle offenen Einladungen zu anderen Räumen aufzulisten.
+    Diesen kann durch einfaches klicken auf den jeweiligen Raum beigetreten werden.
+    Der User gelangt daraufhin direkt in die \texttt{ChatView} des jeweiligen Raumes.
+    Durch Wischen der Einladung in Richtung des linken Bildschirmrandes kann die Einladung abgelehnt werden.
+
 
     \newpage
     \subsection{Raumerzeugung}\label{subsec:raumerzeugung}
     Hat der User in der \texttt{RoomsView} oder \texttt{InvitesView} auf den Plus-Button geklickt, gelangt er in die \texttt{NewRoomView}.
     Diese View dient dazu, neue Räume zu erstellen und User zu diesen einzuladen.
-    Hierzu wird dem User, wie in Abbildung~\ref{fig:newroomview} zu sehen, ein Textfeld gezeigt, über welches er nach anderen Usern über deren Anzeigenamen oder ihre Matrix ID suchen kann.
-    In der sich in der unteren Hälfte befindlichen scrollbaren Liste werden bis zu 10 Nutzer gezeigt, die dem eingegebenen Suchtext entsprechen.
-    Diese Funktion ist nur möglich, falls in der Konfiguration des Homeservers die Suche im Nutzerverzeichnis freigegeben ist.
-    Die Konfiguration des Homeservers ist in Abschnitt~\ref{sec:homeserver} genauer beschrieben.
-    Ist diese Funktion nicht freigegeben, muss der User die vollständige Matrix ID des gesuchten Nutzers angeben.
-    Hat der User den von ihm gesuchten Nutzer gefunden, kann er durch Anklicken dem zu erstellenden Raum hinzufügen.
-    Der Nutzer erscheint dann in der horizontal scrollbaren Liste von Usern.
-    Hat der User einen falschen Nutzer zum Raum hinzugefügt, kann er diesen durch Antippen des Users in der Liste hinzugefügter Nutzer wieder entfernen.
-    Hierbei achtet die App darauf, dass ein Nutzer nicht doppelt hinzugefügt werden kann.
+    Hierzu wird dem User, wie in Abbildung~\ref{fig:newroomview} zu sehen, ein Textfeld gezeigt, über welches er nach anderen Usern suchen kann.
+    Für die Suche muss der Anzeigenamen oder die Matrix ID des gewünschten Gesprächsteilnehmers angegeben werden.
 
     \begin{figure}[h]
         \includegraphics[scale=0.5]{newroom_white}
@@ -813,9 +817,17 @@ end
         \caption{NewRoomView}\label{fig:newroomview}
     \end{figure}
 
-    Hat der User alle von ihm gewünschten Nutzer dem Raum hinzugefügt, kann er diesen durch Klicken auf den "Create"-Button erstellen.
+    Daraufhin werden in einer scrollbaren Liste bis zu 10 User gezeigt, die dem eingegebenen Suchtext entsprechen.
+    Diese Funktion ist nur möglich, falls in der Konfiguration des Homeservers die Suche im Nutzerverzeichnis freigegeben ist.
+    Die Konfiguration des Homeservers ist in Abschnitt~\ref{sec:homeserver} genauer beschrieben.
+    Ist diese Funktion nicht freigegeben, muss der User die vollständige Matrix ID des gesuchten Gesprächsteilnehmer angeben.
+    Hat der User den von ihm gesuchten Gesprächsteilnehmer gefunden, kann er durch Anklicken hinzugefügt werden.
+    Der User erscheint dann in der horizontal scrollbaren Liste von Usern.
+    Hat der User einen falschen Gesprächsteilnehmer zum Raum hinzugefügt, kann er diesen durch Antippen des Users in der Liste hinzugefügter Gesprächsteilnehmer wieder entfernen.
+    Hierbei achtet die App darauf, dass ein Gesprächsteilnehmer nicht doppelt hinzugefügt werden kann.
+    Hat der User alle von ihm gewünschten Gesprächsteilnehmer dem Raum hinzugefügt, kann er diesen durch Klicken auf den "Create"-Button erstellen.
     Die App entscheidet automatisch anhand der Anzahl der eingeladenen User, ob ein direkter Raum erstellt werden kann.
-    Nach Erstellen des Raumes wird automatisch ein StateEvent von Typ \texttt{.roomEncryption} an den Raum gesendet, welche die anderen Nutzer im Raum darüber informiert, dass Nachrichten in diesem Raum verschlüsselt zu senden sind.
+    Nach Erstellen des Raumes wird automatisch ein StateEvent von Typ \texttt{.roomEncryption} an den Raum gesendet, welche die anderen Teilnehmer im Raum darüber informiert, dass Nachrichten in diesem Raum verschlüsselt zu senden sind.
     Der vollständige Vorgang zum Verschlüsseln der Nachrichten ist in Abschnitt~\ref{subsec:verschlusselung-der-nachrichten} beschrieben.
     War das Erstellen des Raumes erfolgreich, wird der User in die \texttt{ChatView} des neu angelegten Raumes geleitet.
 
@@ -834,33 +846,34 @@ end
         \caption{ChatView}\label{fig:chatview}
     \end{figure}
 
-    Des Weiteren wird dem User ein Typing-Indikator gezeigt, welcher der User darüber informiert, ob der Gesprächspartner (oder in Gruppenräumen welche Gesprächspartner) gerade eine Nachricht schreiben.
+    Des Weiteren wird dem User ein Typing-Indikator gezeigt, welcher den User darüber informiert, ob der Gesprächspartner (oder in Gruppenräumen welche Gesprächspartner) gerade eine Nachricht schreiben.
     Im Fuß der Ansicht befindet sich das Nachrichtenfenster, über welches Nachrichten verfasst und an der Raum gesendet werden können.
-    Durch Klicken des Bild-Icons öffnet sich ein \texttt{ImagePicker} über welchen sowohl Fotos als auch Videos aus der Galerie gewählt und an den Raum gesendet werden können.
-    Das Kamera-Icon daneben öffnet eine Kameraansicht, über welche Fotos und Videos direkt aus der App aufgenommen und versendet werden können.
+    Durch Klicken des Bild-Icons öffnet sich ein \texttt{ImagePicker}, über welchen sowohl Fotos als auch Videos aus der Galerie gewählt und an den Raum gesendet werden können.
+    Das Kamera-Icon öffnet eine Kameraansicht, über welche Fotos und Videos direkt aus der App aufgenommen und versendet werden können.
     Über das Büroklammer-Icon lassen sich Dateien, die auf dem Gerät gespeichert sind, durchsuchen und an den Raum senden.
-    Da nur Dateien vom Typ PDF von der App unterstützt werden, wird im Datei Picker ebenfalls nach PDF gefiltert.
+    Da nur Dateien vom Typ PDF von der App unterstützt werden, wird beim Durchsuchen der Dateien ebenfalls nach PDF gefiltert.
     Im Kopf der Ansicht erkennt man eine Hinweismeldung darauf, dass man das Ende der geladenen Nachrichten erreicht hat und nach unten wischen muss, um weitere Nachrichten zu laden.
     Bei Öffnen der \texttt{ChatView} werden, sofern vorhanden 25 Nachrichten geladen.
-    Dies geschieht mittels pagination der Matrix Timeline eines Raumes.
-    Bei jedem weiteren laden von Nachrichten werden 25 weitere Nachrichten geladen und angezeigt.
+    Dies geschieht durch Paginierung des Event-Graphs eines Raumes.
+    Bei jedem Laden älterer Nachrichten werden 25 weitere Nachrichten geladen und angezeigt.
     Es muss darauf geachtet werden, dass die Reihenfolge der Nachrichten ordnungsgemäß angezeigt wird.
     Die Lazy-Loading-Methode erlaubt hierbei eine angemessene Performance beim Öffnen des Chats.
     Eine besondere Herausforderung ist die Position der scrollbaren Liste.
     Beim Öffnen der View muss an das Ende der Liste gesprungen werden, da sich dort die neusten Nachrichten befinden.
-    Falls eine neue Nachricht eintrifft, während die View geöffnet ist, springt die Liste ebenfalls an das Ende, um dem Nutzer die neuste Nachricht anzuzeigen.
+    Falls eine neue Nachricht eintrifft, während die View geöffnet ist, springt die Liste ebenfalls an das Ende, um dem User die neuste Nachricht anzuzeigen.
     Beim Laden älterer Nachrichten soll jedoch nicht zum Ende gesprungen werden.
-    Über die drei Punkte in der oberen rechten Ecke der Ansicht öffnet sich ein Drop-down-Menü, über welches ein Raum verlassen werden kann oder sich eine Übersicht über den aktuellen Raum öffnet, wo Titel, Beschreibung und Bild des Raumes geändert werden können.
-    Darüber hinaus zeigt sie einige Informationen über den Raum an, wie die Anzahl an Teilnehmern, den Ersteller des Raumes und ob die Verschlüsselung aktiv ist.
+    Über die drei Punkte in der oberen rechten Ecke der Ansicht öffnet sich ein Drop-down-Menü, über welches ein Raum verlassen werden kann.
+    Außerdem kann eine Übersicht über den aktuellen Raum geöffnet werden, wo Titel, Beschreibung und Bild des Raumes geändert werden können.
+    Darüber hinaus zeigt sie einige Informationen über den Raum an, wie die Anzahl der Teilnehmern, den Ersteller des Raumes und ob die Verschlüsselung aktiv ist.
 
     \newpage
     \subsection{Profile}\label{subsec:profile}
     Die \texttt{ProfileView} welche in Abbildung~\ref{fig:profileview} zu sehen ist, erlaubt dem User seinen Account zu verwalten.
-    Durch Klicken auf das Profilbild öffnet sich der \texttt{ImagePicker}, welcher auch schon in der \texttt{ChatView} genutzt wurde, wodurch der Nutzer ein neues Profilbild setzen kann.
+    Durch Klicken auf das Profilbild öffnet sich der \texttt{ImagePicker}, welcher auch schon in der \texttt{ChatView} genutzt wurde, wodurch der User ein neues Profilbild setzen kann.
     Außerdem kann er seinen Anzeigenamen ändern.
     Die Matrix ID bleibt hierbei jedoch gleich.
-    Darüber hinaus wird dem User die Möglichkeit geboten, sein Passwort zu ändern.
-    Hierfür öffnet sich nach Klicken des Buttons eine Infobox, welcher den Nutzer um Eingabe seines alten und seines neuen Passworts bittet.
+    Es wird dem User die Möglichkeit geboten, sein Passwort zu ändern.
+    Hierfür öffnet sich nach Klicken des Buttons eine Infobox, welche den User um Eingabe seines alten und seines neuen Passworts bittet.
     Falls das alte Passwort korrekt eingegeben wurde, wird das neue Passwort gesetzt.\\
 
     \begin{figure}[h]
@@ -868,8 +881,8 @@ end
         \centering
         \caption{ProfileView}\label{fig:profileview}
     \end{figure}
-    Im unteren Teil der Ansicht befinden sich 2 Buttons.
-    Der Logout-Button ermöglicht es dem User, sich von einem Gerät abzumelden.
+    Im unteren Teil der Ansicht befinden sich zwei Buttons.
+    Der \("\)Logout\("\)-Button ermöglicht es dem User, sich von einem Gerät abzumelden.
     Hierbei werden alle zuvor gespeicherten Daten in der Keychain und den \texttt{UserDefaults} gelöscht und der User gelangt wieder in die \texttt{SelectHomeserverView}.
     Der \("\)Delete Account\("\)-Button erlaubt es dem User, seinen Account dauerhaft zu deaktivieren.
     Nach Klicken des Buttons wird der User aufgefordert, dies mit seinem Passwort zu bestätigen.
@@ -880,24 +893,24 @@ end
     Zuerst muss die Verschlüsselung in der Sitzung aktiviert werden.
     Dies geschieht durchstarten und aktivieren des Kryptomoduls der SDK.
     Dabei werden die im Abschnitt~\ref{subsec:verwendete-schlussel} aufgeführten Schlüssel erstellt und mit dem Server synchronisiert.
-    Zusätzlich muss beim Erstellen eines Raumes zuallererst ein encryption Event gesendet werden, welches die anderen Teilnehmer eines Raums darüber informiert, dass die Kommunikation in einem Raum verschlüsselt zu erfolgen hat.
+    Zusätzlich muss beim Erstellen eines Raumes zuallererst ein Encryption Event gesendet werden, welches die anderen Teilnehmer eines Raums darüber informiert, dass die Kommunikation in einem Raum verschlüsselt zu erfolgen hat.
     Hierbei muss der für die Verschlüsslung der Nachricht verwendete Algorithmus angegeben werden.
-    Zurzeit wird nur die \texttt{m.megolm.v1.aes-sha2} Verschlüsselung von der SDK unterstützt.
+    Zurzeit wird nur die \texttt{m.megolm.v1.aes-sha2} Verschlüsselung unterstützt.
     Falls nun eine Nachricht über die Sitzung an den erstellten Raum gesendet wird, wird diese beim Senden automatisch von der SDK verschlüsselt.
     Beim Empfangen von Nachrichten wird das Event ebenfalls automatisch entschlüsselt.
     Bei Fotos, Videos und Dateien ist zu beachten, dass das Event lediglich einen Pfad zum Ablageort der gesendeten Datei auf dem Server enthält.
-    Dieser Pfad muss jedoch übersetzt werden und anschließend heruntergeladen werden.
-    Da die Dateien nach dem Herunterladen noch immer verschlüsselt sind, müssen diese anschließend mit der von der SDK bereitgestellten Funktion \texttt{MXEncryptedAttachments.decryptAttachment()} separat entschlüsselt werden.
+    Diese Dateien müssen separat heruntergeladen werden.
+    Da die Dateien nach dem Herunterladen noch immer verschlüsselt sind, müssen diese anschließend mit Hilfe der SDK entschlüsselt werden.
     Anhand der Notwendigkeit des Entschlüsselns der Dateien kann bestätigt werden, dass die Verschlüsslung aktiv ist.
     Zusätzlich kann auf dem Homeserver unter \texttt{/data/media\_store} geprüfte werden, dass die Dateien verschlüsselt auf dem Server abgelegt werden.
 
     \subsection{Benachrichtigungen}\label{subsec:benachrichtigungen}
-    Damit der User nicht aktiv prüfen muss, ob er neue Nachrichten erhalten hat, muss diesem beim Eintreffen einer neuen Nachricht eine Benachrichtigung gesendet werden.
+    Damit der User nicht in regelmäßigen Abständen überprüfen muss, ob er neue Nachrichten erhalten hat, muss diesem beim Eintreffen einer neuen Nachricht eine Benachrichtigung gesendet werden.
     Hierzu wird beim Starten der Anwendung ein \texttt{EventListener} konfiguriert, welcher an die Matrix Session übergeben wird.
     Dieser \texttt{EventListener} filtert neu eintreffende Events nach ihrem \texttt{type} und sendet eine entsprechende Benachrichtigung über das \texttt{UNUserNotificationCenter} an den User.
     Hierbei wird darauf geachtet, ob der User den Raum, in dem die Nachricht versendet wurde, auf dem Bildschirm geöffnet hat.
     In diesem Fall wird keine Benachrichtigung gesendet.
-    Der \texttt{EventListener} wird ebenfalls genutzt, um dem User bei Eintreffen eines \texttt{.typingNotification} Events einen Typing-Indikator zu zeigen.\\
+    Der \texttt{EventListener} wird ebenfalls genutzt, um dem User bei Eintreffen eines Typing-Events einen Typing-Indikator zu zeigen.\\
     Es ist zu beachten, dass dies nur funktioniert, solange die App aktiv läuft.
     Um Benachrichtigungen zu erhalten, wenn die App geschlossen ist, muss die Anwendung über den Apple-Push-Notification-Service (ASPN) registriert und mit dem Push-Gateway des Matrix Homeservers verbunden werden.
     Da Push-Notifications vom Simulator nicht unterstützt werden, konnte dieser Teil nicht getestet werden und wird deshalb nicht weiter behandelt.
@@ -917,12 +930,12 @@ docker run -it --rm -v /path/on/host/machine/:/data -e SYNAPSE_SERVER_NAME=my.ma
     Nach Ausführen des Befehls werden 3 Dateien generiert:
     \begin{description}[leftmargin=!,labelwidth=4cm]
         \item [homeserver.yaml] Konfigurationsdatei des Homeservers. Hier können alle Funktionalitäten des Homeservers konfiguriert werden.
-        \item [my.matrix.host.log.config] Konfigurationsdatei des Loggers. Hier kann das Format für Log-Messages definiert werden und weitere
-        \item [my.matrix.host.signing.key] Key zur Authentifizierung bei anderen Homeservern
+        \item [my.matrix.host.log.config] Konfigurationsdatei des Loggers. Hier kann das Format für Log-Messages definiert werden.
+        \item [my.matrix.host.signing.key] Key zur Authentifizierung bei anderen Homeservern.
     \end{description}
 
-    Der \texttt{my.matrix.host.signing.key} wird für diese Implementation nicht benötigt, da der einzeln läuft und nicht an das Matrix-Netzwerk angeschlossen wird.
-    Bevor der Server gestartet wird, sollten noch einige Konfigurationen angepasst werden:
+    Der \texttt{my.matrix.host.signing.key} wird für diese Implementation nicht benötigt, da der Homeserver nicht an das Matrix-Netzwerk angeschlossen wird.
+    Bevor der Server gestartet wird, müssen noch einige Konfigurationen angepasst werden:
     \begin{enumerate}[label={(\arabic*)}]
         \item Standardmäßig wird nur ein Listener auf Port 8008 für ungeschützte Verbindungen über HTTP konfiguriert.
             Um die App mit dem Homeserver verbinden zu können, muss ein zusätzlicher HTTPS Listener auf Port 443 konfiguriert werden.
@@ -1014,7 +1027,7 @@ docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443
             \cline{1-2}
             Der User muss sein Passwort ändern können. & \textbf{Erfüllt}  \\
             \cline{1-2}
-            Dem User muss alle von beigetretenen Räume sehen können. &  \textbf{Erfüllt} \\
+            Dem User muss alle von ihm beigetretenen Räume sehen können. &  \textbf{Erfüllt} \\
             \cline{1-2}
             Dem User muss neue Räume erstellen können. & \textbf{Erfüllt} \\
             \cline{1-2}
@@ -1028,7 +1041,7 @@ docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443
             \cline{1-2}
             Nachrichten zwischen Usern müssen End-to-End verschlüsselt sein. & \textbf{Erfüllt} \\
             \cline{1-2}
-            Der Usern muss Nachrichten löschen können. & \textbf{Nicht erfüllt} \\
+            Der Usern muss Nachrichten löschen können. & \textbf{Nicht Erfüllt} \\
             \cline{1-2}
             Der User muss einen Raum verlassen können. & \textbf{Erfüllt} \\
             \cline{1-2}
@@ -1058,7 +1071,7 @@ docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443
             \cline{1-2}
             Der vollständige Chat-Verlauf soll nur bei Bedarf geladen werden. & \textbf{Erfüllt} (Lazy-Loading)\\
             \cline{1-2}
-            Die App soll neben Textnachrichten auch andere Nachrichtentypen wie Fotos, Videos oder Audiodateien unterstützen. & \textbf{Teilweise erfüllt} (unterstützt Foto, Video und PDF) \\
+            Die App soll neben Textnachrichten auch andere Nachrichtentypen wie Fotos, Videos oder Audiodateien unterstützen. & \textbf{Teilweise Erfüllt} (unterstützt Foto, Video und PDF) \\
             \cline{1-2}
             Die App soll den User über den Erhalt einer neuen Nachricht informieren. & \textbf{Erfüllt} \\
             \cline{1-2}
@@ -1083,15 +1096,15 @@ docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443
             \cline{1-2}
             Dem User kann ein Typing-Indikator gezeigt werden. &  \textbf{Erfüllt} \\
             \cline{1-2}
-            Die App kann auch mit anderen Homeservern verbunden werden. & \textbf{Teilweise erfüllt} (Accounterstellung nicht möglich)\\
+            Die App kann auch mit anderen Homeservern verbunden werden. & \textbf{Teilweise Erfüllt} (Accounterstellung nicht möglich)\\
             \cline{1-2}
-            Der User kann den Inhalt einer Textnachricht in die Zwischenablage kopieren. & \textbf{Nicht erfüllt} \\
+            Der User kann den Inhalt einer Textnachricht in die Zwischenablage kopieren. & \textbf{Nicht Erfüllt} \\
             \cline{1-2}
-            Der User kann eine Nachricht weiterleiten. & \textbf{Nicht erfüllt}  \\
+            Der User kann eine Nachricht weiterleiten. & \textbf{Nicht Erfüllt}  \\
             \cline{1-2}
-            Der User kann Dateien, welche in einem Raum verschickt wurden, herunterladen. & \textbf{Nicht erfüllt}  \\
+            Der User kann Dateien, welche in einem Raum verschickt wurden, herunterladen. & \textbf{Nicht Erfüllt}  \\
             \cline{1-2}
-            Die App kann im Querformat mode genutzt werden. & \textbf{Teilweise erfüllt}
+            Die App kann im Querformat mode genutzt werden. & \textbf{Teilweise Erfüllt}
         \end{tabular}
         \caption{Übersicht über erfüllte Could-Anforderungen}
         \label{tab:erfüllte-could-anforderungen}
@@ -1099,10 +1112,10 @@ docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443
 
 
     \chapter{Fazit}\label{ch:fazit}
-    Die Plattform erfüllt die grundlegenden Anforderungen, welche man an eine Messanger-App hat.
+    Die Plattform erfüllt die grundlegenden Funktionen einer Messaging-App.
     Sie bietet die Möglichkeit einen Account anzulegen, zu verwalten und wieder zu löschen.
     Sie erlaubt das Erstellen, Beitreten und Löschen von Räumen sowohl in Direkt- als auch in Gruppenräumen.
-    Das Senden und Empfangen von Nachrichten geschieht in Echtzeit und mit End-to-End-Verschlüsselung, sodass der Betreiber der Plattform keinerlei Zugriff auf die Daten der Nutzer hat.
+    Das Senden und Empfangen von Nachrichten geschieht in Echtzeit und mit End-to-End-Verschlüsselung, sodass der Betreiber der Plattform keinerlei Zugriff auf die Daten der User hat.
     Dabei unterstützt die Plattform die gängigsten Nachrichtentypen und sorgt dafür, dass keine personenbezogenen Daten auf dem Gerät gespeichert sind.\\
     Betrachtet man jedoch die Anforderungen, welche von der DSGVO an eine Messaging-App im medizinischen Bereich gestellt werden, muss man feststellen, dass eine Vielzahl weiterer Funktionen implementiert werden müssen, bevor sie als DSGVO-konform eingestuft werden kann und somit zum Einsatz in der Praxis zugelassen wird.
     Das Matrix-Protokoll unterstützt den Großteil der notwendigen Implementierungen, um DSGVO-konform zu werden.
@@ -1120,7 +1133,7 @@ docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443
 
     \chapter{Ausblick}\label{ch:ausblick}
     Der nächste Schritt in der Entwicklung der Plattform sollte es sein, die Cross-Signing-Funktion der End-to-End-Verschlüsselung zu unterstützen.
-    Hierzu muss ein geeignetes Key-Management-System implementiert werden, welches es ermöglicht ein Gerät von einem anderen zu verifizieren und die Private Keys, die zur Verschlüsselung der Nachrichten verwendet wurden zwischen den Geräten zu synchronisieren.
+    Hierfür muss ein geeignetes Key-Management-System implementiert werden, welches es ermöglicht ein Gerät von einem anderen zu verifizieren und die Schlüssel, die zur Verschlüsselung der Nachrichten verwendet wurden zu validieren.
     Darüber hinaus sollte ein Prozess implementiert werden, der es ermöglicht, auch ohne Zugriff auf eines der anderen Geräte die verwendeten Schlüssel wiederherzustellen.
     Somit könnte beispielsweise bei Verlust oder bei Beschädigung des Gerätes trotzdem noch auf bestehende Chat-Verläufe zugegriffen werden.
     Mittels des Recovery Services des Kryptomoduls kann ein Backup der Session Keys auf der Server angelegt werden, welches über einen Recovery Key oder eine Passphrase geschützt werden kann.
@@ -1128,9 +1141,9 @@ docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443
     Die Dokumentation hierfür ist noch in der Erstellung~\cite{advancede2e}, was die Implementation zum aktuellen Zeitpunkt deutlich erschwert.\\
     Es sollte ein System zum lokalen Speicher der Daten entwickelt werden, welches es möglich macht, die Anwendung auch ohne Verbindung zum Internet einsehen zu können.
     Hierbei muss darauf geachtet werden, die Daten verschlüsselt und separat vom allgemeinen Speicherbereich des Endgeräts abzulegen.
-    Außerdem werden dadurch Ladezeiten reduziert und der Datentransfer zwischen Server und Anwendung zu minimiert.\\
+    Außerdem werden dadurch Ladezeiten reduziert und der Datentransfer zwischen Server und Anwendung minimiert.\\
     Des Weiteren kann die Plattform um zusätzliche Nachrichtentypen erweitert werden.
-    Es könnte beispielsweise das Aufnehmen und versenden von Audiodateien hinzugefügt werden.
+    Es könnte beispielsweise das Aufnehmen und Versenden von Audiodateien hinzugefügt werden.
     Zusätzlich kann der Datei-Message-Typ um weiter Dateitypen erweitert werden.
 
 %    Außerdem könnte ein zusätzlicher Layer implementiert werden, welcher es ermöglicht Informationen über beigetretene Räume und deren jeweilige Konversationen geschützt auf dem Gerät zu speichern.
