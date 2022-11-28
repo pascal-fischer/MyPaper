@@ -96,7 +96,6 @@
 %Bitte nur f?r Testzwecke verwenden.
     \nocite{*}
 
-
 % Einbinden des Deckblatts
 
     \frontmatter
@@ -126,7 +125,7 @@
     \chapter{Einleitung}\label{ch:einleitung}
 
     \section{Motivation}\label{sec:motivation}
-    Die Digitalisierung findet immer Einzug in unser alltägliches Leben, so auch in der Medizin.
+    Die Digitalisierung findet immer mehr Einzug in unser alltägliches Leben, so auch in der Medizin.
     Der Einsatz neuer digitaler Innovationen soll eine bestmögliche Versorgung der Patienten gewährleisten.
     Eine große Herausforderung ist der demografische Wandel und der Mangel an Fachärztinnen und Fachärzten in ländlichen Regionen.
     Um dem entgegenzuwirken, wurde das Verbot von Fernbehandlungen nach der Musterberufsordnung der Ärzte (MBO-Ä) im Jahr 2018~\cite{beschlussprotokol} aufgehoben.
@@ -141,30 +140,30 @@
 
     \newpage
     \section{Zielsetzung}\label{sec:zielsetzung}
-    Ziel dieser Arbeit ist es eine Plattform zu entwickeln, welchen es Ärzten und Patienten ermöglicht in Kontakt zu treten und Nachrichten auszutauschen.
+    Ziel dieser Arbeit ist es eine Plattform zu entwickeln, welche es Ärzten und Patienten ermöglicht in Kontakt zu treten und Nachrichten auszutauschen.
     Hierfür soll eine Chat-basierte Plattform auf Basis des Matrix.org-Protokolls entwickelt werden.
-    Es muss eine App für die Nutzung der Plattform implementiert werden sowie die benötigte Infrastruktur bereitgestellt werden, um Nachrichten und Daten zu speichern und zu übermitteln.
-    Die App ist in der Programmiersprache Swift zu implementieren und soll auf allen gängigen iOS Geräten unterstützt werden.
-    Die Infrastruktur soll isoliert laufen und nicht an das existierende Matrix-Netzwerk angeschlossen werden.
-    Da medizinische Daten dem Datenschutz in besonderer Maße unterliegen, ist es besonders wichtig,
-    dass jegliche Art von Kommunikation zwischen Ärzten und Patienten stets verschlüsselt ist.
-    Es muss gewährleistet sein, dass zu jedem Zeitpunkt alle personenbezogenen Daten vor dem Zugriff unerlaubter Dritter geschützt sind.
-    Außerdem muss darauf geachtet werden, dass die Plattform keine der Vorschriften aus der DSGVO verletzt.
+    Zur Nutzung dieser ist die Implementierung einer Applikation (App) sowie die Bereitstellung der entsprechenden Infrastruktur notwendig.
+    Die App ist in der Programmiersprache Swift zu entwickeln und soll auf allen gängigen iOS Geräten unterstützt werden.
+    Die Infrastruktur muss isoliert laufen und darf nicht an das existierende Matrix-Netzwerk angeschlossen sein.
+    Medizinische Daten unterliegen einem besonders hohen Niveau des Datenschutzes.
+    Daher ist es besonders wichtig, jegliche Art der Kommunikation zwischen Ärzten und Patienten zu verschlüsseln.
+    Es muss gewährleistet sein, dass jederzeit alle personenbezogenen Daten vor dem Zugriff unerlaubter Dritter geschützt sind.
+    Außerdem ist darauf zu achten, dass die Plattform keine der Vorschriften aus der DSGVO verletzt.
 
     \section{Aufbau der Arbeit}\label{sec:aufbau-der-arbeit}
     Zu Beginn werden die theoretischen Grundlagen, die für die Entwicklung der Plattform von Bedeutung sind, erläutert.
-    Es werden die zur Implementierung der Plattform genutzten Technologien vorgestellt und deren Verwendung beschrieben.
-    Danach werden einige ähnliche Projekte vorgestellt und analysiert.
+    Es werden die zur Implementierung genutzten Technologien vorgestellt und deren Verwendung beschrieben.
+    Anschließend erfolgt die Vorstellung und Analyse ähnlicher Projekte.
     Basierend auf dieser Analyse werden eine Reihe von technischen Anforderungen definiert, welche von der implementierten Plattform erfüllt werden sollen.
-    Anschließend wird die implementierte Plattform vorgestellt und deren Funktionsweise erklärt.
-    Abschließend wird die Plattform unter Betrachtung der definierten Anforderungen evaluiert.
+    Danach wird die implementierte Plattform vorgestellt und deren Funktionsweise erklärt.
+    Zum Schluss erfolgt unter Betrachtung der definierten Anforderungen die Evaluierung der Plattform.
 
     \newpage
     \chapter{Theoretische Grundlagen}\label{ch:theoretische-grundlagen}
     In diesem Kapitel werden zunächst die theoretischen Grundlagen, welche die Implementierung der Plattform beeinflusst haben, vermittelt.
-    Zuerst werden die gesetzlichen Ansprüche an eine Messaging-Plattform im medizinischen Bereich beleuchtet.
+    Dabei werden zuerst die gesetzlichen Ansprüche an eine Messaging-Plattform im medizinischen Bereich beleuchtet.
     Anschließend wird das Matrix-Protokoll vorgestellt und seine allgemeine Funktionsweise beschrieben.
-    Außerdem werden die zur Verschlüsselung verwendeten Algorithmen erklärt und die dafür benötigten Schlüssel aufgezeigt.
+    Außerdem werden die zur Verschlüsselung verwendeten Algorithmen erklärt und die dafür notwendigen Schlüssel aufgezeigt.
     Es wird das REST Paradigma vorgestellt, welches die Grundlage für die Kommunikation zwischen Client und Server bildet.
     Des Weiteren wird die MVVM Architektur erläutern, welche bei der Implementierung der App verfolgt wurde.
 
@@ -248,7 +247,7 @@
     Hierbei besitzt jedes Event einen oder mehrere Eltern (außer der Wurzelknoten).
     Somit lässt sich der Event-Graph chronologisch ordnen.
     Hierzu wird jedem Event ein ganzzahlig, positiver Wert \texttt{depth} zugewiesen, welcher die Reihenfolge der Events beschreibt~\cite{eventgraph}.\\
-    In Abbildung~\ref{fig:matrixfunktionsweise} ist eine Beispielsituation für einen Raum zwischen Alice, Bob und Charlie gezeigt.
+    In Abbildung~\ref{fig:matrixfunktionsweise} ist eine Beispielsituation~\cite{matrix} für einen Raum zwischen Alice, Bob und Charlie gezeigt.
     Jeder der Teilnehmer ist mit seinem eigenen Homeserver verbunden.
     \begin{figure}[h]
         \centering
@@ -283,7 +282,7 @@
     Jedes Event hat hierfür einen \texttt{type} definiert, welcher die Art des Events beschreibt.
     Für jeden Typ kann ein Event unterschiedliche Daten enthalten.
     Es ist außerdem möglich, eigene Eventtypen zu erstellen~\cite{events}.\\
-    Events können in 2 Kategorien~\cite{roomevents} unterteilt werden:
+    Events können in zwei Kategorien~\cite{roomevents} unterteilt werden:
     \begin{description}[leftmargin=!,labelwidth=3.5cm]
         \item [State events] geben Auskunft über Zustandsänderungen in einem Raum. Dies können beispielsweise das Ändern des Raumnamens oder das Beitreten eines Users zu einem Raum sein.
         \item [Message events] beschreiben die tatsächliche Kommunikation in einem Raum. Dies können das Senden einer Nachricht oder das Starten eines VoIP-Anrufes sein.
@@ -313,8 +312,9 @@
     Somit können später alle Events einem Raum zugeordnet werden.
     Der aktuelle Zustand eines Raumes ergibt sich aus allen an diesen Raum gesendeten Events (state Events)~\cite{rooms}.
     Außerdem wird für jeden Member eines Raumes ein Eintrag auf dem Homeserver angelegt, wodurch bestimmt wird welche Events von welchen Nutzer gelesen werden dürfen.
-    Es gibt zusätzlich die Möglichkeit einen \("\)Room Alias\("\) anzulegen, welche dem Menschen das Identifizieren eines Raumes vereinfachen.
-    Diese sind im Format~\cite{rooms}:
+    Es gibt zusätzlich die Möglichkeit einen \("\)Room Alias\("\) anzulegen.
+    Dies vereinfacht dem User die Identifizierung eines Raumes.
+    Diese sind im Format~\cite{rooms} hinterlegt:
     \begin{lstlisting}[language=bash,label={lst:roomalias}]
         #room_alias:domain
     \end{lstlisting}
@@ -326,20 +326,20 @@
     Jedes Device bekommt seine eigene \texttt{device\_id} zugewiesen.
     Dabei ist zu beachten, dass falls sich ein User von einer Anwendung abmeldet und sich auf demselben Gerät bei derselben Anwendung erneut anmeldet, nicht die gleiche \texttt{device\_id} zugewiesen bekommt.
     Je nach Client wird somit unterschiedlich häufig die \texttt{device\_id} gewechselt.
-    In Webanwendungen wird bei jedem Anmelden ein neue \texttt{device\_id} angelegt, wohingegen bei Clients auf Mobilgeräten oder Computern, wo ein Account langfristig genutzt wird, die gleiche \texttt{device\_id} wiederverwendet werden kann.
-    Devices finden hauptsächlich Anwendung im Bereich der End-to-End-Verschlüsselung, wo jedes Device seine eigenen Schlüssel besitzt.
+    In Webanwendungen wird bei jedem Anmelden ein neue \texttt{device\_id} angelegt, wohingegen bei Clients auf Mobilgeräten oder Computern, auf denen ein Account langfristig genutzt wird, die gleiche \texttt{device\_id} wiederverwendet werden kann.
+    Devices finden hauptsächlich Anwendung im Bereich der End-to-End-Verschlüsselung, bei der jedes Device seine eigenen Schlüssel besitzt.
 
     \newpage
     \subsection{End-to-End-Encryption}\label{subsec:verwendete-schlussel}
     Zur Verschlüsselung von Nachrichten werden der Olm und der Megolm Algorithmus verwendet.\\
     Der Olm Algorithmus basiert auf dem Double-Ratchet-Algorithmus.
-    Er wird dafür genutzt, Nachrichten in Konversationen zwischen 2 Parteien zu verschlüsseln, wobei für jede Nachricht ein neuer Key zur Verschlüsselung abgeleitet wird.
+    Er wird dafür genutzt, Nachrichten in Konversationen zwischen zwei Parteien zu verschlüsseln, wobei für jede Nachricht ein neuer Key zur Verschlüsselung abgeleitet wird.
     Dies geschieht durch Verkettung einer auf HMAC basierenden Key Derivation Function (HKDF).
     Im klassischen Double-Ratchet-Algorithmus werden hierfür drei Ketten geführt, die Sending-Chain, Receiving-Chain und Root-Chain.
     Die Sending-Chain eines Teilnehmenrs gleicht der Receiving-Chain des anderen Teilnehmers und umgekehrt~\cite{perrin2016double}.
     Im Olm Algorithmus wird darauf verzichtet, sowohl eine Sending- als auch eine Receiving-Chain zu führen und durch eine einzelne Kette ersetzt.
     Ein Teilnehmer nutzt die geraden Schlüssel der Kette und der andere Teilnehmer die ungeraden Schlüssel.
-    Für die Erstellung des Wurzelknotens der Ketten werden 4 Keys benötigt.
+    Für die Erstellung des Wurzelknotens der Ketten werden vier Keys benötigt.
     Man benötigt die Identity Keys beider Teilnehmer ($I_A$ und $I_B$) und jeweils einen Curve25519 one-time key ($E_A$ und $E_B$).
     Mithilfe des Diffie-Hellman-Verfahrens wird ein gemeinsamer geheimer Schlüssel S erzeugt.
     Zur Berechnung dieses Schlüssels wird die Elliptic Curve Diffie-Hellman (ECDH) angewendet.
@@ -356,7 +356,7 @@
     \begin{displaymath}
         C_{i,j} = HMAC(C_{i,j-1},S,\verb+"\x02"+)
     \end{displaymath}
-    Sollte der Chain-Key nicht passen werden ein neuer Root-Key und Chain-Key, durch Hinzunahme eines generierten Ratchet-Keys $T_i$, bestimmt.
+    Sollte der Chain-Key nicht passen, werden ein neuer Root-Key und Chain-Key, durch Hinzunahme eines generierten Ratchet-Keys $T_i$, bestimmt.
     \begin{displaymath}
         R_i \parallel C_{i,0} = HKDF(R_{i-1},ECDH(T_{i-1},T_i),\verb+"OLM_RATCHET"+,64)
     \end{displaymath}
@@ -421,7 +421,7 @@
     Sie beschreiben die allgemeine Struktur der Anwendung und geben somit auch die Aufteilung des Quellcodes vor.
     Die richtige Wahl der Anwendungsarchitektur kann einen entscheidenden Einfluss darauf nehmen, wie effizient die Entwicklung des Projektes verläuft.\\
     Das Ziel der \textbf{M}odel-\textbf{V}iew-\textbf{V}iew\textbf{M}odel Architektur ist es, Ausführungslogik und Benutzeroberfläche voneinander zu trennen.
-    Hierzu wird die Anwendung in 3 Bereiche unterteilt, welche in Abbildung~\ref{fig:mvvm}~\cite{Sun2017/01} zu sehen sind:\\
+    Hierzu wird die Anwendung in drei Bereiche unterteilt, welche in Abbildung~\ref{fig:mvvm}~\cite{Sun2017/01} zu sehen sind:\\
     \begin{figure}[h]
         \centering
         \input{source/diagrams/mvvm.tikz}
@@ -440,7 +440,7 @@
         \item Views können während des Entwurfs mit Testdaten befüllt werden, um somit eine Vorschau der Ansicht zu erstellen.
         \item Es erlaubt die Nutzung mehrerer Views auf demselben ViewModel.
         \item Es verteilt Code auf mehrere kleinere Klassen an Stelle eines großen View-Controllers.
-        \item Erlaubt den ein Satz von Unit Tests auch zu einem späteren Zeitpunkt ohne größere Veränderungen im Code.
+        \item Erlaubt den Einsatz von Unit Tests auch zu einem späteren Zeitpunkt ohne größere Veränderungen im Code.
     \end{enumerate}
 
     \chapter{Verwendete Technologien}\label{ch:verwendete-technologien}
@@ -450,8 +450,7 @@
 
     \section{Xcode}\label{sec:xcode}
     Xcode\footnote{https://developer.apple.com/xcode/} ist eine von Apple bereitgestellte Entwicklungsumgebung für die Entwicklung von Anwendungen für Apple Betriebssysteme, darunter iOS.
-    Sie ist für die Programmierung in Swift und Objective-C vorgesehen~\cite{xcode}.
-    Sie stellt eine Reihe von Templates zur Verfügung, die bei der Erstellung des Projektes helfen können.
+    Sie ist für die Programmierung in Swift und Objective-C vorgesehen~\cite{xcode} und stellt eine Reihe von Templates zur Verfügung, die bei der Erstellung des Projektes helfen können.
     Für die Entwicklung der Plattform wurde die aktuelle Version Xcode 14 verwendet.
     Diese kann aus dem App Store heruntergeladen werden.
 
@@ -476,13 +475,13 @@
 
 
     \newpage
-    \section{Cocoapods}\label{sec:cocoapods}
+    \section{CocoaPods}\label{sec:cocoapods}
     CocoaPods\footnote{https://github.com/CocoaPods/CocoaPods} ist ein Dependency Manager für Objective-C und Swift Projekte.
     Es ermöglicht dem Entwickler, Quellcode von verschiedenen Orten in ein Projekt einzubinden.
     Hierzu können über 92.000 Libraries verwendet werden~\cite{cocoapods2}.
     Besonders im Bereich von Mac OSX und iOS Development findet das Tool häufig Verwendung.
     CocoaPods unterstützt sowohl private als auch öffentliche Repositorys über git, svn, brz, http und hg~\cite{cocoapods1}.
-    Hierbei ist zu beachten, dass das nicht jedes Repository automatisch über CocoaPods eingebunden werden kann.
+    Hierbei ist zu beachten, dass nicht jedes Repository automatisch über CocoaPods eingebunden werden kann.
     Es muss zuerst ein Pod aus der jeweiligen Library erstellt werden~\cite{cocoapods3}.
     Das seit 2014 entwickelte Projekt ist Open Source und wurde seit dem von über 300 Entwicklern stetig verbessert.
     Es ist ein Kommandozeilen-Tool, welches in Ruby implementiert wird.
@@ -507,10 +506,10 @@ end
 
 
     \section{Matrix iOS SDK}\label{sec:matrix-sdk}
-    Die Matrix iOS SDK \footnote{https://github.com/matrix-org/matrix-ios-sdk} ist eine Open Source Library, welche zur für die Entwicklung Matrix basierter Anwendungen für iOS-Geräte gedacht ist.
+    Die Matrix iOS SDK \footnote{https://github.com/matrix-org/matrix-ios-sdk} ist eine Open Source Library, welche für die Entwicklung Matrix basierter Anwendungen für iOS-Geräte gedacht ist.
     Sie ermöglicht eine einfache Kommunikation zwischen Client und Matrix Server.
     Hierzu werden die in der Client-Server-API definierten Operationen bereitgestellt.
-    Um die Matrix SDK in ein Projekt einzubinden, muss hierfür ein Eintrag im in Abschnitt~\ref{sec:cocoapods} erläuterten Podfile angelegt und installiert werden~\cite{matrixiossdk}.
+    Um die Matrix SDK in ein Projekt einzubinden, muss ein entsprechender Eintrag in dem in Abschnitt~\ref{sec:cocoapods} erläuterten Podfile angelegt und installiert werden~\cite{matrixiossdk}.
     \begin{lstlisting}[language={},label={lst:matrtix-sdk}]
         pod 'SwiftMatrixSDK'
     \end{lstlisting}
@@ -523,7 +522,7 @@ end
     Synapse\footnote{https://github.com/matrix-org/synapse/} ist eine von der Matrix.org Foundation bereitgestellte Open Source Implementation eines Homeservers.
     Sie folgt den im Matrix Protokoll festgelegten REST-APIs.
     Die Entwicklung begann 2014 und kann seit 2019 im Produktivbetrieb genutzt werden~\cite{synapse}.
-    Der Homeserver ist in Python geschrieben und kann somit auf jedem Python fähigen Host betrieben werden, es wird jedoch empfohlen einen von Matrix.org bereitgestellten Dockercontainer zu verenden~\cite{synapse2}.
+    Der Homeserver ist in Python geschrieben und kann somit auf jedem Python fähigen Host betrieben werden, es wird jedoch empfohlen einen von Matrix.org bereitgestellten Dockercontainer zu verwenden~\cite{synapse2}.
 
     \section{Docker}\label{sec:docker}
     Docker ist eine Containervirtualisierungssoftware, welche es ermöglicht Anwendung vom Rest des Systems zu isolieren.
@@ -531,18 +530,18 @@ end
     Herkömmliche virtuelle Maschinen bilden eine vollständige Kopie eines Betriebssystems, welches mittels einer Virtualisierungssoftware wie beispielsweise Oracle VirtualBox oder KVM auf einem Hypervisor betrieben werden muss.
     Dies sorgt für erhebliche Einbußen in der Performance.
     Docker Container sind in der Lage in wenigen Sekunden zu starten.
-    Sie laufen direkt auf dem Betriebssystem des Hypervisors sind aber dennoch isoliert vom Rest des Systems.
+    Sie laufen direkt auf dem Betriebssystem des Hypervisors, sind aber dennoch isoliert vom Rest des Systems.
     Dies geschieht mithilfe zweier Linux Kernel Technologien, Namespaces und Cgroups~\cite{docker}.
     Docker arbeitet mit Containern und Images, wobei ein Image eine Reihe von Befehlen darstellt, um eine gewünschte Umgebung zu erschaffen.
     Ein Container ist eine laufende Instanz eines Images.
 
 
     \chapter{Konzept}\label{ch:konzept}
-    In diesem Kapitel werden 2 verwandte Projekte vorgestellt, welche vor der Entwicklung der Plattform analysiert wurden.
+    In diesem Kapitel werden zwei verwandte Projekte vorgestellt, die vor der Entwicklung der Plattform analysiert wurden.
     Sie bilden die Grundlage für das Konzept der Plattform.
-    Aus den gesammelten Erkentnissen wurde eine Liste funktionaler Anforderungen erstellt, welche von der zu implementierenden Plattform erfüllt werden sollen.
+    Aus den gesammelten Erkenntnissen wurde eine Liste funktionaler Anforderungen erstellt, welche von der zu implementierenden Plattform erfüllt werden sollen.
 
-    \section{Ähnlicher Projekte}\label{sec:analyse-ahnlicher-projekte}
+    \section{Ähnliche Projekte}\label{sec:analyse-ahnlicher-projekte}
 
     \subsection{TI-Messenger}\label{subsec:ti-messenger}
     Der TI-Messenger ist ein Projekt der Gematik GmbH.
@@ -551,7 +550,7 @@ end
     Da jeder Bereich des Gesundheitswesens andere Ansprüche an einen Messenger hat, muss eine freie Wahl der Plattform möglich sein, wobei jedoch eine plattformübergreifende Kommunikation möglich sein muss.
     Die erste Version des TI-Messengers soll zum Sommer 2023 in Betrieb gehen und sowohl Textnachrichten als auch Bild- und Tonübertragungen unterstützen~\cite{timessenger,timessenger2}.
     Die Gematik GmbH hat bereits die Spezifikationen zur Version 1.0.0 und 1.1.0 des TI-Messengers~\cite{timessenger3} veröffentlicht.
-    Für diese Arbeit von besonderer Relevanz sind die Kapitel 4.1 \("\)Datenschutz und Sicherheit\("\) und Kapitel 5 \("\)Funktionsmerkmale\("\) der jeweiligen Dokumente.
+    Für diese Arbeit sind die Kapitel 4.1 \("\)Datenschutz und Sicherheit\("\) sowie Kapitel 5 \("\)Funktionsmerkmale\("\) der jeweiligen Dokumente von besonderer Relevanz.
 
     \subsection{Nio}
     Nio\footnote{https://github.com/niochat/nio} ist ein vom User kiliankoe gestartetes Projekt.
@@ -566,26 +565,26 @@ end
     Es werden direkte Chats und Räume mit mehreren Personen unterstützt.
     Das Erstellen von Accounts über den Nio Client ist zum Zeitpunkt der Analyse noch nicht möglich.
     Ebenfalls wird auch keine End-to-End-Verschlüsselung unterstützt.
-    Der Nio Client unterstützt jedoch eine Vielzahl von Sprachen aus welchen ein User wählen kann.
+    Der Nio Client unterstützt jedoch eine Vielzahl von Sprachen aus denen ein User wählen kann.
     Die Benutzeroberfläche ist übersichtlich struckturiert und in einem schlichten Design gehalten.
     In der Raumübersicht werden alle Räume, sortiert nach letzter Aktivität, angezeigt.
-    Es wird dem User eine Benachrichtigung über ungelesene Nachrichten gezeigt, so wie eine Vorschau der zuletzt versendeten Nachricht in einem Raum.
+    Es wird dem User eine Benachrichtigung über ungelesene Nachrichten gezeigt, sowie eine Vorschau der zuletzt versendeten Nachricht in einem Raum.
 
     \newpage
     \section{Anforderungen}\label{sec:anforderungen}
     Basierend auf den Erkenntnissen der Analyse des Nio Clients und der in der Spezifikation des TI-Messengers festgelegten Anforderungen wurde eine Liste funktionaler Anforderungen erstellt, welche von der zu implementierenden Plattform unterstützt werden sollen.
-    Hierbei wurde sich auf die Grundfunktionalität einer Messaging-App und auf den Datenschutz gerechten Umgang mit Daten fokussiert.
+    Hierbei wurde sich auf die Grundfunktionalität einer Messaging-App und auf den datenschutzgerechten Umgang mit Daten fokussiert.
     Diese Anforderungen wurden nach der MoSCoW-Methode priorisiert.\\
     \textbf{Must}:
     \begin{enumerate}[label={\roman*.}, leftmargin=2.5cm]
         \item Der User muss über die App einen Account auf der Plattform anlegen können.
         \item Der User muss sich mit seinem Account in der App einloggen können.
         \item Der User muss sein Passwort ändern können.
-        \item Dem User muss alle von ihm beigetretenen Räume sehen können.
-        \item Dem User muss neue Räume erstellen können.
+        \item Der User muss alle von ihm beigetretenen Räume sehen können.
+        \item Der User muss neue Räume erstellen können.
         \item Der User muss zu neuen Räumen eingeladen werden können.
         \item Der User muss alle Nachrichten, die in einem Raum gesendet wurden, einsehen können.
-        \item Nachrichten Inhalte müssen verschlüsselt, separat vom allgemeinen Speicherbereich des Endgeräts abgelegt werden.
+        \item Nachrichteninhalte müssen verschlüsselt und separat vom allgemeinen Speicherbereich des Endgeräts abgelegt werden.
         \item Der User muss Nachrichten in einem Raum senden können.
         \item Nachrichten zwischen Usern müssen End-to-End verschlüsselt sein.
         \item Der Usern muss Nachrichten löschen können.
@@ -611,7 +610,7 @@ end
     \textbf{Could}:
     \begin{enumerate}[label={\roman*.}, leftmargin=2.5cm]
         \item Die Liste der beigetretenen Räume kann gefiltert werden.
-        \item Dem Erstellen eines Raumes kann dem User eine Liste von Usern vorgeschlagen werden, welche dem gesuchten Namen entsprechen.
+        \item Beim Erstellen eines Raumes kann dem User eine Liste von Usern vorgeschlagen werden, welche dem gesuchten Namen entsprechen.
         \item Dem User kann ein Typing-Indikator gezeigt werden.
         \item Die App kann auch mit anderen Homeservern verbunden werden.
         \item Der User kann den Inhalt einer Textnachricht in die Zwischenablage kopieren.
@@ -631,7 +630,7 @@ end
     \newpage
     \chapter{Implementierung}\label{ch:implementierung}
     Dieses Kapitel beschreibt die Vorgehensweise bei der Implementierung der Plattform und die Funktionsweise der einzelnen Elemente.
-    Die Plattform selbst besteht aus 2 Teilen, einer App, die auf den Endgeräten der Nutzer installiert wird und einem Server, welcher die Kommunikation der Apps untereinander ermöglicht.
+    Die Plattform selbst besteht aus zwei Teilen, einer App, die auf den Endgeräten der Nutzer installiert wird und einem Server, welcher die Kommunikation der Apps untereinander ermöglicht.
 
 
     \section{App}\label{sec:app}
@@ -639,9 +638,10 @@ end
     Sie wurde in Swift in Kombination mit SwiftUI geschrieben.
     Um die Sicherheit zu erhöhen, wurde die App für die aktuelle Version iOS 16 entwickelt.
     Der Code selbst folgt der MVVM Architektur, da sich diese durch die Verwendung von SwiftUI anbietet.
-    Bei der Entwicklung der App wurde in 2 Etappen vorgegangen.
-    Zuerst wurden basierend auf den in Abschnitt~\ref{sec:anforderungen} definierten Anforderungen mittels SwiftUI die benötigten Views erstellt.
-    Hierbei musste darauf geachtet werden, dass die Elemente der Benutzeroberfläche in ihrer Größe und Anordnung dynamisch blieben, um sowohl auf kleinen und großen Geräten bedienbar zu sein.
+    Bei der Entwicklung der App wurde in zwei Etappen vorgegangen.
+    Zuerst wurden basierend auf den in Abschnitt~\ref{sec:anforderungen} definierten Anforderungen, mittels SwiftUI die benötigten Views erstellt.
+    Hierbei musste darauf geachtet werden, dass die Elemente der Benutzeroberfläche in ihrer Größe und Anordnung dynamisch blieben.
+    Dadurch ist eine Bedienbarkeit auf kleinen und großen Geräten möglich.
     Anschließend wurden die zugehörigen ViewModel angelegt und mit den Elementen aus den Views verknüpft.
     Eine besondere Herausforderung hierbei war es dafür zu sorgen, dass sich die grafischen Elemente bei Eintreffen neuer Events ordnungsgemäß aktualisieren.
     Für die Funktionalität der App wurden mittels Matrix SDK erzeugt.
@@ -649,15 +649,15 @@ end
     Im Sinne der Internationalität wurde für die Benutzeroberfläche die Sprache Englisch verwendet.
 
     \newpage
-    \subsection{Login und Account Erstellung}\label{subsec:login-und-account-erstellung}
+    \subsection{Login und Accounterstellung}\label{subsec:login-und-account-erstellung}
 
     Wenn die App das erste Mal gestartet wird, gelangt man zuerst in die in Abbildung~\ref{fig:selecthomeserverview} zu sehende \texttt{SelectHomeserverView}.
     Diese View dient dazu, sich mit dem Homeserver verbinden zu können.
     Sie spielt eine besondere Rolle während der Entwicklung, da häufiger zwischen verschiedenen Homeservern gewechselt wurde.
     Der User hat die Möglichkeit den Homeserver, mit welchem er sich verbinden möchte, über die DNS-Adresse oder IP-Adresse zu erreichen.
-    Des Weiteren kann der den Port des Homeservers angeben.
-    Der Standard-Port, über den sich ein Client, mit dem Matrix Server verbindet, ist 448 (und 8448 für die Kommunikation zwischen Servern untereinander).
-    Für den Einsatz im Produktivbetrieb könnte diese View entfernt werden und die Adresse des Homeservers fest in der App konfiguriert werden.
+    Des Weiteren kann er den Port des Homeservers angeben.
+    Der Standard-Port über den sich ein Client mit dem Matrix Server verbindet, ist 448 (8448 für die Kommunikation zwischen Servern untereinander).
+    Für den Einsatz im Produktivbetrieb könnte diese View entfernt und die Adresse des Homeservers fest in der App konfiguriert werden.
 
     \begin{figure}[h]
         \includegraphics[scale=0.5]{homeserver_white}
@@ -670,10 +670,10 @@ end
 %        \end{center}
 %        \caption{SelectHomeserverView}\label{fig:selecthomeserverview}
 %    \end{wrapfigure}
-    Hat der User einen Homeserver eingetragen und klick auf \("\)Connect\("\) prüft die App zuerst, ob der Homeserver erreichbar ist.
+    Hat der User einen Homeserver eingetragen und klick auf \("\)Connect\("\), prüft die App zuerst, ob der Homeserver erreichbar ist.
     Hierzu wird eine Abfrage der Versionsnummer an den angegebenen Homeserver gesendet.
     Dies geschieht durch Senden einer GET Anfrage an \texttt{/\_matrix/client/versions} (siehe Abschnitt~\ref{sec:rest}).
-    Ist diese Anfrage erfolgreich wird der Homeserver im Model hinterlegt und der User gelangt zur \texttt{LoginView} welche in Abbildung~\ref{fig:loginview} zu sehen ist.
+    Ist diese Anfrage erfolgreich, wird der Homeserver im Model hinterlegt und der User gelangt zur \texttt{LoginView}, welche in Abbildung~\ref{fig:loginview} zu sehen ist.
     Falls die Anfrage fehlschlägt, wird dem User eine Fehlermeldung gezeigt.
     \begin{figure}[h]
         \includegraphics[scale=0.5]{login_white}
@@ -682,7 +682,7 @@ end
     \end{figure}
     In dieser View kann der User sich entweder mit seinem bereits existierenden Account anmelden oder einen neuen Account erstellen.
     Für den Fall, dass der User bereits einen Account besitzt, muss er seinen Benutzernamen und sein Passwort in die dafür vorgesehenen Felder eintragen und über den \("\)Login\("\)-Button bestätigen.
-    Das Passwortfeld ist hierbei ein \texttt{SecureField} welches die Eingabe versteckt und lediglich mit Punkten darstellt.
+    Das Passwortfeld ist hierbei ein \texttt{SecureField}, welches die Eingabe versteckt und lediglich mit Punkten darstellt.
     Über das Auge am Rand des Textfeldes kann der User zwischen geschützter Ansicht und Klartext wechseln.
 
     Hat der User seine Zugangsdaten eingegeben und über den \("\)Login\("\)-Button bestätigt, wird eine Login-Anfrage an den Server gesendet.
@@ -693,14 +693,14 @@ end
         \item [user\_id] die vollständige Matrix ID des Users
         \item [device\_id] die vom Server zugewiesene ID für das Gerät
     \end{description}
-    Die Information über \texttt{home\_server}, \texttt{user\_id} und \texttt{device\_id} werden in den \texttt{UserDefaults} der App gespeichert , damit diese bei erneutem öffnen der App verfügbar sind..
+    Die Information über \texttt{home\_server}, \texttt{user\_id} und \texttt{device\_id} werden in den \texttt{UserDefaults} der App gespeichert, damit diese bei erneutem öffnen der App verfügbar sind.
     Da der \texttt{access\_token} den Zugriff auf Benutzerkonto des Users ermöglicht und deshalb besonders geschützt werden muss, wird dieser mittels eines \texttt{KeychainHelper}\footnote{https://gist.github.com/LeeKahSeng/2452e90a57a5324de367907a36d88a49} in der iCloud Keychain gespeichert.
     Falls die Zugangsdaten nicht korrekt sind, wird dem User erneut eine Fehlermeldung gezeigt.
     Anschließend wird mit diesen Informationen eine Matrix Session gestartet, welche vollen Zugriff auf die auf dem Homeserver gespeicherten Daten erlaubt.
     War das Starten der Session erfolgreich, gelangt der User in die \texttt{RoomsView}.\\
     Für den Fall, dass der User noch keinen Account besitzt, kann dieser über den Button \("\)Create Account\("\) der \texttt{LoginView} zur \texttt{CreateAccountView} gelangen, welche in Abbildung~\ref{fig:createaccountview} dargestellt ist.
-    Diese View dient der Accounterstellung und enthält 3 Textfelder für Benutzernamen, Passwort und Registrierungstoken.
-    Für das Passwortfeld kann wie schon in der \texttt{LoginView} zwischen versteckter Eingabe und Klartext gewechselt werden.
+    Diese View dient der Accounterstellung und enthält drei Textfelder für Benutzernamen, Passwort und Registrierungstoken.
+    Für das Passwortfeld, kann wie schon in der \texttt{LoginView}, zwischen versteckter Eingabe und Klartext gewechselt werden.
     \begin{figure}[h]
         \includegraphics[scale=0.5]{accountcreate_white}
         \centering
@@ -708,17 +708,17 @@ end
     \end{figure}
     Der Registrierungstoken kann über die Admin-API\footnote{https://matrix-org.github.io/synapse/latest/usage/administration/admin\_api/} des Servers erstellt werden.
     Hierzu muss eine GET-Anfrage an \texttt{/\_synapse/admin/v1/registration\_tokens/new} gesendet werden.~\cite{synapseregistartiontoken}
-    Alternativ kann auch direkt in der Datenbank (in der \texttt{registration\_tokens} Tabelle) des Servers ein Token angelegt werden.
+    Alternativ ist auch das Anlegen eines Token direkt in der Datenbank (in der \texttt{registration\_tokens} Tabelle) des Servers möglich.
 
     \newpage
     Es werden folgende Felder bereitgestellt:
     \begin{description}[leftmargin=!,labelwidth=3cm]
-        \item [token] Der Token der bei der Erstellung des Accounts angegeben werden muss.
-        \item [uses\_allowed] Die maximale Anzahl an Accounts die mit einem Token erstellt werden kann.
+        \item [token] Der Token, der bei der Erstellung des Accounts angegeben werden muss.
+        \item [uses\_allowed] Die maximale Anzahl an Accounts, die mit einem Token erstellt werden kann.
         \item [pending] Anzahl laufender Registrierungen.
         Sie gibt an wie viele Benutzer die Authentifizierungsstufe mit dem Token bereits abgeschlossen haben ohne den vollständigen Registrierungsvorgang erfüllt zu haben.
         \item [completed] Anzahl erfolgreich erstellter Accounts mit diesem Token.
-        \item [expiry\_time] Er gibt an wie lange der Token gültig ist.
+        \item [expiry\_time] Er gibt an, wie lange der Token gültig ist.
     \end{description}
 
     Der eigentliche Registrierungsvorgang kann mehrere Authentifizierungsstufen enthalten.
@@ -912,7 +912,7 @@ end
     Der Homeserver bildet die unterliegende Infrastruktur der Plattform.
     Hierfür wird das vom Matrix Team bereitgestellte Synapse Docker Image verwendet.
     Diese wird in einem Docker Container auf dem Server betrieben.
-    Bevor der Container gestartet werden kann, werden einige Konfigurationsdateien benötigt, welche über folgenden Befehl generiert werden können:
+    Bevor der Container gestartet werden kann, werden einige Konfigurationsdateien benötigt, welche über folgenden Befehl~\cite{synapse} generiert werden können:
     \begin{lstlisting}[language=bash,label={lst:synapse-generate}]
 docker run -it --rm -v /path/on/host/machine/:/data -e SYNAPSE_SERVER_NAME=my.matrix.host -e SYNAPSE_REPORT_STATS=yes matrixdotorg/synapse:latest generate
     \end{lstlisting}
@@ -988,7 +988,7 @@ encryption_enabled_by_default_for_room_type: all
     \end{enumerate}
 
     Nachdem alle Konfigurationen getätigt wurden, kann der Homeserver gestartet werden.
-    Es ist darauf zu achten, dass alle benötigten Ports des Containers über den Host freigegeben werden.
+    Es ist darauf zu achten, dass alle benötigten Ports des Containers über den Host freigegeben werden~\cite{synapse}.
 
     \begin{lstlisting}[language=bash,label={lst:synapse-start}]
 docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443:443 matrixdotorg/synapse:latest
@@ -1019,15 +1019,15 @@ docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443
             \cline{1-2}
             Der User muss sein Passwort ändern können. & \textbf{Erfüllt}  \\
             \cline{1-2}
-            Dem User muss alle von ihm beigetretenen Räume sehen können. &  \textbf{Erfüllt} \\
+            Der User muss alle von ihm beigetretenen Räume sehen können. &  \textbf{Erfüllt} \\
             \cline{1-2}
-            Dem User muss neue Räume erstellen können. & \textbf{Erfüllt} \\
+            Der User muss neue Räume erstellen können. & \textbf{Erfüllt} \\
             \cline{1-2}
             Der User muss zu neuen Räumen eingeladen werden können. & \textbf{Erfüllt} \\
             \cline{1-2}
             Der User muss alle Nachrichten die in einem Raum gesendet wurden, einsehen können. & \textbf{Erfüllt} \\
             \cline{1-2}
-            Nachrichten Inhalte müssen verschlüsselt, separat vom allgemeinen Speicherbereich des Endgeräts abgelegt werden. & \textbf{Erfüllt} (keine lokale Speicherung implementiert) \\
+            Nachrichteninhalte müssen verschlüsselt und separat vom allgemeinen Speicherbereich des Endgeräts abgelegt werden. & \textbf{Erfüllt} (keine lokale Speicherung implementiert) \\
             \cline{1-2}
             Der User muss Nachrichten in einem Raum senden können. & \textbf{Erfüllt} \\
             \cline{1-2}
@@ -1084,7 +1084,7 @@ docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443
             \cline{1-2}
             Die Liste der beigetretenen Räume kann gefiltert werden. &  \textbf{Erfüllt} \\
             \cline{1-2}
-            Dem Erstellen eines Raumes kann dem User eine Liste von Usern vorgeschlagen werden, welche dem gesuchten Namen entsprechen. & \textbf{Erfüllt}  \\
+            Beim Erstellen eines Raumes kann dem User eine Liste von Usern vorgeschlagen werden, welche dem gesuchten Namen entsprechen. & \textbf{Erfüllt}  \\
             \cline{1-2}
             Dem User kann ein Typing-Indikator gezeigt werden. &  \textbf{Erfüllt} \\
             \cline{1-2}
