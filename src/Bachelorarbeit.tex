@@ -105,11 +105,11 @@
     \newpage
     \section*{Zusammenfassung}
     Diese Arbeit beschreibt die Entwicklung einer verschlüsselten Chat-basierten Plattform auf Basis des Matrix.org-Protokolls im Kontext von digitaler Gesundheit und Telemedizin.
-    Es werden die im Bereich der Medizin geltenden Vorschriften für eine Messaging-App die bei der Entwicklung von Bedeutung sind offengelegt.
+    Es werden die im Bereich der Medizin geltenden Vorschriften für eine Messaging-App, die bei der Entwicklung von Bedeutung sind, offengelegt.
     Außerdem wird das Matrix-Protokoll vorgestellt und seine Funktionsweise beschrieben.
     Die für die Verschlüsselung verwendeten Algorithmen Olm und Megolm erklärt und ihre Eigenschaften und Limitierungen erläutert.
     Es wird auf die für die Implementierung verwendeten Technologien eingegangen und einige ähnliche Projekte analysiert.
-    Auf Grundlage dieser Analyse wird eine Liste funktionaler Anforderungen erstellt die in der Plattform umgesetzt werden.
+    Auf Grundlage dieser Analyse wird eine Liste funktionaler Anforderungen erstellt, die in der Plattform umgesetzt werden.
     Die Funktionsweise der Plattform wird erklärt und gegen die zuvor definierten Anforderungen evaluiert.
     Abschließend werden einige Ideen für die Erweiterungen der Funktionalität der Plattform gegeben.
 
@@ -203,12 +203,12 @@
 
     \section{Datenschutz im Gesundheitswesen}\label{sec:datenschutz-im-gesundheitswesen}
     Die rechtlichen Rahmenbedingungen für das Speichern und Verarbeiten medizinischer Daten sind in der EU-Datenschutz-Grundverordnung\footnote{https://dsgvo-gesetz.de/} festgelegt.
-    Diese fordert ebenfalls zur Einhaltung des IT-Sicherheitsgesetzes und des E-Health-Gesetzes auf.
-    Medizinische Daten werden vom Gesetzgeber in besonderem Maße geschützt, da sie besonders sensible Informationen enthalten~\cite{datenschutzimgesundeitswesen}.
+    Diese fordert ebenfalls zur Einhaltung des IT-Sicherheitsgesetzes und des E-Health-Gesetzes auf~\cite{datenschutzimgesundeitswesen}.
+    Medizinische Daten werden vom Gesetzgeber in besonderem Maße geschützt, da sie besonders sensible Informationen enthalten.
 
     \begin{quote}
     \textit{Das am 29. Dezember 2015 in Kraft getretene \("\)Gesetz für sichere digitale Kommunikation und Anwendungen im Gesundheitswesen (E-Health-Gesetz)\("\) hat die ersten Weichen für den Aufbau der sicheren Telematikinfrastruktur (TI) und die Einführung medizinischer digitaler Anwendungen gestellt.
-    Ziel dieses Gesetzes war es, die Chancen der Digitalisierung für die Gesundheitsversorgung zu nutzen und eine schnelle Einführung medizinischer Anwendungen für die Patientinnen und Patienten zu ermöglichen.}~\cite{ehealthgesetz}
+    Ziel dieses Gesetzes war es, die Chancen der Digitalisierung für die Gesundheitsversorgung zu nutzen und eine schnelle Einführung medizinischer Anwendungen für die Patientinnen und Patienten zu ermöglichen.} (\citeauthor{ehealthgesetz}, 2022)
     \end{quote}
 
     Ein Teil der Telematikinfrastruktur ist der TI-Messenger der Gematik GmbH, welcher im Abschnitt~\ref{subsec:ti-messenger} genauer betrachtet wird.\\
@@ -256,7 +256,7 @@
         \item Die Anwendung muss die Möglichkeit bieten Schlüssel und Zertifikate zu verwalten und kompromittierte Schlüssel unbrauchbar zu machen.
         \item Die Anwendung muss die Möglichkeit bieten die über die Plattform versendeten Daten zu löschen.
         \item Die Kommunikation muss unter Berücksichtigung des Stands der Technik über eine End-to-End-Verschlüsselung geschützen sein.
-        \item Durch den Dienstleister gespeicherte Daten müssen nach dem Stand der Technik vor ihrer Übergabe verschlüsselt werden und der Schlüssel für den Dienstleister unzugänglich aufbewahrt werden.
+        \item Durch den Dienstleister gespeicherte Daten müssen nach dem Stand der Technik vor ihrer Übergabe verschlüsselt und der Schlüssel für den Dienstleister unzugänglich aufbewahrt werden.
     \end{enumerate}
 
     \newpage
@@ -376,7 +376,7 @@
     Devices finden hauptsächlich Anwendung im Bereich der End-to-End-Verschlüsselung, bei der jedes Device seine eigenen Schlüssel besitzt.
 
     \newpage
-    \subsection{End-to-End-Encryption}\label{subsec:verwendete-schlussel}
+    \subsection{End-to-End-Verschlüsselung}\label{subsec:verwendete-schlussel}
     Zur Verschlüsselung von Nachrichten werden der Olm und der Megolm Algorithmus verwendet.\\
     Der Olm Algorithmus basiert auf dem Double-Ratchet-Algorithmus.
     Er wird dafür genutzt, Nachrichten in Konversationen zwischen zwei Parteien zu verschlüsseln, wobei für jede Nachricht ein neuer Key zur Verschlüsselung abgeleitet wird.
@@ -444,7 +444,7 @@
     \end{description}
 
 
-    \section{REST-API}\label{sec:rest}
+    \section{REST}\label{sec:rest}
     \acs{rest} steht für REpresentational State Transfer und ist ein Architekturstil im Bereich verteilter Systeme.
     Es dient dem Datenaustausch zwischen einzelnen Systemen.
     Hierzu stellt beispielsweise ein Webservice verschiedene Ressourcen (Daten) zur Verfügung, die über einen \ac{uri} adressiert werden.
@@ -668,7 +668,7 @@ end
     \textbf{Won't}:
     \begin{enumerate}[label={\roman*.}, leftmargin=2.5cm]
         \item Die App wird Räume und Chat-Verläufe nicht lokal speichern und offline wiedergeben können.
-        \item Die App wird keine Möglichkeit bieten, bei Verlust oder Beschädigung eines Gerätes Nachrichten aufm einem neune Gerät zu entschlüsseln.
+        \item Die App wird keine Möglichkeit bieten, bei Verlust oder Beschädigung eines Gerätes Nachrichten aufm einem neuen Gerät zu entschlüsseln.
         \item Die App wird kein Key-Management System zur Verwaltung von Schlüsseln und Sessions mehrerer Geräte besitzen.
         \item Die App wird keine weiteren Sprachen unterstützen.
     \end{enumerate}
@@ -751,8 +751,7 @@ end
         \centering
         \caption{CreateAccountView}\label{fig:createaccountview}
     \end{figure}
-    Der Registrierungstoken kann über die Admin-API\footnote{https://matrix-org.github.io/synapse/latest/usage/administration/admin\_api/} des Servers erstellt werden.
-    Hierzu muss eine GET-Anfrage an \texttt{/\_synapse/admin/v1/registration\_tokens/new} gesendet werden.~\cite{synapseregistartiontoken}
+    Der Registrierungstoken kann über die Admin-API\footnote{https://matrix-org.github.io/synapse/latest/usage/administration/admin\_api/} des Servers erstellt werden, indem eine GET-Anfrage an \texttt{/\_synapse/admin/v1/registration\_tokens/new} gesendet wird~\cite{synapseregistartiontoken}.
     Alternativ ist auch das Anlegen eines Token direkt in der Datenbank (in der \texttt{registration\_tokens} Tabelle) des Servers möglich.
 
     \newpage
@@ -791,7 +790,7 @@ end
                 \end{call}
             \end{sdblock}
         \end{sequencediagram}
-        \caption{Account erzeugungs Flow}
+        \caption{Ablauf der Accounterstellung}
         \label{fig:accountCreationDiagram}
     \end{figure}
 
@@ -912,7 +911,7 @@ end
     Darüber hinaus zeigt sie die Anzahl der Teilnehmer, den Ersteller des Raumes und gibt an ob die Verschlüsselung in diesem Raum aktiviert ist.
 
     \newpage
-    \subsection{Profile}\label{subsec:profile}
+    \subsection{Profil}\label{subsec:profile}
     Die \texttt{ProfileView} (siehe Abbildung~\ref{fig:profileview}) ermöglicht dem User die Verwaltung seines Accounts.
     So kann dieser sein Profilbild, den Anzeigenamen und das Passwort ändern.
     Mit Klicken auf das Profilbild öffnet sich der \texttt{ImagePicker}.
@@ -1212,7 +1211,7 @@ docker run -d --name synapse -v /path/on/host/machine/:/data -p 8008:8008 -p 443
 %\lstlistoflistings
 
 % Quellenverzeichnis
-    \bibliographystyle{IEEEtran}
+    \bibliographystyle{IEEEtranN}
     \bibliography{Bachelorarbeit}
 
 % Anhang
